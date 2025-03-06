@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV
 from sklearn.datasets import make_regression
 from sklearn.metrics import mean_absolute_error, r2_score
+
 class PCS_UQ:
     def __init__(self, models, num_bootstraps=10, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, metric = r2_score):
         """
@@ -69,12 +70,16 @@ class PCS_UQ:
                     with open(f"{self.save_path}/{model}.pkl", "rb") as f:
                         self.models[model] = pickle.load(f)
                 except FileNotFoundError:
-                    print(f"No saved model found for {model}")
+                    print(f"No saved model found for {model}, fitting new model")
+                    self.models[model].fit(X, y)
+                    os.makedirs(self.save_path, exist_ok=True)
+                    with open(f"{self.save_path}/{model}.pkl", "wb") as f:
+                        pickle.dump(self.models[model], f)
         else: 
             for model in self.models:
                 self.models[model].fit(X, y)
-                os.makedirs(self.save_path, exist_ok=True)
                 if self.save_path is not None:
+                    os.makedirs(self.save_path, exist_ok=True)
                     with open(f"{self.save_path}/{model}.pkl", "wb") as f:
                         pickle.dump(self.models[model], f)
 
@@ -179,5 +184,5 @@ if __name__ == "__main__":
         'ridge': RidgeCV()
     }
     X, y = make_regression(n_samples=1000, n_features=10, noise=10)
-    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = False)
+    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True)
     pcs_uq.fit(X, y)
