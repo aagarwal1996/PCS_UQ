@@ -71,17 +71,17 @@ class Conformal_Majority_Vote:
         """
         model_intervals = {}
         for model_name, conformal in self.conformals.items():
-            model_intervals[model_name] = conformal.predict(X)
+            model_intervals[model_name] = conformal.predict(X) # Shape: (n_samples, 2)
         lower_bounds = np.zeros((X.shape[0], self.K))
         upper_bounds = np.zeros((X.shape[0], self.K))
+        all_bounds = np.zeros((X.shape[0], 2*self.K))
         for i, model_name in enumerate(self.conformals.keys()):
-            lower_bounds[:, i] = model_intervals[model_name]
-            upper_bounds[:, i] = model_intervals[model_name]
-        
-        # Sort each row of lower and upper bounds independently
-        lower_bounds = np.sort(lower_bounds, axis=1)
-        upper_bounds = np.sort(upper_bounds, axis=1)
-        return self 
+            lower_bounds[:, i] = model_intervals[model_name][:, 0]
+            upper_bounds[:, i] = model_intervals[model_name][:, 1]
+            all_bounds[:, 2*i] = lower_bounds[:, i]
+            all_bounds[:, 2*i + 1] = upper_bounds[:, i]
+        all_bounds = np.sort(all_bounds, axis=1)
+        return all_bounds
         # self.tau = tau
     
     
