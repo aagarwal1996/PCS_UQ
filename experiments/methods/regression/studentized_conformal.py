@@ -14,7 +14,7 @@ class StudentizedConformal:
         self.seed = seed
         self.q = None
     
-    def fit(self, X, y):
+    def fit(self, X, y, alpha = None):
         """
         Fit the model on the training data. 
         Steps:
@@ -28,13 +28,15 @@ class StudentizedConformal:
             y: training labels
         
         """
+        if alpha is None:
+            alpha = self.alpha
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)
         self.mean_model.fit(X_train, y_train)
         train_residuals = np.abs(y_train - self.mean_model.predict(X_train))
         self.sd_model.fit(X_train, np.abs(train_residuals))
         self._calibrate(X_calib, y_calib)
     
-    def _calibrate(self, X, y):
+    def _calibrate(self, X, y, alpha = 0.1):
         """
         Calibrate the model on the validation set.
         """
@@ -43,7 +45,7 @@ class StudentizedConformal:
         resid_pred = np.abs(self.sd_model.predict(X))
         weighted_errors = residuals / resid_pred
 
-        self.q = np.sort(weighted_errors)[int(np.ceil((len(X) + 1) * (1 - self.alpha)) - 1)]
+        self.q = np.sort(weighted_errors)[int(np.ceil((len(X) + 1) * (1 - alpha)) - 1)]
         return self.q
     
     def predict(self, X):
