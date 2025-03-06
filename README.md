@@ -19,12 +19,9 @@ pip install pcs_uq
 
 Set up the environment with the following commands: 
 ```bash
-conda create -n pasta python=3.10 
+conda create -n pcs_uq python=3.10 
 pip install -r requirements.txt 
 pip install -e . 
-
-python -m spacy download en_core_web_sm
-python -W ignore -m nltk.downloader punkt cmudict
 ```
 
 
@@ -36,7 +33,9 @@ from pcs_uq import PCS
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 
-pcs = PCS(num_bootstraps = 100, estimators = [RandomForestRegressor(), LinearRegression()]) # initialize the PCS object
-pcs.fit() # fit the model
-pcs.predict() # generate prediction intervals/sets
+pcs = PCS(num_bootstraps = 100, estimators = [RandomForestRegressor(), LinearRegression()]) # initialize the PCS object and provide list of models to fit as well as number of bootstraps
+pcs.fit(X, y) # fit the model
+pcs.calibrate(X,y) # calibrate the model
+pcs.predict(X) # generate prediction intervals/sets
 ```
+
