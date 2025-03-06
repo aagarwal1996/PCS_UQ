@@ -58,7 +58,8 @@ class PCS_UQ:
         #self._calibrate(X_calib, y_calib) # calibrate the models, saved in self.models
         self.top_k_models = self._get_top_k()
         self._fit_bootstraps(X_train, y_train)
-        print(self.bootstrap_models)
+        uncalibrated_intervals = self.get_intervals(X_calib, gamma = 1.0) # get the uncalibrated intervals
+        print(uncalibrated_intervals)
         #self.calibrated_intervals = self._calibrate(bootstrap_predictions)
         
 
@@ -170,11 +171,55 @@ class PCS_UQ:
         self.bootstrap_models = bootstrap_models
         #return bootstrap_predictions
 
+    def get_intervals(self, X, gamma = 1.0):
+        """
+        Args: 
+            X: features
+            gamma: expansion factor
+        Returns: 
+            Dictionary containing lower and upper bounds of prediction intervals combining all models
+            Format: {'lower': array, 'upper': array, 'predictions': array}
+        """
+        # Get number of samples
+        n_samples = X.shape[0]
+        
+        # Initialize array to store all predictions
+        # Shape will be (n_samples, K*B) - each row represents all predictions for one data point
+        all_predictions = np.zeros((n_samples, 0))
+        
+        # Collect predictions for each data point
+        for model_name, bootstrap_models in self.bootstrap_models.items():
+            for model in bootstrap_models:
+                pred = model.predict(X).reshape(-1, 1)  # Shape: (n_samples, 1)
+                all_predictions = np.hstack((all_predictions, pred))
+        
+        # Sort predictions for each data point
+        sorted_predictions = np.sort(all_predictions, axis=1)  # Sort along K*B axis
+        intervals = np.array((n_samples, 3))
+        # Calculate quantiles for each row
+        intervals = np.zeros((n_samples, 3))
+        intervals[:, 0] = np.quantile(sorted_predictions, self.alpha/2, axis=1)  # Lower bound
+        intervals[:, 1] = np.quantile(sorted_predictions, 0.5, axis=1)  # Median
+        intervals[:, 2] = np.quantile(sorted_predictions, 1 - self.alpha/2, axis=1)  # Upper bound
+        return intervals
+        
+        # # Calculate indices for lower and upper bounds based on alpha
+        # n_total = sorted_predictions.shape[1]  # Total number of predictions per point (K * B)
+        # lower_idx = int(np.floor(self.alpha/2 * n_total))
+        # upper_idx = int(np.ceil((1 - self.alpha/2) * n_total))
+        
+        # # Get the prediction intervals
+        # intervals = {
+        #     'lower': sorted_predictions[:, lower_idx],
+        #     'upper': sorted_predictions[:, upper_idx],
+        #     'predictions': sorted_predictions  # Including all predictions for potential further use
+        # }
+        
+        # return intervals
+
     def _calibrate(self, X, y):
         pass 
 
-    def predict(self, X):
-        pass 
 
 if __name__ == "__main__":
     
