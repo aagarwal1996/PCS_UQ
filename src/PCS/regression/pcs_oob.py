@@ -15,8 +15,8 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from src.metrics.regression_metrics import *
 from src.PCS.regression.pcs_uq import PCS_UQ
 
-class PCS_OOB():
-    def __init__(self, models, num_bootstraps=10, alpha=0.1, seed=42, top_k=1, save_path=None, load_models=True, metric=r2_score):
+class PCS_OOB(PCS_UQ):
+    def __init__(self, models, num_bootstraps=500, alpha=0.1, seed=42, top_k=1, save_path=None, load_models=True, metric=r2_score):
         """
         PCS OOB
 
@@ -48,8 +48,10 @@ class PCS_OOB():
         """
         self._train(X, y)
         self._pred_check(X, y)
-        self._get_top_k
+        self._get_top_k()
         uncalibrated_intervals = self.get_intervals(X)
+        self.uncalibrated_metrics = get_all_metrics(y, uncalibrated_intervals[:,[0,2]])
+        self.gamma = self.calibrate(uncalibrated_intervals, y)
         
 
     def _train(self, X, y):
@@ -138,17 +140,87 @@ class PCS_OOB():
 
     def get_intervals(self, X):
         """
-        Get the intervals for the top k models
+        Get predictions from all bootstrap models for the top k models,
+        but only for samples that were out-of-bag for each bootstrap model.
+        Returns row-wise sorted predictions.
+        
+        Args:
+            X: Input features of shape (n_samples, n_features)
+            
+        Returns:
+            predictions: numpy array of shape (n_samples, top_k * num_bootstraps)
+                Contains sorted predictions from all bootstrap models for each sample.
+                Values will be np.nan for samples that were not OOB for a given bootstrap.
         """
-        pass
+        n_samples = X.shape[0]
+        n_predictions = self.top_k * self.num_bootstraps
+        predictions = np.full((n_samples, n_predictions), np.nan)
+        
+        for k, model_name in enumerate(self.top_k_models):
+            # For each bootstrap model of this top-k model
+            for i in range(self.num_bootstraps):
+                # Get OOB indices for this bootstrap model
+                oob_indices = self.oob_indices[model_name][i]
+                
+                # Get predictions only for OOB samples
+                bootstrap_model = self.bootstrap_models[model_name][i]
+                X_oob = X[oob_indices]
+                y_pred = bootstrap_model.predict(X_oob)
+                
+                # Store predictions in the appropriate column
+                col_idx = k * self.num_bootstraps + i
+                predictions[oob_indices, col_idx] = y_pred
+        
+        # Sort each row, keeping nan values at the end
+        #predictions = np.sort(predictions, axis=1)
+        intervals = np.zeros((n_samples, 3))
+        intervals[:, 0] = np.nanquantile(predictions, self.alpha/2, axis=1)
+        intervals[:, 1] = np.nanquantile(predictions, 0.5, axis=1)
+        intervals[:, 2] = np.nanquantile(predictions, 1 - self.alpha/2, axis=1)
+        return intervals
+
+    def predict(self, X):
+        """
+        Make predictions with uncertainty intervals using the top k models.
+        
+        Args:
+            X: Input features of shape (n_samples, n_features)
+            
+        Returns:
+            predictions: numpy array of shape (n_samples, 2)
+                Contains the lower/upper bounds for each sample
+                [:,0] = lower bound
+                [:,1] = upper bound
+        """
+        n_samples = X.shape[0]
+        all_predictions = np.zeros((n_samples, self.top_k * self.num_bootstraps))
+        
+        # Get predictions from all bootstrap models
+        col_idx = 0
+        for model_name in self.top_k_models:
+            for bootstrap_model in self.bootstrap_models[model_name]:
+                all_predictions[:, col_idx] = bootstrap_model.predict(X)
+                col_idx += 1
+        
+        # Sort predictions for each sample
+        all_predictions.sort(axis=1)
+        lower_bound = np.nanquantile(all_predictions, self.alpha/2, axis=1)
+        median = np.nanquantile(all_predictions, 0.5, axis=1)
+        upper_bound = np.nanquantile(all_predictions, 1 - self.alpha/2, axis=1)
+        lower_bound = lower_bound - self.gamma * (median - lower_bound)
+        upper_bound = upper_bound + self.gamma * (upper_bound - median)
+        
+        return np.column_stack([lower_bound, upper_bound])
+
 if __name__ == "__main__":
     models = {
-        "rf": RandomForestRegressor(),
+        "rf": RandomForestRegressor(n_estimators=100, max_depth=5),
         "lr": LinearRegression(),
         "ridge": RidgeCV()
     }
-    X, y = make_regression(n_samples=1000, n_features=10, noise=0.1)
-    X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.25, random_state=42)
-    pcs_oob = PCS_OOB(models, save_path="test", load_models=True)
+    X, y = make_regression(n_samples=1000, n_features=10, noise=0.1, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    pcs_oob = PCS_OOB(models, save_path="test", load_models=False)
     pcs_oob.fit(X_train, y_train)
-    
+    intervals = pcs_oob.predict(X_test)
+    print(get_all_metrics(y_test, intervals))

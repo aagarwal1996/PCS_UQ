@@ -41,7 +41,7 @@ class PCS_UQ:
         self.top_k_models = None
         self.bootstrap_models = None
     
-    def fit(self, X, y):
+    def fit(self, X, y, alpha = 0.1):
         """
         Args: 
             X: features
@@ -55,6 +55,8 @@ class PCS_UQ:
         4. Get the top k models
         5. Calibrate the top-k models 
         """
+        if alpha is None:
+            alpha = self.alpha
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train) # train the models such that they are ready for calibration, saved in self.models
         self._pred_check(X_calib, y_calib) # check the predictions of the models, saved in self.models
