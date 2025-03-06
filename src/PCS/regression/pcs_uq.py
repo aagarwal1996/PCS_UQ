@@ -11,7 +11,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.datasets import make_regression
 from sklearn.metrics import mean_absolute_error, r2_score
 class PCS_UQ:
-    def __init__(self, models, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, metrics = {'r2': r2_score}):
+    def __init__(self, models, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, metric = r2_score):
         """
         PCS UQ
 
@@ -22,6 +22,7 @@ class PCS_UQ:
             top_k: number of top models to use
             save_path: path to save the models
             load_models: whether to load the models from the save_path
+            metric: metric to use for the prediction scores -- assume that higher is better
         """
         self.models = models
         self.alpha = alpha
@@ -30,14 +31,30 @@ class PCS_UQ:
         self.save_path = save_path
         self.load_models = load_models
         self.val_size = val_size
-        self.metrics = metrics
-        self.pred_scores = {metric: {model: -np.inf for model in self.models} for metric in self.metrics}
+        self.metric = metric
+        self.pred_scores = {model: -np.inf for model in self.models}
+        self._top_k_models = None
     
     def fit(self, X, y):
+        """
+        Args: 
+            X: features
+            y: target
+        Returns: 
+            None
+        Steps: 
+        1. Split the data into training and calibration sets
+        2. Train the models
+        3. Check the predictions of the models
+        4. Get the top k models
+        5. Calibrate the top-k models 
+        """
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train) # train the models such that they are ready for calibration, saved in self.models
         self._pred_check(X_calib, y_calib) # check the predictions of the models, saved in self.models
         #self._calibrate(X_calib, y_calib) # calibrate the models, saved in self.models
+        self.top_k_models = self._get_top_k()
+        print(self.top_k_models)
 
     def _train(self, X, y):
         if self.load_models and (self.save_path is not None):
@@ -59,10 +76,30 @@ class PCS_UQ:
     # For now, assume only one metric. 
     # TODO: Add support for multiple metrics. 
     def _pred_check(self, X, y):
+        """
+        Args: 
+            X: features
+            y: target
+        Steps: 
+        1. Predict the target using the models
+        2. Calculate the prediction score for each model
+        """
         for model in self.models:
             y_pred = self.models[model].predict(X)
-            for metric in self.metrics:
-                self.pred_scores[metric][model] = self.metrics[metric](y, y_pred)
+            self.pred_scores[model] = self.metric(y, y_pred)
+
+    def _get_top_k(self):
+        """
+        Args: 
+            None
+        Steps: 
+        1. Sort the models by the prediction score
+        2. Return the top k models
+        """
+        sorted_models = sorted(self.pred_scores, key=self.pred_scores.get, reverse=True)
+        top_k_model_names = sorted_models[:self.top_k]
+        self.top_k_models = {model: self.models[model] for model in top_k_model_names}
+        return self.top_k_models
     
     def _calibrate(self, X, y):
         pass 
@@ -79,4 +116,3 @@ if __name__ == "__main__":
     X, y = make_regression(n_samples=1000, n_features=10, noise=10)
     pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True)
     pcs_uq.fit(X, y)
-    print(pcs_uq.pred_scores)
