@@ -61,7 +61,7 @@ class PCS_UQ:
         self.top_k_models = self._get_top_k()
         self._fit_bootstraps(X_train, y_train)
         uncalibrated_intervals  = self.get_intervals(X_calib) # get the uncalibrated intervals and raw width/coverage
-        uncalibrated_metrics = get_all_metrics(y_calib, uncalibrated_intervals[:,[0,2]]) # drop median to assess raw coverage and width
+        self.uncalibrated_metrics = get_all_metrics(y_calib, uncalibrated_intervals[:,[0,2]]) # drop median to assess raw coverage and width
         gamma = self.calibrate(uncalibrated_intervals, y_calib) # calibrate the intervals to get the best gamma 
 
                 
@@ -71,20 +71,20 @@ class PCS_UQ:
             print(f"Loading models from {self.save_path}")
             for model in self.models:
                 try: 
-                    with open(f"{self.save_path}/{model}.pkl", "rb") as f:
+                    with open(f"{self.save_path}/pcs_uq/{model}.pkl", "rb") as f:
                         self.models[model] = pickle.load(f)
                 except FileNotFoundError:
                     print(f"No saved model found for {model}, fitting new model")
                     self.models[model].fit(X, y)
-                    os.makedirs(self.save_path, exist_ok=True)
-                    with open(f"{self.save_path}/{model}.pkl", "wb") as f:
+                    os.makedirs(f"{self.save_path}/pcs_uq", exist_ok=True)
+                    with open(f"{self.save_path}/pcs_uq/{model}.pkl", "wb") as f:
                         pickle.dump(self.models[model], f)
         else: 
             for model in self.models:
                 self.models[model].fit(X, y)
                 if self.save_path is not None:
-                    os.makedirs(self.save_path, exist_ok=True)
-                    with open(f"{self.save_path}/{model}.pkl", "wb") as f:
+                    os.makedirs(f"{self.save_path}/pcs_uq", exist_ok=True)
+                    with open(f"{self.save_path}/pcs_uq/{model}.pkl", "wb") as f:
                         pickle.dump(self.models[model], f)
 
     # For now, assume only one metric. 
@@ -132,8 +132,8 @@ class PCS_UQ:
             for model_name, model in self.top_k_models.items():
                 if self.load_models and self.save_path is not None:
                     # Try to load existing bootstrap model
-                    bootstrap_dir = os.path.join(self.save_path, 'bootstrap_models', model_name)
-                    bootstrap_path = f"{bootstrap_dir}/bootstrap_{i}.pkl"
+                    bootstrap_dir = os.path.join(self.save_path, 'pcs_uq', 'bootstrap_models', model_name)
+                    bootstrap_path = f"{bootstrap_dir}/bootstrap_{model_name}_{i}.pkl"
                     
                     try:
                         with open(bootstrap_path, "rb") as f:
@@ -159,9 +159,9 @@ class PCS_UQ:
                     
                     # Save the model if save_path is specified
                     if self.save_path is not None:
-                        bootstrap_dir = os.path.join(self.save_path, 'bootstrap_models', model_name)
+                        bootstrap_dir = os.path.join(self.save_path, 'pcs_uq', 'bootstrap_models', model_name)
                         os.makedirs(bootstrap_dir, exist_ok=True)
-                        with open(f"{bootstrap_dir}/bootstrap_{i}.pkl", "wb") as f:
+                        with open(f"{bootstrap_dir}/bootstrap_{model_name}_{i}.pkl", "wb") as f:
                             pickle.dump(bootstrap_model, f)
                 
                 # Store the bootstrap model
@@ -250,7 +250,7 @@ if __name__ == "__main__":
     }
     X, y = make_regression(n_samples=1000, n_features=10, noise=0.1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = False)
+    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True)
     pcs_uq.fit(X_train, y_train)
     intervals = pcs_uq.predict(X_test)
     print(get_all_metrics(y_test, intervals))
