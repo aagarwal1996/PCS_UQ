@@ -11,6 +11,9 @@ from sklearn.linear_model import LinearRegression, RidgeCV
 from sklearn.datasets import make_regression
 from sklearn.metrics import mean_absolute_error, r2_score
 
+# PCS UQ Imports
+from src.metrics.regression_metrics import *
+
 class PCS_UQ:
     def __init__(self, models, num_bootstraps=10, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, metric = r2_score):
         """
@@ -55,13 +58,13 @@ class PCS_UQ:
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train) # train the models such that they are ready for calibration, saved in self.models
         self._pred_check(X_calib, y_calib) # check the predictions of the models, saved in self.models
-        #self._calibrate(X_calib, y_calib) # calibrate the models, saved in self.models
         self.top_k_models = self._get_top_k()
         self._fit_bootstraps(X_train, y_train)
-        uncalibrated_intervals = self.get_intervals(X_calib, gamma = 1.0) # get the uncalibrated intervals
-        print(uncalibrated_intervals)
-        #self.calibrated_intervals = self._calibrate(bootstrap_predictions)
-        
+        uncalibrated_intervals  = self.get_intervals(X_calib) # get the uncalibrated intervals and raw width/coverage
+        uncalibrated_metrics = get_all_metrics(y_calib, uncalibrated_intervals[:,[0,2]]) # drop median to assess raw coverage and width
+        gamma = self.calibrate(uncalibrated_intervals, y_calib) # calibrate the intervals to get the best gamma 
+
+                
 
     def _train(self, X, y):
         if self.load_models and (self.save_path is not None):
@@ -171,7 +174,8 @@ class PCS_UQ:
         self.bootstrap_models = bootstrap_models
         #return bootstrap_predictions
 
-    def get_intervals(self, X, gamma = 1.0):
+
+    def get_intervals(self, X):
         """
         Args: 
             X: features
@@ -200,10 +204,58 @@ class PCS_UQ:
         intervals = np.zeros((n_samples, 3))
         intervals[:, 0] = np.quantile(sorted_predictions, self.alpha/2, axis=1)  # Lower bound
         intervals[:, 1] = np.quantile(sorted_predictions, 0.5, axis=1)  # Median
-        intervals[:, 2] = np.quantile(sorted_predictions, 1 - self.alpha/2, axis=1)  # Upper bound
+        intervals[:, 2] = np.quantile(sorted_predictions, 1.0 - self.alpha/2, axis=1)  # Upper bound
         return intervals
+
         
-        # # Calculate indices for lower and upper bounds based on alpha
+       
+    def calibrate(self, intervals, y_calib):
+        """
+        Calibrate the intervals
+        """
+        gamma_min = 0.0
+        gamma_max = 100 # TODO: find a better upper bound
+        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(1e5))
+        coverage_list = []
+        width_list = []
+        # TODO: binary search for the best gamma
+        best_gamma = 0.0
+        for gamma in gamma_range:
+            lb = intervals[:, 0] - gamma * (intervals[:, 1] - intervals[:, 0])
+            ub = intervals[:, 1] + gamma * (intervals[:, 2] - intervals[:, 1])
+            coverage = np.mean((y_calib >= lb) & (y_calib <= ub))
+            if coverage >= 1.0 - self.alpha:
+                best_gamma = gamma
+                break
+        self.gamma = best_gamma
+        return best_gamma
+
+    def predict(self, X):
+        uncalibrated_intervals = self.get_intervals(X)
+        lower_bound = uncalibrated_intervals[:, 0] - self.gamma * (uncalibrated_intervals[:, 1] - uncalibrated_intervals[:, 0])
+        upper_bound  = uncalibrated_intervals[:, 1] + self.gamma * (uncalibrated_intervals[:, 2] - uncalibrated_intervals[:, 1])
+        intervals = np.zeros((X.shape[0], 2))
+        intervals[:, 0] = lower_bound
+        intervals[:, 1] = upper_bound
+        return intervals
+
+
+
+if __name__ == "__main__":
+    
+    models = {
+        "rf": RandomForestRegressor(),
+        "lr": LinearRegression(), 
+        'ridge': RidgeCV()
+    }
+    X, y = make_regression(n_samples=1000, n_features=10, noise=0.1)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = False)
+    pcs_uq.fit(X_train, y_train)
+    intervals = pcs_uq.predict(X_test)
+    print(get_all_metrics(y_test, intervals))
+
+ # # Calculate indices for lower and upper bounds based on alpha
         # n_total = sorted_predictions.shape[1]  # Total number of predictions per point (K * B)
         # lower_idx = int(np.floor(self.alpha/2 * n_total))
         # upper_idx = int(np.ceil((1 - self.alpha/2) * n_total))
@@ -216,18 +268,3 @@ class PCS_UQ:
         # }
         
         # return intervals
-
-    def _calibrate(self, X, y):
-        pass 
-
-
-if __name__ == "__main__":
-    
-    models = {
-        "rf": RandomForestRegressor(),
-        "lr": LinearRegression(), 
-        'ridge': RidgeCV()
-    }
-    X, y = make_regression(n_samples=1000, n_features=10, noise=10)
-    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True)
-    pcs_uq.fit(X, y)
