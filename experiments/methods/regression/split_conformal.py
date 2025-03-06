@@ -30,11 +30,18 @@ class SplitConformal:
         """
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)    
         self.model.fit(X_train, y_train)
-        residuals = np.abs(y_calib - self.model.predict(X_calib))
-        self.q = np.sort(residuals)[int(np.ceil((len(X_calib) + 1) * (1 - self.alpha)) - 1)]
+        self._calibrate(X_calib, y_calib)
 
         return self 
-    
+
+    def _calibrate(self, X, y):
+        """
+        Calibrate the model on the validation set.
+        """
+        residuals = np.abs(y - self.model.predict(X))
+        self.q = np.sort(residuals)[int(np.ceil((len(X) + 1) * (1 - self.alpha)) - 1)]
+
+
     def predict(self, X):
         """
         Predicts intervals for test data using calibration errors.
