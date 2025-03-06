@@ -1,8 +1,13 @@
+# General imports
 import numpy as np
 import pandas as pd
+
+# Sklearn imports
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
+
+# Local imports
 
 class SplitConformal:
     """
