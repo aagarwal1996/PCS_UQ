@@ -1,2 +1,6 @@
-# PCS_UQ
-Repository for generating prediction intervals via the predictability-computability-stability (PCS) framework.
+<h1 align="center"> Uncertainty Quantification via the Predictability, Computability, Stability (PCS) Framework </h1>
+
+<p align="center"> Generate prediction intervals/sets via the PCS framework. 
+</p>
+
+## Quickstart
