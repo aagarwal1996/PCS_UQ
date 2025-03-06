@@ -19,8 +19,10 @@ class SplitConformal:
         self.alpha = alpha
         self.seed = seed
         self.q = None 
+        self._trained = False
+        self._calibrated = False
     
-    def fit(self, X, y):
+    def fit(self, X, y, alpha = None):
         """
         Fit and calibrate the model 
 
@@ -28,19 +30,30 @@ class SplitConformal:
             X: training features
             y: training labels
         """
+        if alpha is None:
+            alpha = self.alpha
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)    
-        self.model.fit(X_train, y_train)
-        self._calibrate(X_calib, y_calib)
+        self._train(X_train, y_train)
+        self._calibrate(X_calib, y_calib, alpha)
 
         return self 
+    
+    def _train(self, X, y):
+        """
+        Train the model on the training set.
+        """
+        self.model.fit(X, y)
+        self._trained = True
 
-    def _calibrate(self, X, y):
+    def _calibrate(self, X, y, alpha):
         """
         Calibrate the model on the validation set.
         """
+        if self._trained == False:
+            raise ValueError("Model must be fitted before calling calibrate.")
         residuals = np.abs(y - self.model.predict(X))
-        self.q = np.sort(residuals)[int(np.ceil((len(X) + 1) * (1 - self.alpha)) - 1)]
-
+        self.q = np.sort(residuals)[int(np.ceil((len(X) + 1) * (1 - alpha)) - 1)]
+        return self.q
 
     def predict(self, X):
         """

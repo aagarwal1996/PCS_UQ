@@ -31,10 +31,16 @@ class StudentizedConformal:
         if alpha is None:
             alpha = self.alpha
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)
-        self.mean_model.fit(X_train, y_train)
-        train_residuals = np.abs(y_train - self.mean_model.predict(X_train))
-        self.sd_model.fit(X_train, np.abs(train_residuals))
-        self._calibrate(X_calib, y_calib)
+        self._train(X_train, y_train)
+        self._calibrate(X_calib, y_calib, alpha)
+    
+    def _train(self, X, y):
+        """
+        Train the model on the training set.
+        """
+        self.mean_model.fit(X, y)
+        train_residuals = np.abs(y - self.mean_model.predict(X))
+        self.sd_model.fit(X, np.abs(train_residuals))
     
     def _calibrate(self, X, y, alpha = 0.1):
         """
