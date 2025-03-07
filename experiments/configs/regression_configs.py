@@ -25,23 +25,23 @@ from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_MET
 #MODELS = {"LightGBM": LGBMRegressor(random_state = 42)}
 
 
-def get_conformal_methods(conformal_type, model_name= 'XGBoost'):
+def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
     if conformal_type == "split_conformal":
-        return SplitConformal(model=MODELS[model_name]), f"split_conformal_{model_name}"
+        return SplitConformal(model=MODELS[model_name], seed = seed), f"split_conformal_{model_name}"
     elif conformal_type == "studentized_conformal":
-        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name]), f"studentized_conformal_{model_name}"
+        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name], seed = seed), f"studentized_conformal_{model_name}"
     elif conformal_type == "local_conformal":
-        return LocalConformalRegressor(model=MODELS[model_name]), f"local_conformal_{model_name}"
+        return LocalConformalRegressor(model=MODELS[model_name], seed = seed), f"local_conformal_{model_name}"
     elif conformal_type == "majority_vote":
         return NotImplementedError("Majority vote conformal method not implemented")
     else:
         raise ValueError(f"Invalid conformal method: {conformal_type}")
 
-def get_pcs_methods(pcs_type):
+def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
-        return PCS_UQ(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
+        return PCS_UQ(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed)
     elif pcs_type == "pcs_oob":
-        return PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
+        return PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed)
     else:
         raise ValueError(f"Invalid PCS method: {pcs_type}")
 
