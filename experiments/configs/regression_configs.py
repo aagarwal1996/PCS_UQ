@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import pandas as pd
 import pickle
+import numpy as np
 # Model imports
 from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoostRegressor, HistGradientBoostingRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, ElasticNetCV
@@ -37,34 +38,36 @@ DATASETS = [
     "data_protein_structure",
 ]
 
-MODELS = {
-    "OLS": LinearRegression(),
-    "Ridge": RidgeCV(),
-    "Lasso": LassoCV(max_iter = 5000),
-    "ElasticNet": ElasticNetCV(max_iter = 5000),
-    "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
-    "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
-    "AdaBoost": AdaBoostRegressor(random_state = 42),
-    "XGBoost": XGBRegressor(random_state = 42),
-    "HistGradientBoosting": HistGradientBoostingRegressor(random_state = 42),
-    "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
-}
+# MODELS = {
+#     "OLS": LinearRegression(),
+#     "Ridge": RidgeCV(),
+#     "Lasso": LassoCV(max_iter = 5000),
+#     "ElasticNet": ElasticNetCV(max_iter = 5000),
+#     "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
+#     "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
+#     "AdaBoost": AdaBoostRegressor(random_state = 42),
+#     "XGBoost": XGBRegressor(random_state = 42),
+#     "HistGradientBoosting": HistGradientBoostingRegressor(random_state = 42),
+#     "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
+# }
+
+MODELS = {"XGBoost": XGBRegressor(random_state = 42)}
 
 def get_conformal_methods(models):
     methods = {}
     for model_name, model in models.items():
         methods[f"split_conformal_{model_name}"] = SplitConformal(model=model)
         methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(mean_model=model, sd_model=model)
-        methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
+        #methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
     return methods
 
 def get_pcs_methods(models):
     methods = {}
-    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1)
+    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1)
     pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1)
     return {
         "pcs_uq": pcs_uq,
-        "pcs_oob": pcs_oob
+        #"pcs_oob": pcs_oob
     }
 
 def get_uq_methods(models):
@@ -75,11 +78,8 @@ def get_regression_datasets(dataset_name):
         raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets are: {DATASETS}")
     
     X = pd.read_csv(f"experiments/data/{dataset_name}/X.csv")
-    y = pd.read_csv(f"experiments/data/{dataset_name}/y.csv")
+    y = np.loadtxt(f"experiments/data/{dataset_name}/y.csv")
     with open(f'experiments/data/{dataset_name}/bin_df.pkl', 'rb') as f:
         bin_df = pickle.load(f)
     importance = pd.read_csv(f"experiments/data/{dataset_name}/importances.csv")
     return X, y, bin_df, importance
-
-if __name__ == "__main__":
-    print(get_uq_methods(MODELS))
