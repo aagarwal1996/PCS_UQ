@@ -27,15 +27,42 @@ from src.metrics.regression_metrics import get_all_metrics
 # Experiment configs
 from experiments.configs.regression_configs import get_regression_datasets, MODELS, get_conformal_methods, get_pcs_methods, get_uq_methods
 
+VALID_UQ_METHODS = [
+    'split_conformal',
+    'studentized_conformal', 
+    'majority_vote',
+    'LocalConformalRegressor',
+    'pcs_uq',
+    'pcs_oob'
+]
+
+VALID_ESTIMATORS = [
+    'XGBoost',
+    'RandomForest',
+    'ExtraTrees',
+    'AdaBoost',
+    'OLS',
+    'Ridge',
+    'Lasso',
+    'ElasticNet',
+]
+
+SINGLE_CONFORMAL_METHODS = [
+    'split_conformal',
+    'studentized_conformal', 
+    'LocalConformalRegressor',
+]
+
 def run_regression_experiments(
     dataset_name,
     seed,
-    results_dir="experiments/results/regression"
+    results_dir="experiments/results/regression",
+    num_samples=5000
 ):
     X_df, y, bin_df, importance = get_regression_datasets(dataset_name)
     X = X_df.to_numpy()
     UQ_models = get_uq_methods(MODELS)
-    X,y = X[:5000], y[:5000]
+    X,y = X[:num_samples], y[:num_samples]
 
     # Create results directory structure
     results_path = Path(results_dir)
@@ -61,7 +88,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, required=True, help="Name of dataset to run experiments on")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
+    parser.add_argument("--UQ_method", type=str, default="split_conformal", help="UQ method to use")
+    parser.add_argument("--estimator", type=str, default="XGBoost", help="Estimator to use")
     args = parser.parse_args()
+
+    # Validate UQ method argument
+   
+
+    if args.UQ_method not in VALID_UQ_METHODS:
+        raise ValueError(f"Invalid UQ method '{args.UQ_method}'. Must be one of: {VALID_UQ_METHODS}")
+
+    if args.estimator not in VALID_ESTIMATORS:
+        raise ValueError(f"Invalid estimator '{args.estimator}'. Must be one of: {VALID_ESTIMATORS}")
+    
+    
 
     # Set random seed
     np.random.seed(args.seed)

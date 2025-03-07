@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoos
 from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, ElasticNetCV
 from sklearn.neural_network import MLPRegressor
 from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
 
 # PCS imports
 from src.PCS.regression.pcs_uq import PCS_UQ
@@ -18,60 +19,38 @@ from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
-DATASETS = [
-    "data_parkinsons",
-    "data_airfoil",
-    "data_computer",
-    "data_concrete",
-    "data_powerplant",
-    "data_miami_housing",
-    "data_insurance",
-    "data_qsar",
-    "data_allstate",
-    "data_mercedes",
-    "data_energy_efficiency",
-    "data_kin8nm",
-    "data_naval_propulsion",
-    "data_diamond",
-    "data_superconductor",
-    "data_ca_housing",
-    "data_protein_structure",
-]
+from regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
 
-# MODELS = {
-#     "OLS": LinearRegression(),
-#     "Ridge": RidgeCV(),
-#     "Lasso": LassoCV(max_iter = 5000),
-#     "ElasticNet": ElasticNetCV(max_iter = 5000),
-#     "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
-#     "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
-#     "AdaBoost": AdaBoostRegressor(random_state = 42),
-#     "XGBoost": XGBRegressor(random_state = 42),
-#     "HistGradientBoosting": HistGradientBoostingRegressor(random_state = 42),
-#     "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
-# }
+#MODELS = {"XGBoost": XGBRegressor(random_state = 42)}#, "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
+#MODELS = {"LightGBM": LGBMRegressor(random_state = 42)}
 
-MODELS = {"XGBoost": XGBRegressor(random_state = 42), "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
 
-def get_conformal_methods(models):
-    methods = {}
-    for model_name, model in models.items():
-        methods[f"split_conformal_{model_name}"] = SplitConformal(model=model)
-        methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(mean_model=model, sd_model=model)
-        #methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
-    return methods
+def get_conformal_methods(conformal_type, model_name):
+    if conformal_type == "split_conformal":
+        return SplitConformal(model=MODELS[model_name])
+    elif conformal_type == "studentized_conformal":
+        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name])
+    elif conformal_type == "local_conformal":
+        return LocalConformalRegressor(model=MODELS[model_name])
 
-def get_pcs_methods(models):
-    methods = {}
-    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False)
-    pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
-    return {
-        "pcs_uq": pcs_uq,
-        #"pcs_oob": pcs_oob
-    }
+# def get_conformal_methods(models):
+#     methods = {}
+#     for model_name, model in models.items():
+#         methods[f"split_conformal_{model_name}"] = SplitConformal(model=model)
+#         methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(mean_model=model, sd_model=model)
+#         #methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
+#     return methods
 
-def get_uq_methods(models):
-    return get_conformal_methods(models) | get_pcs_methods(models)
+# def get_pcs_methods(models):
+#     methods = {}
+#     pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False)
+#     pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
+#     return {
+#         "pcs_uq": pcs_uq,
+#         "pcs_oob": pcs_oob
+#     }
+
+
 
 def get_regression_datasets(dataset_name):
     if dataset_name not in DATASETS:

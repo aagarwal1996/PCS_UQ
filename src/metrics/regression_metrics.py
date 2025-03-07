@@ -26,8 +26,8 @@ def get_median_width(y_true, y_pred, return_scaled=False):
 def get_all_metrics(y_true, y_pred):
     return {
         'coverage': get_coverage(y_true, y_pred),
-        #'mean_width': get_mean_width(y_true, y_pred, return_scaled=False),
-        #'median_width': get_median_width(y_true, y_pred, return_scaled=False),
+        'mean_width': get_mean_width(y_true, y_pred, return_scaled=False),
+        'median_width': get_median_width(y_true, y_pred, return_scaled=False),
         'mean_width_scaled': get_mean_width(y_true, y_pred, return_scaled=True),
         'median_width_scaled': get_median_width(y_true, y_pred, return_scaled=True),
     }
