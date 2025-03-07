@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV
 from sklearn.datasets import make_regression
 from sklearn.metrics import mean_absolute_error, r2_score
-
+from sklearn.base import clone
 # PCS UQ Imports
 from src.metrics.regression_metrics import *
 

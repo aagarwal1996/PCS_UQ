@@ -5,7 +5,7 @@ from sklearn.base import clone
 
 # Import local conformal utils
 from scipy.spatial.distance import cdist
-from local_conformal_utils import *
+from src.conformal_methods.regression.local_conformal_utils import *
 
 # Sklearn imports
 from sklearn.datasets import make_regression

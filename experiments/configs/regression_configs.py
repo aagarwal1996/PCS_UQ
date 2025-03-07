@@ -33,7 +33,7 @@ def get_conformal_methods(models):
     methods = {}
     for model_name, model in models.items():
         methods[f"split_conformal_{model_name}"] = SplitConformal(model=model)
-        methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(model=model)
+        methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(mean_model=model, sd_model=model)
         methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
     return methods
 
@@ -45,20 +45,9 @@ def get_pcs_methods(models):
         "pcs_uq": pcs_uq,
         "pcs_oob": pcs_oob
     }
-    
-UQ_METHODS = {
-    "pcs_uq": PCS_UQ,
-    "pcs_oob": PCS_OOB,
-    "split_conformal_ols": SplitConformal(model=LinearRegression()),
-    "split_conformal_ridge": SplitConformal(model=RidgeCV()),
-    "split_conformal_lasso": SplitConformal(model=LassoCV()),
-    "split_conformal_enet": SplitConformal(model=ElasticNetCV()),
-    "split_conformal_rf": SplitConformal(model=RandomForestRegressor()),
-    "split_conformal_et": SplitConformal(model=ExtraTreesRegressor()),
-    "split_conformal_ada": SplitConformal(model=AdaBoostRegressor()),
-    "split_conformal_xgb": SplitConformal(model=XGBRegressor()),
-    "split_conformal_hgb": SplitConformal(model=HistGradientBoostingRegressor()),
-    
-    "studentized_conformal": StudentizedConformal,
-    "local_conformal": LocalConformalRegressor
-}
+
+def get_uq_methods(models):
+    return get_conformal_methods(models) | get_pcs_methods(models)
+
+if __name__ == "__main__":
+    print(get_uq_methods(MODELS))

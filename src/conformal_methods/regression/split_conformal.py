@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
-
+from sklearn.base import clone
 # Local imports
 
 class SplitConformal:
@@ -19,7 +19,14 @@ class SplitConformal:
         seed: random seed for train-test split
     """
     def __init__(self, model, alpha = 0.1, seed = 42):
+        """
+        Initialize the SplitConformal class.
 
+        Args:
+            model: sklearn regression model
+            alpha: significance level
+            seed: random seed for train-test split
+        """
         self.model = clone(model)
         self.alpha = alpha
         self.seed = seed
