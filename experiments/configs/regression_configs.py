@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-
+import pandas as pd
+import pickle
 # Model imports
 from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoostRegressor, HistGradientBoostingRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, ElasticNetCV
@@ -70,6 +71,15 @@ def get_uq_methods(models):
     return get_conformal_methods(models) | get_pcs_methods(models)
 
 def get_regression_datasets(dataset_name):
+    if dataset_name not in DATASETS:
+        raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets are: {DATASETS}")
     
+    X = pd.read_csv(f"../data/{dataset_name}/X.csv")
+    y = pd.read_csv(f"../data/{dataset_name}/y.csv")
+    with open(f'../data/{dataset_name}/bin_df.pk', 'rb') as f:
+        bin_df = pickle.load(f)
+    importance = pd.read_csv(f"../data/{dataset_name}/importance.csv")
+    return X, y, bin_df
+
 if __name__ == "__main__":
     print(get_uq_methods(MODELS))
