@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 import pickle
+import copy
 # Sklearn Imports
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
@@ -30,7 +31,7 @@ class PCS_OOB(PCS_UQ):
             load_models: whether to load the models from the save_path
             metric: metric to use for the prediction scores -- assume that higher is better
         """
-        self.models = {model_name: clone(model) for model_name, model in models.items()}
+        self.models = {model_name: copy.deepcopy(model) for model_name, model in models.items()}
         self.num_bootstraps = num_bootstraps
         self.alpha = alpha
         self.seed = seed
@@ -83,7 +84,7 @@ class PCS_OOB(PCS_UQ):
                 else:
                     # Bootstrap the data
                     n_samples = len(X)
-                    bootstrap_indices = resample(range(n_samples), n_samples=n_samples, random_state=bootstrap_seed)
+                    bootstrap_indices = np.random.choice(range(n_samples), size=n_samples, replace=True)
                     oob_indices = list(set(range(n_samples)) - set(bootstrap_indices))
                     
                     X_boot = X[bootstrap_indices]
@@ -93,7 +94,7 @@ class PCS_OOB(PCS_UQ):
                     self.oob_indices[model_name].append(oob_indices)
                     
                     # Create and fit bootstrap model
-                    bootstrap_model = model.__class__(**model.get_params())
+                    bootstrap_model = copy.deepcopy(model)
                     bootstrap_model.fit(X_boot, y_boot)
                     
                     # Save the bootstrap model and OOB indices if save path is provided
@@ -207,8 +208,8 @@ class PCS_OOB(PCS_UQ):
         lower_bound = np.nanquantile(all_predictions, self.alpha/2, axis=1)
         median = np.nanquantile(all_predictions, 0.5, axis=1)
         upper_bound = np.nanquantile(all_predictions, 1 - self.alpha/2, axis=1)
-        lower_bound = lower_bound - self.gamma * (median - lower_bound)
-        upper_bound = upper_bound + self.gamma * (upper_bound - median)
+        lower_bound = median - self.gamma * (median - lower_bound)
+        upper_bound = median + self.gamma * (upper_bound - median)
         
         return np.column_stack([lower_bound, upper_bound])
 

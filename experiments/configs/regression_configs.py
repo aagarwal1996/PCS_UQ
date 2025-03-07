@@ -51,7 +51,7 @@ DATASETS = [
 #     "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
 # }
 
-MODELS = {"XGBoost": XGBRegressor(random_state = 42)}
+MODELS = {"XGBoost": XGBRegressor(random_state = 42), "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
 
 def get_conformal_methods(models):
     methods = {}
@@ -63,8 +63,8 @@ def get_conformal_methods(models):
 
 def get_pcs_methods(models):
     methods = {}
-    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1)
-    pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1)
+    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False)
+    pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
     return {
         "pcs_uq": pcs_uq,
         #"pcs_oob": pcs_oob

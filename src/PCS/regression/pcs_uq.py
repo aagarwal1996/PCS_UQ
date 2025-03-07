@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 import pickle
+import copy
 # Sklearn Imports
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
@@ -28,7 +29,7 @@ class PCS_UQ:
             load_models: whether to load the models from the save_path
             metric: metric to use for the prediction scores -- assume that higher is better
         """
-        self.models = {model_name: clone(model) for model_name, model in models.items()}
+        self.models = {model_name: copy.deepcopy(model) for model_name, model in models.items()}
         self.alpha = alpha
         self.num_bootstraps = num_bootstraps
         self.seed = seed
@@ -145,7 +146,7 @@ class PCS_UQ:
                         # If loading fails, fit a new bootstrap model
                         print(f"Fitting new bootstrap model {i} for {model_name}")
                         X_boot, y_boot = resample(X, y, random_state=self.seed + i)
-                        bootstrap_model = model.__class__(**model.get_params())
+                        bootstrap_model = copy.deepcopy(model)
                         bootstrap_model.fit(X_boot, y_boot)
                         
                         # Save the newly fitted model
@@ -156,7 +157,7 @@ class PCS_UQ:
                 else:
                     # Fit new bootstrap model without attempting to load
                     X_boot, y_boot = resample(X, y, random_state=self.seed + i)
-                    bootstrap_model = model.__class__(**model.get_params())
+                    bootstrap_model = copy.deepcopy(model)
                     bootstrap_model.fit(X_boot, y_boot)
                     
                     # Save the model if save_path is specified
@@ -192,21 +193,22 @@ class PCS_UQ:
         # Initialize array to store all predictions
         # Shape will be (n_samples, K*B) - each row represents all predictions for one data point
         all_predictions = np.zeros((n_samples, 0))
+
         
         # Collect predictions for each data point
         for model_name, bootstrap_models in self.bootstrap_models.items():
             for model in bootstrap_models:
                 pred = model.predict(X).reshape(-1, 1)  # Shape: (n_samples, 1)
                 all_predictions = np.hstack((all_predictions, pred))
+                
         
         # Sort predictions for each data point
-        sorted_predictions = np.sort(all_predictions, axis=1)  # Sort along K*B axis
         intervals = np.array((n_samples, 3))
         # Calculate quantiles for each row
         intervals = np.zeros((n_samples, 3))
-        intervals[:, 0] = np.quantile(sorted_predictions, self.alpha/2, axis=1)  # Lower bound
-        intervals[:, 1] = np.quantile(sorted_predictions, 0.5, axis=1)  # Median
-        intervals[:, 2] = np.quantile(sorted_predictions, 1.0 - self.alpha/2, axis=1)  # Upper bound
+        intervals[:, 0] = np.quantile(all_predictions, self.alpha/2, axis=1)  # Lower bound
+        intervals[:, 1] = np.quantile(all_predictions, 0.5, axis=1)  # Median
+        intervals[:, 2] = np.quantile(all_predictions, 1.0 - self.alpha/2, axis=1)  # Upper bound
         return intervals
 
         
@@ -216,14 +218,14 @@ class PCS_UQ:
         Calibrate the intervals
         """
         gamma_min = 0.0
-        gamma_max = 100 # TODO: find a better upper bound
-        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(1e5))
+        gamma_max = 2.0# TODO: find a better upper bound
+        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(1e6))
         coverage_list = []
         width_list = []
         # TODO: binary search for the best gamma
         best_gamma = 0.0
         for gamma in gamma_range:
-            lb = intervals[:, 0] - gamma * (intervals[:, 1] - intervals[:, 0])
+            lb = intervals[:, 1] - gamma * (intervals[:, 1] - intervals[:, 0])
             ub = intervals[:, 1] + gamma * (intervals[:, 2] - intervals[:, 1])
             coverage = np.mean((y_calib >= lb) & (y_calib <= ub))
             if coverage >= 1.0 - self.alpha:
@@ -234,7 +236,7 @@ class PCS_UQ:
 
     def predict(self, X):
         uncalibrated_intervals = self.get_intervals(X)
-        lower_bound = uncalibrated_intervals[:, 0] - self.gamma * (uncalibrated_intervals[:, 1] - uncalibrated_intervals[:, 0])
+        lower_bound = uncalibrated_intervals[:, 1] - self.gamma * (uncalibrated_intervals[:, 1] - uncalibrated_intervals[:, 0])
         upper_bound  = uncalibrated_intervals[:, 1] + self.gamma * (uncalibrated_intervals[:, 2] - uncalibrated_intervals[:, 1])
         intervals = np.zeros((X.shape[0], 2))
         intervals[:, 0] = lower_bound
