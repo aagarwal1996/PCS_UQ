@@ -28,7 +28,7 @@ class PCS_UQ:
             load_models: whether to load the models from the save_path
             metric: metric to use for the prediction scores -- assume that higher is better
         """
-        self.models = models
+        self.models = {model_name: clone(model) for model_name, model in models.items()}
         self.alpha = alpha
         self.num_bootstraps = num_bootstraps
         self.seed = seed

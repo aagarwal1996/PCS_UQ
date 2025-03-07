@@ -20,7 +20,7 @@ class SplitConformal:
     """
     def __init__(self, model, alpha = 0.1, seed = 42):
 
-        self.model = model
+        self.model = clone(model)
         self.alpha = alpha
         self.seed = seed
         self.q = None 

@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, RidgeCV
 from sklearn.datasets import make_regression
 from sklearn.metrics import mean_absolute_error, r2_score
-
+from sklearn.base import clone
 # PCS UQ Imports
 from src.metrics.regression_metrics import *
 from src.PCS.regression.pcs_uq import PCS_UQ
@@ -30,7 +30,7 @@ class PCS_OOB(PCS_UQ):
             load_models: whether to load the models from the save_path
             metric: metric to use for the prediction scores -- assume that higher is better
         """
-        self.models = models
+        self.models = {model_name: clone(model) for model_name, model in models.items()}
         self.num_bootstraps = num_bootstraps
         self.alpha = alpha
         self.seed = seed

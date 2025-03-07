@@ -13,7 +13,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 
-class Conformal_Localized:
+class LocalConformalRegressor:
     """
     Conformal Localized Regression
     """
@@ -86,6 +86,6 @@ class Conformal_Localized:
     
 if __name__ == "__main__":
     X, y = make_regression(n_samples=100, n_features=10, noise=10)
-    conformal = Conformal_Localized(LinearRegression())
+    conformal = LocalConformalRegressor(LinearRegression())
     conformal.fit(X, y)
     y_pred = conformal.predict(X)
