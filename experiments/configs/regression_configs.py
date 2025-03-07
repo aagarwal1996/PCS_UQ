@@ -74,12 +74,12 @@ def get_regression_datasets(dataset_name):
     if dataset_name not in DATASETS:
         raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets are: {DATASETS}")
     
-    X = pd.read_csv(f"../data/{dataset_name}/X.csv")
-    y = pd.read_csv(f"../data/{dataset_name}/y.csv")
-    with open(f'../data/{dataset_name}/bin_df.pk', 'rb') as f:
+    X = pd.read_csv(f"experiments/data/{dataset_name}/X.csv")
+    y = pd.read_csv(f"experiments/data/{dataset_name}/y.csv")
+    with open(f'experiments/data/{dataset_name}/bin_df.pkl', 'rb') as f:
         bin_df = pickle.load(f)
-    importance = pd.read_csv(f"../data/{dataset_name}/importance.csv")
-    return X, y, bin_df
+    importance = pd.read_csv(f"experiments/data/{dataset_name}/importances.csv")
+    return X, y, bin_df, importance
 
 if __name__ == "__main__":
     print(get_uq_methods(MODELS))
