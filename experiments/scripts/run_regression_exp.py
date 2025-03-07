@@ -30,6 +30,29 @@ from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMA
 def agg_results():
     pass
 
+def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance):
+    all_subgroup_metrics = {}
+    for imp_var in importance['feature']:
+        subgroup_indicator = bin_df_test[imp_var]
+        # Add subgroup indicator to X_test_df
+        X_test_df_subgroup = X_test_df.copy()
+        X_test_df_subgroup[f'subgroup_{imp_var}'] = subgroup_indicator
+        X_test_df_subgroup[f'y_test'] = y_test
+        X_test_df_subgroup[f'y_pred_lb'] = y_pred[:,0]
+        X_test_df_subgroup[f'y_pred_ub'] = y_pred[:,1]
+        
+        # Calculate metrics for each subgroup
+        subgroup_metrics = {}
+        for subgroup in X_test_df_subgroup[f'subgroup_{imp_var}'].unique():
+            subgroup_df = X_test_df_subgroup[X_test_df_subgroup[f'subgroup_{imp_var}'] == subgroup]
+            subgroup_y_test = subgroup_df['y_test'].values
+            subgroup_y_pred = np.column_stack((subgroup_df['y_pred_lb'].values, 
+                                             subgroup_df['y_pred_ub'].values))
+            subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
+            
+        all_subgroup_metrics[imp_var] = subgroup_metrics
+    return all_subgroup_metrics
+
 def run_regression_experiments(
     dataset_name,
     seed,
@@ -53,44 +76,29 @@ def run_regression_experiments(
 
     X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, test_size=test_size, random_state=seed)
 
-    print(f"Fitting {method_name} on {dataset_name} with seed {seed}", flush=True)
+    print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
     uq_method.fit(X_train, y_train)
     y_pred = uq_method.predict(X_test)
     metrics = get_all_metrics(y_test, y_pred)
-    print(f"{method_name}: {metrics}")
+    print(f"{method_name}: {metrics}\n", flush=True)
     # Save metrics as pickle file
 
-    print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}", flush=True)
+    print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
     metrics_file = seed_path / f"{method_name}_metrics.pkl"
     with open(metrics_file, 'wb') as f:
         pickle.dump(metrics, f)
 
-    print("Finished fitting and saving metrics", flush=True)
+    print("Finished fitting and saving metrics\n", flush=True)
 
+    print("Calculating subgroup metrics\n", flush=True)
     # Calculate subgroup metrics
-    for imp_var in importance['feature']:
-        subgroup_indicator = bin_df_test[imp_var]
-        # Add subgroup indicator to X_test_df
-        X_test_df_subgroup = X_df_test.copy()
-        X_test_df_subgroup[f'subgroup_{imp_var}'] = subgroup_indicator
-        
-        
-        subgroup_metrics = {}
-        for subgroup in subgroup_indicator.unique():
-            mask = subgroup_indicator == subgroup
-            subgroup_y_test = y_test[mask]
-            subgroup_y_pred = y_pred[mask]
-            subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
-        print(subgroup_metrics)
-        break
-            # subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
-            # print(f"\nMetrics for {imp_var}={subgroup}:")
-            # print(subgroup_metrics[subgroup])
-        
-        # # Save subgroup metrics
-        # subgroup_metrics_file = seed_path / f"{method_name}_{imp_var}_subgroup_metrics.pkl"
-        # with open(subgroup_metrics_file, 'wb') as f:
-        #     pickle.dump(subgroup_metrics, f)
+    all_subgroup_metrics = get_subgroup_metrics(X_df_test, y_test, y_pred, bin_df_test, importance)
+    print("Finished calculating subgroup metrics\n", flush=True)
+
+    # Save subgroup metrics
+    subgroup_metrics_file = seed_path / f"{method_name}_subgroup_metrics.pkl"
+    with open(subgroup_metrics_file, 'wb') as f:
+        pickle.dump(all_subgroup_metrics, f)
 
 # Example usage:
 if __name__ == "__main__":
