@@ -16,17 +16,37 @@ from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
+DATASETS = [
+    "data_parkinsons",
+    "data_airfoil",
+    "data_computer",
+    "data_concrete",
+    "data_powerplant",
+    "data_miami_housing",
+    "data_insurance",
+    "data_qsar",
+    "data_allstate",
+    "data_mercedes",
+    "data_energy_efficiency",
+    "data_kin8nm",
+    "data_naval_propulsion",
+    "data_diamond",
+    "data_superconductor",
+    "data_ca_housing",
+    "data_protein_structure",
+]
+
 MODELS = {
-    "rf": RandomForestRegressor(),
-    "lr": LinearRegression(),
-    "ridge": RidgeCV(),
-    "lasso": LassoCV(),
-    "enet": ElasticNetCV(),
-    "et": ExtraTreesRegressor(),
-    "ada": AdaBoostRegressor(),
-    "xgb": XGBRegressor(),
-    "hgb": HistGradientBoostingRegressor(),
-    "mlp": MLPRegressor(),
+    "OLS": LinearRegression(),
+    "Ridge": RidgeCV(),
+    "Lasso": LassoCV(max_iter = 5000),
+    "ElasticNet": ElasticNetCV(max_iter = 5000),
+    "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
+    "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
+    "AdaBoost": AdaBoostRegressor(random_state = 42),
+    "XGBoost": XGBRegressor(random_state = 42),
+    "HistGradientBoosting": HistGradientBoostingRegressor(random_state = 42),
+    "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
 }
 
 def get_conformal_methods(models):
@@ -39,8 +59,8 @@ def get_conformal_methods(models):
 
 def get_pcs_methods(models):
     methods = {}
-    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, seed=42, top_k=1)
-    pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, seed=42, top_k=1)
+    pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1)
+    pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1)
     return {
         "pcs_uq": pcs_uq,
         "pcs_oob": pcs_oob
@@ -49,5 +69,7 @@ def get_pcs_methods(models):
 def get_uq_methods(models):
     return get_conformal_methods(models) | get_pcs_methods(models)
 
+def get_regression_datasets(dataset_name):
+    
 if __name__ == "__main__":
     print(get_uq_methods(MODELS))
