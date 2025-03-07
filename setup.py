@@ -13,7 +13,7 @@ setup(
         'matplotlib>=3.5.2',
         'seaborn>=0.11.2',
     ],
-    author="Abhineet Agarwal",
+    authors="Abhineet Agarwal, Michael Xiao, Rebecca Barter, Anthony Ozerov, Boyu Fan, Omer Ronen, Bin Yu",
     author_email="aa3797@berkeley.edu",
     description="A Python library for generating prediction intervals/sets via the PCS framework.",
     long_description=open("README.md").read(),
