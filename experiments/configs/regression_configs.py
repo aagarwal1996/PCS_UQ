@@ -19,19 +19,47 @@ from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
-from regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
+from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
 
 #MODELS = {"XGBoost": XGBRegressor(random_state = 42)}#, "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
 #MODELS = {"LightGBM": LGBMRegressor(random_state = 42)}
 
 
-def get_conformal_methods(conformal_type, model_name):
+def get_conformal_methods(conformal_type, model_name= 'XGBoost'):
     if conformal_type == "split_conformal":
-        return SplitConformal(model=MODELS[model_name])
+        return SplitConformal(model=MODELS[model_name]), f"split_conformal_{model_name}"
     elif conformal_type == "studentized_conformal":
-        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name])
+        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name]), f"studentized_conformal_{model_name}"
     elif conformal_type == "local_conformal":
-        return LocalConformalRegressor(model=MODELS[model_name])
+        return LocalConformalRegressor(model=MODELS[model_name]), f"local_conformal_{model_name}"
+    elif conformal_type == "majority_vote":
+        return NotImplementedError("Majority vote conformal method not implemented")
+    else:
+        raise ValueError(f"Invalid conformal method: {conformal_type}")
+
+def get_pcs_methods(pcs_type):
+    if pcs_type == "pcs_uq":
+        return PCS_UQ(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
+    elif pcs_type == "pcs_oob":
+        return PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
+    else:
+        raise ValueError(f"Invalid PCS method: {pcs_type}")
+
+
+
+def get_regression_datasets(dataset_name):
+    if dataset_name not in DATASETS:
+        raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets are: {DATASETS}")
+    
+    X = pd.read_csv(f"experiments/data/{dataset_name}/X.csv")
+    y = np.loadtxt(f"experiments/data/{dataset_name}/y.csv")
+    with open(f'experiments/data/{dataset_name}/bin_df.pkl', 'rb') as f:
+        bin_df = pickle.load(f)
+    importance = pd.read_csv(f"experiments/data/{dataset_name}/importances.csv")
+    return X, y, bin_df, importance
+
+
+
 
 # def get_conformal_methods(models):
 #     methods = {}
@@ -49,16 +77,3 @@ def get_conformal_methods(conformal_type, model_name):
 #         "pcs_uq": pcs_uq,
 #         "pcs_oob": pcs_oob
 #     }
-
-
-
-def get_regression_datasets(dataset_name):
-    if dataset_name not in DATASETS:
-        raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets are: {DATASETS}")
-    
-    X = pd.read_csv(f"experiments/data/{dataset_name}/X.csv")
-    y = np.loadtxt(f"experiments/data/{dataset_name}/y.csv")
-    with open(f'experiments/data/{dataset_name}/bin_df.pkl', 'rb') as f:
-        bin_df = pickle.load(f)
-    importance = pd.read_csv(f"experiments/data/{dataset_name}/importances.csv")
-    return X, y, bin_df, importance

@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 from pathlib import Path
-import json
+import pickle
 from datetime import datetime
 import logging
 import argparse
@@ -25,44 +25,21 @@ from src.conformal_methods.regression.local_conformal import LocalConformalRegre
 from src.metrics.regression_metrics import get_all_metrics
 
 # Experiment configs
-from experiments.configs.regression_configs import get_regression_datasets, MODELS, get_conformal_methods, get_pcs_methods, get_uq_methods
-
-VALID_UQ_METHODS = [
-    'split_conformal',
-    'studentized_conformal', 
-    'majority_vote',
-    'LocalConformalRegressor',
-    'pcs_uq',
-    'pcs_oob'
-]
-
-VALID_ESTIMATORS = [
-    'XGBoost',
-    'RandomForest',
-    'ExtraTrees',
-    'AdaBoost',
-    'OLS',
-    'Ridge',
-    'Lasso',
-    'ElasticNet',
-]
-
-SINGLE_CONFORMAL_METHODS = [
-    'split_conformal',
-    'studentized_conformal', 
-    'LocalConformalRegressor',
-]
+from experiments.configs.regression_configs import get_regression_datasets, get_conformal_methods, get_pcs_methods
+from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
 
 def run_regression_experiments(
     dataset_name,
     seed,
+    uq_method,
+    method_name,
     results_dir="experiments/results/regression",
-    num_samples=5000
+    max_samples=5000, 
+    test_size=0.2
 ):
     X_df, y, bin_df, importance = get_regression_datasets(dataset_name)
     X = X_df.to_numpy()
-    UQ_models = get_uq_methods(MODELS)
-    X,y = X[:num_samples], y[:num_samples]
+    X,y = X[:max_samples], y[:max_samples]
 
     # Create results directory structure
     results_path = Path(results_dir)
@@ -72,14 +49,17 @@ def run_regression_experiments(
     # Create directories if they don't exist
     seed_path.mkdir(parents=True, exist_ok=True)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=seed)
 
-    # Run experiments
-    for model_name, model in UQ_models.items():
-        model.fit(X_train, y_train)
-        y_pred = model.predict(X_test)
-        metrics = get_all_metrics(y_test, y_pred)
-        print(f"{model_name}: {metrics}")
+    uq_method.fit(X_train, y_train)
+    y_pred = uq_method.predict(X_test)
+    metrics = get_all_metrics(y_test, y_pred)
+    
+    # Save metrics as pickle file
+    metrics_file = seed_path / f"{method_name}_metrics.pkl"
+    with open(metrics_file, 'wb') as f:
+        pickle.dump(metrics, f)
+
 
 # Example usage:
 if __name__ == "__main__":
@@ -101,9 +81,22 @@ if __name__ == "__main__":
     if args.estimator not in VALID_ESTIMATORS:
         raise ValueError(f"Invalid estimator '{args.estimator}'. Must be one of: {VALID_ESTIMATORS}")
     
+    if args.UQ_method in SINGLE_CONFORMAL_METHODS:
+        uq_method, method_name  = get_conformal_methods(args.UQ_method, args.estimator)
     
-
+    elif args.UQ_method == "majority_vote":
+        uq_method, method_name = get_conformal_methods("majority_vote", args.estimator)
+        method_name = f"majority_vote"
+    
+    elif args.UQ_method == "pcs_uq":
+        uq_method  = get_pcs_methods("pcs_uq")
+        method_name = "pcs_uq"
+    
+    elif args.UQ_method == "pcs_oob":
+        uq_method  = get_pcs_methods("pcs_oob")
+        method_name = "pcs_oob"
+    
     # Set random seed
     np.random.seed(args.seed)
 
-    run_regression_experiments(args.dataset, args.seed)
+    run_regression_experiments(args.dataset, args.seed, uq_method, method_name)
