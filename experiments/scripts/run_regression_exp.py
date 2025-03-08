@@ -6,6 +6,7 @@ import pickle
 from datetime import datetime
 import logging
 import argparse
+import os
 
 # Sklearn imports
 from sklearn.model_selection import train_test_split
@@ -60,21 +61,22 @@ def run_regression_experiments(
     method_name,
     results_dir="experiments/results/regression",
     max_samples=5000, 
-    test_size=0.2
+    train_size=0.8
 ):
     X_df, y, bin_df, importance = get_regression_datasets(dataset_name)
     X = X_df.to_numpy()
-    X,y, bin_df, X_df = X[:max_samples], y[:max_samples], bin_df[:max_samples], X_df[:max_samples]
+    #X,y, bin_df, X_df = X[:max_samples], y[:max_samples], bin_df[:max_samples], X_df[:max_samples]
 
     # Create results directory structure
     results_path = Path(results_dir)
     dataset_path = results_path / dataset_name
-    seed_path = dataset_path / str(seed)
+    #seed_path = dataset_path / str(seed)
     
     # Create directories if they don't exist
-    seed_path.mkdir(parents=True, exist_ok=True)
+    dataset_path.mkdir(parents=True, exist_ok=True)
 
-    X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, test_size=test_size, random_state=seed)
+    X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, train_size=train_size, random_state=seed)
+    X_train, y_train, bin_df_train, X_df_train = X_train[:max_samples], y_train[:max_samples], bin_df_train[:max_samples], X_df_train[:max_samples]
 
     print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
     uq_method.fit(X_train, y_train)
@@ -83,8 +85,9 @@ def run_regression_experiments(
     print(f"{method_name}: {metrics}\n", flush=True)
     # Save metrics as pickle file
 
-    print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
-    metrics_file = seed_path / f"{method_name}_metrics.pkl"
+    #print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
+    #metrics_file = seed_path / f"{method_name}_metrics.pkl"
+    metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_metrics.pkl'
     with open(metrics_file, 'wb') as f:
         pickle.dump(metrics, f)
 
@@ -96,7 +99,8 @@ def run_regression_experiments(
     print("Finished calculating subgroup metrics\n", flush=True)
     print(all_subgroup_metrics)
     # Save subgroup metrics
-    subgroup_metrics_file = seed_path / f"{method_name}_subgroup_metrics.pkl"
+    #subgroup_metrics_file = seed_path / f"{method_name}_subgroup_metrics.pkl"
+    subgroup_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_subgroup_metrics.pkl'
     with open(subgroup_metrics_file, 'wb') as f:
         pickle.dump(all_subgroup_metrics, f)
 
@@ -109,6 +113,7 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--UQ_method", type=str, default="split_conformal", help="UQ method to use")
     parser.add_argument("--estimator", type=str, default="XGBoost", help="Estimator to use")
+    parser.add_argument("--train_size", type=float, default=0.8, help="Train size")
     args = parser.parse_args()
 
     # Validate UQ method argument
@@ -138,5 +143,5 @@ if __name__ == "__main__":
     # Set random seed
     np.random.seed(args.seed)
 
-    run_regression_experiments(args.dataset, args.seed, uq_method, method_name)
+    run_regression_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, method_name=method_name, train_size=args.train_size)
     agg_results()

@@ -39,9 +39,9 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
-        return PCS_UQ(models=TEST_MODELS, num_bootstraps=50, alpha=0.1, top_k=1, load_models=False, seed = seed)
+        return PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
     elif pcs_type == "pcs_oob":
-        return PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed)
+        return PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
     else:
         raise ValueError(f"Invalid PCS method: {pcs_type}")
 

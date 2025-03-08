@@ -4,17 +4,15 @@
 #SBATCH --error=logs/regression_exp_%A_%a.err
 #SBATCH --time=8:00:00  # Adjust time as needed
 #SBATCH --cpus-per-task=1  # Each task gets 1 CPU
-#SBATCH --mem=16G  # Adjust memory per job
-#SBATCH --ntasks=1
 #SBATCH --partition=jsteinhardt
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=aa3797@berkeley.edu
-#SBATCH --array=0-6000
+#SBATCH --array=0-6000  
 
 # Activate Conda environment
 module load python/3.10  # Change this based on your cluster setup
 conda init
-conda activate pcs_uq
+source activate pcs_uq
 
 # Define parameters
 DATASETS=("data_parkinsons" "data_airfoil" "data_computer" "data_concrete" "data_powerplant"
@@ -30,7 +28,10 @@ ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
 
 REDUCED_ESTIMATORS=("XGBoost")  # For majority_vote, pcs_uq, pcs_oob
 
+
 SEEDS=(0 1 2 3 4 5 6 7 8 9)  # Modify as needed
+
+TRAIN_SIZES=(0.8)
 
 # Calculate total job count
 TOTAL_JOBS=0
@@ -40,7 +41,7 @@ for uq in "${UQ_METHODS[@]}"; do
     else
         estimators=("${ALL_ESTIMATORS[@]}")
     fi
-    TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#estimators[@]} ))
+    TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#estimators[@]} * ${#TRAIN_SIZES[@]} ))
 done
 
 # **Debugging Statement**: Print Total Jobs
@@ -61,6 +62,7 @@ dataset_idx=0
 uq_idx=0
 estimator_idx=0
 seed_idx=0
+train_size_idx=0
 job_counter=0
 
 for uq in "${UQ_METHODS[@]}"; do
@@ -72,19 +74,22 @@ for uq in "${UQ_METHODS[@]}"; do
 
     for dataset in "${DATASETS[@]}"; do
         for seed in "${SEEDS[@]}"; do
-            for estimator in "${estimators[@]}"; do
-                if [[ "$job_counter" -eq "$TASK_ID" ]]; then
-                    DATASET="$dataset"
-                    UQ_METHOD="$uq"
-                    ESTIMATOR="$estimator"
-                    SEED="$seed"
-                fi
-                job_counter=$((job_counter + 1))
+            for train_size in "${TRAIN_SIZES[@]}"; do
+                for estimator in "${estimators[@]}"; do
+                    if [[ "$job_counter" -eq "$TASK_ID" ]]; then
+                        DATASET="$dataset"
+                        UQ_METHOD="$uq"
+                        ESTIMATOR="$estimator"
+                        SEED="$seed"
+                        TRAIN_SIZE="$train_size"
+                    fi
+                    job_counter=$((job_counter + 1))
+                done
             done
         done
     done
 done
 
-echo "Running job: $DATASET $UQ_METHOD $ESTIMATOR $SEED"
+echo "Running job: $DATASET $UQ_METHOD $ESTIMATOR $SEED $TRAIN_SIZE"
 # Run the Python script
-python experiments/scripts/run_regression_exp.py --dataset "$DATASET" --UQ_method "$UQ_METHOD" --seed "$SEED" --estimator "$ESTIMATOR"
+python experiments/scripts/run_regression_exp.py --dataset "$DATASET" --UQ_method "$UQ_METHOD" --seed "$SEED" --estimator "$ESTIMATOR" --train_size "$TRAIN_SIZE"
