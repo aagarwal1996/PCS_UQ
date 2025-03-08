@@ -84,9 +84,9 @@ class MajorityVote:
                                                    tau), 
             axis=1, 
             result_type='expand').rename(columns={0: 'lower', 1: 'upper'})
-        pred_intervals = pred_intervals.to_numpy()
+        #pred_intervals = pred_intervals.to_numpy()
         # Convert lists to single values
-        pred_intervals = np.array([[interval[0][0], interval[1][0]] for interval in pred_intervals])
+        #pred_intervals = np.array([[interval[0][0], interval[1][0]] for interval in pred_intervals])
         return pred_intervals
     
     def _majority_vote_helper(self, row, K, tau):
