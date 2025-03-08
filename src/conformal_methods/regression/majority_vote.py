@@ -84,9 +84,9 @@ class MajorityVote:
                                                    tau), 
             axis=1, 
             result_type='expand').rename(columns={0: 'lower', 1: 'upper'})
-        #pred_intervals = pred_intervals.to_numpy()
-        # Convert lists to single values
-        #pred_intervals = np.array([[interval[0][0], interval[1][0]] for interval in pred_intervals])
+        pred_intervals = pred_intervals.to_numpy()
+        # # Convert lists to single values
+        # pred_intervals = np.array([[interval[0][0], interval[1][0]] for interval in pred_intervals])
         return pred_intervals
     
     def _majority_vote_helper(self, row, K, tau):
@@ -121,3 +121,30 @@ if __name__ == "__main__":
     conformal_majority_vote = MajorityVote(models)
     conformal_majority_vote.fit(X, y)
     print(conformal_majority_vote.predict(X))
+
+    def evaluate_majority_vote(y_true, y_pred):
+        cover = 0
+        width = []
+        for i in range(len(y_pred)):
+            tv = y_true[i]
+            lower = y_pred[i, 0]
+            upper = y_pred[i, 1]
+            cover += np.any([l <= tv and u >= tv for l, u in zip(lower, upper)])
+            width.append(np.sum([u - l for l, u in zip(lower, upper)]))
+
+        coverage = cover / len(y_true)
+        avg_length = np.mean(width)
+        med_length = np.median(width)
+        range_y_test = y_true.max() - y_true.min()
+
+        # Compile results into a DataFrame
+        result_dict = {'coverage': coverage,
+        'mean_width': avg_length,
+        'median_width': med_length,
+        'mean_width_scaled': avg_length / range_y_test,
+        'median_width_scaled': med_length / range_y_test}
+
+        return result_dict
+    
+    print(evaluate_majority_vote(y, conformal_majority_vote.predict(X)))
+    
