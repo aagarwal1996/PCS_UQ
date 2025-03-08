@@ -60,21 +60,3 @@ def get_regression_datasets(dataset_name):
     return X, y, bin_df, importance
 
 
-
-
-# def get_conformal_methods(models):
-#     methods = {}
-#     for model_name, model in models.items():
-#         methods[f"split_conformal_{model_name}"] = SplitConformal(model=model)
-#         methods[f"studentized_conformal_{model_name}"] = StudentizedConformal(mean_model=model, sd_model=model)
-#         #methods[f"local_conformal_{model_name}"] = LocalConformalRegressor(model=model)
-#     return methods
-
-# def get_pcs_methods(models):
-#     methods = {}
-#     pcs_uq = PCS_UQ(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False)
-#     pcs_oob = PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False)
-#     return {
-#         "pcs_uq": pcs_uq,
-#         "pcs_oob": pcs_oob
-#     }

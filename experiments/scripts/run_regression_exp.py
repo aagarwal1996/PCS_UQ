@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Example methods dictionary
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", type=str, required=True, help="Name of dataset to run experiments on")
+    parser.add_argument("--dataset", type=str, default="data_parkinsons", help="Name of dataset to run experiments on")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--UQ_method", type=str, default="split_conformal", help="UQ method to use")
     parser.add_argument("--estimator", type=str, default="XGBoost", help="Estimator to use")

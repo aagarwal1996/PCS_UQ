@@ -21,7 +21,7 @@ DATASETS = [
     "data_diamond",
     "data_superconductor",
     "data_ca_housing",
-    "data_protein_structure",
+    #"data_protein_structure",
 ]
 
 MODELS = {

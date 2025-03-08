@@ -18,10 +18,11 @@ source activate pcs_uq
 DATASETS=("data_parkinsons" "data_airfoil" "data_computer" "data_concrete" "data_powerplant"
           "data_miami_housing" "data_insurance" "data_qsar" "data_allstate" "data_mercedes"
           "data_energy_efficiency" "data_kin8nm" "data_naval_propulsion" "data_diamond"
-          "data_superconductor" "data_ca_housing" "data_protein_structure")
+          "data_superconductor" "data_ca_housing")
+          #"data_protein_structure")
 
 UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote"
-            "pcs_uq" "pcs_oob" "LocalConformalRegressor")
+            "pcs_uq" "pcs_oob")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")

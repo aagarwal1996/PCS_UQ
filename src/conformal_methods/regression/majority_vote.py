@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.datasets import make_regression
 
-class MajorityVoteConformal:
+class MajorityVote:
     def __init__ (self, models, alpha = 0.1, seed = 42):
         """
         Initialize the Conformal Majority Vote model
@@ -78,13 +78,15 @@ class MajorityVoteConformal:
             all_bounds[:, i] = model_intervals[model_name][:, 0]
             all_bounds[:, self.K + i] = model_intervals[model_name][:, 1]
         all_bounds_df = pd.DataFrame(all_bounds)
-        print(all_bounds_df)
         pred_intervals = all_bounds_df.apply(
             lambda row: self._majority_vote_helper(row, 
                                                    self.K, 
                                                    tau), 
             axis=1, 
             result_type='expand').rename(columns={0: 'lower', 1: 'upper'})
+        pred_intervals = pred_intervals.to_numpy()
+        # Convert lists to single values
+        pred_intervals = np.array([[interval[0][0], interval[1][0]] for interval in pred_intervals])
         return pred_intervals
     
     def _majority_vote_helper(self, row, K, tau):
