@@ -23,7 +23,7 @@ DATASETS=("data_parkinsons" "data_airfoil" "data_computer" "data_concrete" "data
           "data_superconductor" "data_ca_housing" "data_protein_structure")
 
 UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote"
-            "LocalConformalRegressor" "pcs_uq" "pcs_oob")
+            "pcs_uq" "pcs_oob" "LocalConformalRegressor")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")
