@@ -213,22 +213,33 @@ class PCS_UQ:
 
         
     # TODO: binary search for the best gamma
-    def calibrate(self, intervals, y_calib, gamma_min = 0.0, gamma_max = 5.0):
+    def calibrate(self, intervals, y_calib, gamma_min = 1.0, gamma_max = 100.0, tol = 1e-6):
         """
         Calibrate the intervals
         """
-        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(5e6))
-        coverage_list = []
-        width_list = []
-        # TODO: binary search for the best gamma
-        best_gamma = gamma_min
-        for gamma in gamma_range:
+        # gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = num_points)
+        # coverage_list = []
+        # width_list = []
+        # Binary search to find minimum gamma that achieves target coverage
+        left = gamma_min
+        right = gamma_max
+        best_gamma = gamma_max
+        target_coverage = 1.0 - self.alpha
+        
+        while right - left > tol:
+            gamma = (left + right) / 2
             lb = intervals[:, 1] - gamma * (intervals[:, 1] - intervals[:, 0])
             ub = intervals[:, 1] + gamma * (intervals[:, 2] - intervals[:, 1])
             coverage = np.mean((y_calib >= lb) & (y_calib <= ub))
-            if coverage >= 1.0 - self.alpha:
+            
+            if coverage >= target_coverage:
+                # Current gamma achieves coverage, try smaller gamma
                 best_gamma = gamma
-                break
+                right = gamma
+            else:
+                # Current gamma doesn't achieve coverage, try larger gamma
+                left = gamma
+                
         self.gamma = best_gamma
         return best_gamma
 

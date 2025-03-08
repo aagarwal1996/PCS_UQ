@@ -6,10 +6,14 @@ from sklearn.ensemble import RandomForestRegressor
 from src.conformal_methods.regression.split_conformal import SplitConformal
 
 def get_coverage(y_true, y_pred):
+    if len(y_true) == 0:
+        return np.nan
     coverage_indicator = (y_true >= y_pred[:, 0]) & (y_true <= y_pred[:, 1]).astype(int)
     return np.mean(coverage_indicator)
 
 def get_mean_width(y_true, y_pred, return_scaled=False):
+    if len(y_true) == 0:
+        return np.nan
     mean_width = np.mean(np.abs(y_pred[:, 1] - y_pred[:, 0]))
     if return_scaled:
         scaled_mean_width = mean_width / np.abs(y_true.max() - y_true.min())
@@ -17,6 +21,8 @@ def get_mean_width(y_true, y_pred, return_scaled=False):
     return mean_width
 
 def get_median_width(y_true, y_pred, return_scaled=False):
+    if len(y_true) == 0:
+        return np.nan
     median_width = np.median(np.abs(y_pred[:, 1] - y_pred[:, 0]))
     if return_scaled:
         scaled_median_width = median_width / np.abs(y_true.max() - y_true.min())

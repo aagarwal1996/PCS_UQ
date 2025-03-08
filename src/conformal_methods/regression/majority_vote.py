@@ -118,6 +118,6 @@ if __name__ == "__main__":
         'lr': LinearRegression(),
         'extraTrees': ExtraTreesRegressor()
     }
-    conformal_majority_vote = MajorityVoteConformal(models)
+    conformal_majority_vote = MajorityVote(models)
     conformal_majority_vote.fit(X, y)
     print(conformal_majority_vote.predict(X))
