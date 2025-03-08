@@ -1,4 +1,5 @@
-from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, ElasticNetCV
+from sklearn.linear_model import LinearRegression, RidgeCV
+from celer import LassoCV, ElasticNetCV
 from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoostRegressor
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
@@ -21,14 +22,15 @@ DATASETS = [
     "data_diamond",
     "data_superconductor",
     "data_ca_housing",
-    #"data_protein_structure",
+    "data_ailerons",
+    "data_elevator",
 ]
 
 MODELS = {
-    "OLS": LinearRegression(),
+    "OLS": LinearRegression(n_jobs = -1),
     "Ridge": RidgeCV(),
-    "Lasso": LassoCV(max_iter = 1000, cv = 3, n_jobs = -1),
-    "ElasticNet": ElasticNetCV(max_iter = 1000, cv = 3, n_jobs = -1),
+    "Lasso": LassoCV(cv = 3, n_jobs = -1),
+    "ElasticNet": ElasticNetCV(cv = 3, n_jobs = -1),
     "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42, n_jobs = -1),
     "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42, n_jobs = -1),
     "AdaBoost": AdaBoostRegressor(random_state = 42),
