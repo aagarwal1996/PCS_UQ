@@ -213,7 +213,7 @@ class PCS_UQ:
 
         
     # TODO: binary search for the best gamma
-    def calibrate(self, intervals, y_calib, gamma_min = 1.0, gamma_max = 100.0, tol = 1e-6):
+    def calibrate(self, intervals, y_calib, gamma_min = 1.0, gamma_max = 1000.0, tol = 1e-6):
         """
         Calibrate the intervals
         """

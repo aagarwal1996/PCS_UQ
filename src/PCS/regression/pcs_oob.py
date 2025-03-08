@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import pickle
 import copy
+from tqdm import tqdm
 # Sklearn Imports
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
@@ -68,7 +69,7 @@ class PCS_OOB(PCS_UQ):
             self.bootstrap_models[model_name] = []
             self.oob_indices[model_name] = []
             
-            for i in range(self.num_bootstraps):
+            for i in tqdm(range(self.num_bootstraps), desc=f"Training {model_name} models"):
                 bootstrap_seed = self.seed + i
                 # Try to load existing bootstrap model and OOB indices if enabled
                 model_path = f"{self.save_path}/pcs_oob/{model_name}_model_seed_{bootstrap_seed}.pkl" if self.save_path else None
@@ -106,6 +107,7 @@ class PCS_OOB(PCS_UQ):
                             pickle.dump(oob_indices, f)
                 
                 self.bootstrap_models[model_name].append(bootstrap_model)
+            print(f"Finished training {model_name} models")
 
     def _pred_check(self, X, y):
         """

@@ -5,6 +5,32 @@ from sklearn.ensemble import RandomForestRegressor
 
 from src.conformal_methods.regression.split_conformal import SplitConformal
 
+
+def evaluate_majority_vote(y_true, y_pred):
+        cover = 0
+        width = []
+        for i in range(len(y_pred)):
+            tv = y_true[i]
+            lower = y_pred[i, 0]
+            upper = y_pred[i, 1]
+            cover += np.any([l <= tv and u >= tv for l, u in zip(lower, upper)])
+            width.append(np.sum([u - l for l, u in zip(lower, upper)]))
+
+        coverage = cover / len(y_true)
+        avg_length = np.mean(width)
+        med_length = np.median(width)
+        range_y_test = y_true.max() - y_true.min()
+
+        # Compile results into a DataFrame
+        result_dict = {'coverage': coverage,
+        'mean_width': avg_length,
+        'median_width': med_length,
+        'mean_width_scaled': avg_length / range_y_test,
+        'median_width_scaled': med_length / range_y_test}
+
+        return result_dict
+
+
 def get_coverage(y_true, y_pred):
     if len(y_true) == 0:
         return np.nan

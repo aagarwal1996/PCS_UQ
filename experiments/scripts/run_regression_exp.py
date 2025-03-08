@@ -22,7 +22,7 @@ from src.conformal_methods.regression.studentized_conformal import StudentizedCo
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
 # Metrics imports
-from src.metrics.regression_metrics import get_all_metrics
+from src.metrics.regression_metrics import get_all_metrics, evaluate_majority_vote
 
 # Experiment configs
 from experiments.configs.regression_configs import get_regression_datasets, get_conformal_methods, get_pcs_methods
@@ -31,7 +31,7 @@ from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMA
 def agg_results():
     pass
 
-def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance):
+def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, method_name):
     all_subgroup_metrics = {}
     for imp_var in importance['feature']:
         subgroup_indicator = bin_df_test[imp_var]
@@ -49,7 +49,10 @@ def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance):
             subgroup_y_test = subgroup_df['y_test'].values
             subgroup_y_pred = np.column_stack((subgroup_df['y_pred_lb'].values, 
                                              subgroup_df['y_pred_ub'].values))
-            subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
+            if method_name == "majority_vote":
+                subgroup_metrics[subgroup] = evaluate_majority_vote(subgroup_y_test, subgroup_y_pred)
+            else:
+                subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
             
         all_subgroup_metrics[imp_var] = subgroup_metrics
     return all_subgroup_metrics
@@ -74,6 +77,11 @@ def run_regression_experiments(
     
     # Create directories if they don't exist
     dataset_path.mkdir(parents=True, exist_ok=True)
+    metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_metrics.pkl'
+
+    if os.path.exists(metrics_file):
+        print(f"Metrics file {metrics_file} already exists. Skipping experiment.\n", flush=True)
+        return
 
     X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, train_size=train_size, random_state=seed)
     X_train, y_train, bin_df_train, X_df_train = X_train[:max_samples], y_train[:max_samples], bin_df_train[:max_samples], X_df_train[:max_samples]
@@ -81,7 +89,10 @@ def run_regression_experiments(
     print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
     uq_method.fit(X_train, y_train)
     y_pred = uq_method.predict(X_test)
-    metrics = get_all_metrics(y_test, y_pred)
+    if method_name == "majority_vote":
+        metrics = evaluate_majority_vote(y_test, y_pred)
+    else:
+        metrics = get_all_metrics(y_test, y_pred)
     print(f"{method_name}: {metrics}\n", flush=True)
     # Save metrics as pickle file
 

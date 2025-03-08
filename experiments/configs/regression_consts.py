@@ -27,14 +27,13 @@ DATASETS = [
 MODELS = {
     "OLS": LinearRegression(),
     "Ridge": RidgeCV(),
-    "Lasso": LassoCV(max_iter = 1000, cv = 3),
-    "ElasticNet": ElasticNetCV(max_iter = 1000, cv = 3),
-    "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
-    "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42),
+    "Lasso": LassoCV(max_iter = 1000, cv = 3, n_jobs = -1),
+    "ElasticNet": ElasticNetCV(max_iter = 1000, cv = 3, n_jobs = -1),
+    "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42, n_jobs = -1),
+    "ExtraTrees": ExtraTreesRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42, n_jobs = -1),
     "AdaBoost": AdaBoostRegressor(random_state = 42),
-    "XGBoost": XGBRegressor(random_state = 42),
-    "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
-}
+    "XGBoost": XGBRegressor(random_state = 42, n_jobs = -1),
+    "MLP": MLPRegressor(random_state = 42, hidden_layer_sizes = (64,))}
 
 TEST_MODELS = {"XGBoost": XGBRegressor(random_state = 42)}
 
