@@ -212,18 +212,16 @@ class PCS_UQ:
         return intervals
 
         
-       
-    def calibrate(self, intervals, y_calib):
+    # TODO: binary search for the best gamma
+    def calibrate(self, intervals, y_calib, gamma_min = 0.0, gamma_max = 5.0):
         """
         Calibrate the intervals
         """
-        gamma_min = 0.0
-        gamma_max = 2.0# TODO: find a better upper bound
-        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(1e6))
+        gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = int(5e6))
         coverage_list = []
         width_list = []
         # TODO: binary search for the best gamma
-        best_gamma = 0.0
+        best_gamma = gamma_min
         for gamma in gamma_range:
             lb = intervals[:, 1] - gamma * (intervals[:, 1] - intervals[:, 0])
             ub = intervals[:, 1] + gamma * (intervals[:, 2] - intervals[:, 1])

@@ -94,7 +94,7 @@ def run_regression_experiments(
     # Calculate subgroup metrics
     all_subgroup_metrics = get_subgroup_metrics(X_df_test, y_test, y_pred, bin_df_test, importance)
     print("Finished calculating subgroup metrics\n", flush=True)
-
+    print(all_subgroup_metrics)
     # Save subgroup metrics
     subgroup_metrics_file = seed_path / f"{method_name}_subgroup_metrics.pkl"
     with open(subgroup_metrics_file, 'wb') as f:

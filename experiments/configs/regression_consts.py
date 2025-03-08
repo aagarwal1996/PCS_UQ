@@ -36,6 +36,7 @@ MODELS = {
     "MLP": MLPRegressor(max_iter = 5000, random_state = 42),
 }
 
+TEST_MODELS = {"XGBoost": XGBRegressor(random_state = 42)}
 
 VALID_UQ_METHODS = [
     'split_conformal',
@@ -55,6 +56,7 @@ VALID_ESTIMATORS = [
     'Ridge',
     'Lasso',
     'ElasticNet',
+    'MLP'
 ]
 
 SINGLE_CONFORMAL_METHODS = [

@@ -19,7 +19,7 @@ from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
-from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
+from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS, TEST_MODELS
 
 #MODELS = {"XGBoost": XGBRegressor(random_state = 42)}#, "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
 #MODELS = {"LightGBM": LGBMRegressor(random_state = 42)}
@@ -30,7 +30,7 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
         return SplitConformal(model=MODELS[model_name], seed = seed), f"split_conformal_{model_name}"
     elif conformal_type == "studentized_conformal":
         return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name], seed = seed), f"studentized_conformal_{model_name}"
-    elif conformal_type == "local_conformal":
+    elif conformal_type == "LocalConformalRegressor":
         return LocalConformalRegressor(model=MODELS[model_name], seed = seed), f"local_conformal_{model_name}"
     elif conformal_type == "majority_vote":
         return NotImplementedError("Majority vote conformal method not implemented")
@@ -39,7 +39,7 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
-        return PCS_UQ(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed)
+        return PCS_UQ(models=TEST_MODELS, num_bootstraps=50, alpha=0.1, top_k=1, load_models=False, seed = seed)
     elif pcs_type == "pcs_oob":
         return PCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed)
     else:
