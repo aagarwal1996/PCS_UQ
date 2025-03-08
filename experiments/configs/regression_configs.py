@@ -18,6 +18,7 @@ from src.PCS.regression.pcs_oob import PCS_OOB
 from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
+from src.conformal_methods.regression.majority_vote import MajorityVote
 
 from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS, TEST_MODELS
 
@@ -33,7 +34,7 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
     elif conformal_type == "LocalConformalRegressor":
         return LocalConformalRegressor(model=MODELS[model_name], seed = seed), f"local_conformal_{model_name}"
     elif conformal_type == "majority_vote":
-        return NotImplementedError("Majority vote conformal method not implemented")
+        return MajorityVote(models=MODELS, seed = seed), f"majority_vote"
     else:
         raise ValueError(f"Invalid conformal method: {conformal_type}")
 
