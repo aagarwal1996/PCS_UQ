@@ -14,7 +14,6 @@ DATASETS = [
     "data_miami_housing",
     "data_insurance",
     "data_qsar",
-    "data_allstate",
     "data_energy_efficiency",
     "data_kin8nm",
     "data_naval_propulsion",
