@@ -51,12 +51,13 @@ class PCS_OOB(PCS_UQ):
         self._train(X, y)
         self._pred_check(X, y)
         self._get_top_k()
+        self._train_top_k(X, y)
         uncalibrated_intervals = self.get_intervals(X)
         self.uncalibrated_metrics = get_all_metrics(y, uncalibrated_intervals[:,[0,2]])
         self.gamma = self.calibrate(uncalibrated_intervals, y)
         
 
-    def _train(self, X, y):
+    def _train_top_k(self, X, y):
         """
         Train the models and store out-of-bag indices
         """
@@ -64,7 +65,7 @@ class PCS_OOB(PCS_UQ):
         self.bootstrap_models = {}
         self.oob_indices = {}
         
-        for model_name, model in self.models.items():
+        for model_name, model in self.top_k_models.items():
             # Initialize lists for each model
             self.bootstrap_models[model_name] = []
             self.oob_indices[model_name] = []
@@ -109,37 +110,37 @@ class PCS_OOB(PCS_UQ):
                 self.bootstrap_models[model_name].append(bootstrap_model)
             print(f"Finished training {model_name} models")
 
-    def _pred_check(self, X, y):
-        """
-        Check the predictions of the models using out-of-bag samples.
-        Updates self.pred_scores with the average OOB performance of each model.
-        """
-        for model_name in self.models.keys():
-            scores = []
-            # For each bootstrap iteration
-            for i in range(self.num_bootstraps):
-                # Get the OOB indices and corresponding samples
-                oob_indices = self.oob_indices[model_name][i]
-                X_oob = X[oob_indices]
-                y_oob = y[oob_indices]
+    # def _pred_check(self, X, y):
+    #     """
+    #     Check the predictions of the models using out-of-bag samples.
+    #     Updates self.pred_scores with the average OOB performance of each model.
+    #     """
+    #     for model_name in self.models.keys():
+    #         scores = []
+    #         # For each bootstrap iteration
+    #         for i in range(self.num_bootstraps):
+    #             # Get the OOB indices and corresponding samples
+    #             oob_indices = self.oob_indices[model_name][i]
+    #             X_oob = X[oob_indices]
+    #             y_oob = y[oob_indices]
                 
-                # Get predictions from the corresponding bootstrap model
-                bootstrap_model = self.bootstrap_models[model_name][i]
-                y_pred = bootstrap_model.predict(X_oob)
-                # Calculate performance metric
-                score = self.metric(y_oob, y_pred)
-                scores.append(score)
+    #             # Get predictions from the corresponding bootstrap model
+    #             bootstrap_model = self.bootstrap_models[model_name][i]
+    #             y_pred = bootstrap_model.predict(X_oob)
+    #             # Calculate performance metric
+    #             score = self.metric(y_oob, y_pred)
+    #             scores.append(score)
             
-            # Update pred_scores with the average OOB score across all bootstraps
-            self.pred_scores[model_name] = np.mean(scores)
+    #         # Update pred_scores with the average OOB score across all bootstraps
+    #         self.pred_scores[model_name] = np.mean(scores)
     
-    def _get_top_k(self):
-        """
-        Get the top k models based on the prediction scores
-        """
-        # Update top_k_models based on prediction scores
-        sorted_models = sorted(self.pred_scores.items(), key=lambda x: x[1], reverse=True)
-        self.top_k_models = [model_name for model_name, _ in sorted_models[:self.top_k]]
+    # def _get_top_k(self):
+    #     """
+    #     Get the top k models based on the prediction scores
+    #     """
+    #     # Update top_k_models based on prediction scores
+    #     sorted_models = sorted(self.pred_scores.items(), key=lambda x: x[1], reverse=True)
+    #     self.top_k_models = [model_name for model_name, _ in sorted_models[:self.top_k]]
 
     def get_intervals(self, X):
         """

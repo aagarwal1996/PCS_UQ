@@ -7,7 +7,7 @@
 #SBATCH --partition=jsteinhardt
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=aa3797@berkeley.edu
-#SBATCH --array=0-1500  
+#SBATCH --array=0-6000
 
 # Activate Conda environment
 module load python/3.10  # Change this based on your cluster setup
@@ -15,17 +15,13 @@ conda init
 source activate pcs_uq
 
 # Define parameters
-# DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil" 
-#           "data_computer" "data_concrete" "data_powerplant" "data_miami_housing" 
-#           "data_insurance" "data_qsar" "data_allstate" "data_mercedes"
-#           "data_energy_efficiency" "data_kin8nm" "data_naval_propulsion" 
-#           "data_superconductor" "data_ailerons" "data_elevator")
-#           #"data_protein_structure")
+DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil" 
+          "data_computer" "data_concrete" "data_powerplant" "data_miami_housing" 
+          "data_insurance" "data_qsar" "data_allstate" "data_energy_efficiency" 
+          "data_kin8nm" "data_naval_propulsion" "data_superconductor" 
+          "data_elevator" "data_protein_structure" "data_debutanizer")
 
-DATASETS=("data_qsar" "data_ailerons" "data_elevator")
-
-UQ_METHODS=("split_conformal" "studentized_conformal" "pcs_uq" "pcs_oob")
-#UQ_METHODS=("pcs_oob")
+UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")
@@ -33,7 +29,7 @@ ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
 REDUCED_ESTIMATORS=("XGBoost")  # For majority_vote, pcs_uq, pcs_oob
 
 
-SEEDS=(0 1 2 3 4 5 6 7 8 9)  # Modify as needed
+SEEDS=(777 778 779 780 781 782 783 784 785 786)  # Modify as needed
 
 TRAIN_SIZES=(0.8)
 
@@ -56,7 +52,6 @@ if [[ "$TOTAL_JOBS" -le 0 ]]; then
     echo "Error: No jobs to submit. Check dataset, UQ method, or estimator definitions."
     exit 1
 fi
-
 
 # Compute task index
 TASK_ID=$SLURM_ARRAY_TASK_ID

@@ -28,8 +28,6 @@ from src.metrics.regression_metrics import get_all_metrics, evaluate_majority_vo
 from experiments.configs.regression_configs import get_regression_datasets, get_conformal_methods, get_pcs_methods
 from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
 
-def agg_results():
-    pass
 
 def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, method_name):
     all_subgroup_metrics = {}
@@ -115,6 +113,88 @@ def run_regression_experiments(
     subgroup_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_subgroup_metrics.pkl'
     with open(subgroup_metrics_file, 'wb') as f:
         pickle.dump(all_subgroup_metrics, f)
+
+def agg_results(dataset_name=None, results_dir="experiments/results/regression", train_size=0.8):
+    """
+    Aggregate results across all seeds for a given dataset and method.
+    
+    Parameters:
+    -----------
+    dataset_name : str, optional
+        Name of the dataset to aggregate results for. If None, aggregates for all datasets.
+    results_dir : str, default="experiments/results/regression"
+        Directory where results are stored.
+    train_size : float, default=0.8
+        Train size used in the experiments.
+    """
+    import pickle
+    import numpy as np
+    from pathlib import Path
+    
+    results_path = Path(results_dir)
+    
+    # If dataset_name is None, process all datasets
+    if dataset_name is None:
+        datasets = [d.name for d in results_path.iterdir() if d.is_dir()]
+    else:
+        datasets = [dataset_name]
+    
+    for dataset in datasets:
+        dataset_path = results_path / dataset
+        if not dataset_path.exists():
+            print(f"Dataset path {dataset_path} does not exist. Skipping.")
+            continue
+        
+        # Find all unique methods by looking at the metrics files
+        all_files = list(dataset_path.glob(f"*_seed_*_train_size_{train_size}_metrics.pkl"))
+        methods = set()
+        for file in all_files:
+            # Extract method name from filename
+            filename = file.name
+            method_name = filename.split("_seed_")[0]
+            methods.add(method_name)
+        
+        # For each method, aggregate results across seeds
+        for method in methods:
+            print(f"Aggregating results for {method} on {dataset}")
+            
+            # Find all seed files for this method
+            method_files = list(dataset_path.glob(f"{method}_seed_*_train_size_{train_size}_metrics.pkl"))
+            
+            if not method_files:
+                print(f"No files found for method {method}. Skipping.")
+                continue
+            
+            # Load all metrics
+            all_metrics = []
+            seeds = []
+            for file in method_files:
+                # Extract seed from filename
+                filename = file.name
+                seed = int(filename.split("_seed_")[1].split("_train_size_")[0])
+                seeds.append(seed)
+                
+                with open(file, 'rb') as f:
+                    metrics = pickle.load(f)
+                    all_metrics.append(metrics)
+            
+            # Calculate mean and std for each metric
+            agg_metrics = {}
+            for key in all_metrics[0].keys():
+                values = [m[key] for m in all_metrics]
+                agg_metrics[key] = {
+                    'mean': np.mean(values),
+                    'std': np.std(values),
+                    'values': values,
+                    'seeds': seeds
+                }
+            
+            # Save aggregated metrics
+            agg_file = f'{dataset_path}/{method}_train_size_{train_size}_agg_metrics.pkl'
+            with open(agg_file, 'wb') as f:
+                pickle.dump(agg_metrics, f)
+            
+            print(f"Saved aggregated metrics to {agg_file}")
 
 # Example usage:
 if __name__ == "__main__":

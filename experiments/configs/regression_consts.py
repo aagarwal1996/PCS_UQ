@@ -15,15 +15,16 @@ DATASETS = [
     "data_insurance",
     "data_qsar",
     "data_allstate",
-    "data_mercedes",
     "data_energy_efficiency",
     "data_kin8nm",
     "data_naval_propulsion",
     "data_diamond",
     "data_superconductor",
     "data_ca_housing",
-    "data_ailerons",
     "data_elevator",
+    "data_protein_structure",
+    "data_debutanizer",
+
 ]
 
 MODELS = {
