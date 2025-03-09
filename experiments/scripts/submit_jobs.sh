@@ -21,7 +21,7 @@ DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil"
           "data_kin8nm" "data_naval_propulsion" "data_superconductor" 
           "data_elevator" "data_protein_structure" "data_debutanizer")
 
-UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote")
+UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote" "pcs_uq" "pcs_oob")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")
