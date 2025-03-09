@@ -40,7 +40,7 @@ def get_all_uq_methods():
     return method_list
 
 
-def main(task = "regression"):
+def main(task = "regression", train_size = 0.8):
     results_dir = Path(f"experiments/results/{task}/")
     aggregated_results_dir = Path(f'{results_dir}/aggregated_results')
     os.makedirs(aggregated_results_dir, exist_ok=True)
@@ -49,16 +49,16 @@ def main(task = "regression"):
     for dataset in DATASETS:
         results_dataset = {}
         for uq_method, estimator in uq_methods:
-            results = agg_results_dataset_method(results_dir, dataset, uq_method, estimator)
+            results = agg_results_dataset_method(results_dir = results_dir, dataset_name = dataset, uq_method = uq_method, estimator = estimator, train_size = train_size)
             # Remove trailing underscores from method and estimator names
             results_dataset[(uq_method.rstrip('_'), estimator.rstrip('_'))] = results
         # Save dataset-specific results
-        dataset_results_file = aggregated_results_dir / f"{dataset}_results.pkl"
+        dataset_results_file = aggregated_results_dir / f"{dataset}_train_size_{train_size}_results.pkl"
         with open(dataset_results_file, 'wb') as f:
             pickle.dump(results_dataset, f)
         all_results[dataset] = results_dataset
     # Save all results
-    all_results_file = aggregated_results_dir / "all_results.pkl"
+    all_results_file = aggregated_results_dir / f"all_results_train_size_{train_size}.pkl"
     with open(all_results_file, 'wb') as f:
         pickle.dump(all_results, f)
     return all_results
@@ -68,7 +68,8 @@ def main(task = "regression"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", type=str, default="regression", help="Task to run")
+    parser.add_argument("--train_size", type=float, default=0.8, help="Train size")
     args = parser.parse_args()
-    main(args.task)
+    main(args.task, args.train_size)
 
     
