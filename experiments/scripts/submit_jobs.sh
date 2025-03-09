@@ -1,16 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=regression_exp
-#SBATCH --output=logs/regression_exp_%A_%a.out
-#SBATCH --error=logs/regression_exp_%A_%a.err
-#SBATCH --time=3:00:00  # Adjust time as needed
-#SBATCH --cpus-per-task=1  # Each task gets 1 CPU
+#SBATCH --job-name=reg_%A_%a
+#SBATCH --output=logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
+#SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
+#SBATCH --time=3:00:00
+#SBATCH --cpus-per-task=1
 #SBATCH --partition=jsteinhardt
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=aa3797@berkeley.edu
-#SBATCH --array=0-6000
 
-# Activate Conda environment
-module load python/3.10  # Change this based on your cluster setup
+# Create logs directory if it doesn't exist
+mkdir -p logs
+
+# Activate Conda environment correctly
 conda init
 source activate pcs_uq
 
@@ -28,7 +29,6 @@ ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
 
 REDUCED_ESTIMATORS=("XGBoost")  # For majority_vote, pcs_uq, pcs_oob
 
-
 SEEDS=(777 778 779 780 781 782 783 784 785 786)  # Modify as needed
 
 TRAIN_SIZES=(0.8)
@@ -37,12 +37,14 @@ TRAIN_SIZES=(0.8)
 TOTAL_JOBS=0
 for uq in "${UQ_METHODS[@]}"; do
     if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" ]]; then
-        estimators=("${REDUCED_ESTIMATORS[@]}")
+        TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#REDUCED_ESTIMATORS[@]} ))
     else
-        estimators=("${ALL_ESTIMATORS[@]}")
+        TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#ALL_ESTIMATORS[@]} ))
     fi
-    TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#estimators[@]} * ${#TRAIN_SIZES[@]} ))
 done
+
+# Subtract 1 since array jobs are 0-based
+MAX_ARRAY_INDEX=$((TOTAL_JOBS - 1))
 
 # **Debugging Statement**: Print Total Jobs
 echo "Total Jobs: $TOTAL_JOBS"
@@ -51,6 +53,14 @@ echo "Total Jobs: $TOTAL_JOBS"
 if [[ "$TOTAL_JOBS" -le 0 ]]; then
     echo "Error: No jobs to submit. Check dataset, UQ method, or estimator definitions."
     exit 1
+fi
+
+# Submit the array job from within the script
+if [[ "$SLURM_ARRAY_TASK_ID" == "" ]]; then
+    # This is the initial submission
+    echo "Submitting array job with indices 0-$MAX_ARRAY_INDEX"
+    sbatch --array=0-$MAX_ARRAY_INDEX "$0"
+    exit 0
 fi
 
 # Compute task index
@@ -89,6 +99,27 @@ for uq in "${UQ_METHODS[@]}"; do
     done
 done
 
-echo "Running job: $DATASET $UQ_METHOD $ESTIMATOR $SEED $TRAIN_SIZE"
+# Create dataset and UQ method specific log directory with absolute path
+LOG_DIR="logs/${DATASET}/${UQ_METHOD}/${ESTIMATOR}"
+mkdir -p "$LOG_DIR"
+
+# Set log file paths with absolute paths
+LOG_FILE="$LOG_DIR/${DATASET}_${UQ_METHOD}_${ESTIMATOR}_${SEED}_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out"
+ERR_FILE="$LOG_DIR/${DATASET}_${UQ_METHOD}_${ESTIMATOR}_${SEED}_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.err"
+
+# Redirect output before any echo statements
+exec 1>"$LOG_FILE"
+exec 2>"$ERR_FILE"
+
+echo "Starting job at $(date)"
+echo "Job parameters:"
+echo "Dataset: $DATASET"
+echo "UQ Method: $UQ_METHOD"
+echo "Estimator: $ESTIMATOR"
+echo "Seed: $SEED"
+echo "Train Size: $TRAIN_SIZE"
+
 # Run the Python script
 python experiments/scripts/run_regression_exp.py --dataset "$DATASET" --UQ_method "$UQ_METHOD" --seed "$SEED" --estimator "$ESTIMATOR" --train_size "$TRAIN_SIZE"
+
+echo "Job completed at $(date)"
