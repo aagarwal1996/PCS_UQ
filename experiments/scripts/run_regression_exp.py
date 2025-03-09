@@ -61,6 +61,7 @@ def run_regression_experiments(
     dataset_name,
     seed,
     uq_method,
+    uq_method_name,
     method_name,
     results_dir="experiments/results/regression",
     max_samples=5000, 
@@ -106,7 +107,7 @@ def run_regression_experiments(
 
     print("Calculating subgroup metrics\n", flush=True)
     # Calculate subgroup metrics
-    all_subgroup_metrics = get_subgroup_metrics(X_df_test, y_test, y_pred, bin_df_test, importance)
+    all_subgroup_metrics = get_subgroup_metrics(X_df_test, y_test, y_pred, bin_df_test, importance, uq_method_name)
     print("Finished calculating subgroup metrics\n", flush=True)
     print(all_subgroup_metrics)
     # Save subgroup metrics
@@ -154,5 +155,5 @@ if __name__ == "__main__":
     # Set random seed
     np.random.seed(args.seed)
 
-    run_regression_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, method_name=method_name, train_size=args.train_size)
+    run_regression_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
     agg_results()

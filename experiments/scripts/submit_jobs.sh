@@ -7,7 +7,7 @@
 #SBATCH --partition=jsteinhardt
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=aa3797@berkeley.edu
-#SBATCH --array=0-2000 
+#SBATCH --array=0-1500  
 
 # Activate Conda environment
 module load python/3.10  # Change this based on your cluster setup
