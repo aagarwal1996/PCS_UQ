@@ -79,6 +79,8 @@ def process_empty_set(y_true, y_pred, empty_set):
     elif empty_set == 'to_full':
         y_pred = deepcopy(y_pred)
         y_pred[y_pred.sum(axis=1) == 0] = 1
+    else:
+        raise ValueError(f"empty_set must be either 'remove' or 'to_full', got {empty_set}")
     return y_true, y_pred
 
 if __name__ == "__main__":
