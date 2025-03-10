@@ -10,6 +10,28 @@ from pathlib import Path
 # Experiment configs
 from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
 SEEDS = [777, 778, 779, 780, 781, 782, 783, 784, 785, 786]
+
+def convert_results_to_df(results_dict):    
+    # Convert dictionary to DataFrame
+    df = pd.DataFrame.from_dict(
+        {(dataset, method_hyperparam): metrics
+        for dataset, methods in results_dict.items()
+        for method_hyperparam, metrics in methods.items()},
+        orient='index'
+    )
+
+    # # Convert index into MultiIndex
+    # df.index = pd.MultiIndex.from_tuples(df.index, names=['Dataset', 'Method', 'Estimator'])
+
+    # # Unstack so that columns follow (Method, Hyperparam) → Metrics format
+    # df = df.unstack(level=[1, 2])
+
+    # # Swap levels to achieve desired format (Method (Hyperparam) → Metric 1, Metric 2, ...)
+    # df.columns = df.columns.swaplevel(0, 1)
+    # df.columns = df.columns.swaplevel(0, 2)
+    # df = df.sort_index(axis=1)  # Sort for readability
+    return df
+
 def agg_results_dataset_method(results_dir, dataset_name = 'data_parkinsons', uq_method = 'split_conformal', estimator = 'XGBoost', train_size = 0.8):
     results = []
     for seed in SEEDS:
