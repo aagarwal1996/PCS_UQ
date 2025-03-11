@@ -28,17 +28,18 @@ class LAC:
         self.cv = cv
         self.random_state = random_state
         self._n_classes = None
-        self._temperature_scaling = temperature_scaling
+        self.temperature_scaling = temperature_scaling
+    
     def fit(self, X, y):
         X_train, X_cal, y_train, y_cal = train_test_split(X, y, test_size=0.5, random_state=self.random_state)
         self.model.fit(X_train, y_train)
         self._n_classes = len(np.unique(y))
-        if self._temperature_scaling:
-            self._temperature_scaling(X_cal, y_cal)
+        if self.temperature_scaling:
+            self._perform_temperature_scaling(X_cal, y_cal)
         
         self.calibrate(X_cal, y_cal)
    
-    def _temperature_scaling(self, X_cal, y_cal):
+    def _perform_temperature_scaling(self, X_cal, y_cal):
         self.model = FrozenEstimator(self.model)
         self.model = CalibratedClassifierCV(self.model,cv=self.cv)
         self.model.fit(X_cal, y_cal)
@@ -46,7 +47,14 @@ class LAC:
     def calibrate(self, X_cal, y_cal):
         class_labels = self.model.classes_
         class_idx = np.argsort(class_labels)
-        print(class_idx)
+        predicted_probs = self.model.predict_proba(X_cal)[:, class_idx]
+        correct_prob_val = predicted_probs[:, y_cal]
+        self.q = np.quantile(correct_prob_val, self.alpha)
+
+    def predict(self, X):
+        predicted_probs = self.model.predict_proba(X)[:, np.argsort(self.model.classes_)]
+        return pd.DataFrame(predicted_probs).apply(lambda r: (r > self.q).astype(int), axis=1, result_type='expand')
+
 
 if __name__ == "__main__":
     # Example usage of RAPS for classification
@@ -67,5 +75,7 @@ if __name__ == "__main__":
     
     # Fit the model
     lac.fit(X_train, y_train)
+    preds = lac.predict(X_test)
+    print(preds)
     
     
