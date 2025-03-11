@@ -66,7 +66,7 @@ class MultiClassConformal:
         """
         
         if self.temperature_scaling:
-            self.model = CalibratedClassifierCV(self.model,cv=3)
+            self.model = CalibratedClassifierCV(self.model)
             self.model.fit(X, y)
         else:
             self.model.fit(X, y)    
