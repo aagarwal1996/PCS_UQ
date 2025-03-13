@@ -17,11 +17,11 @@ pip install pcs_uq
 
 ### Environment Setup 
 
-Set up the environment with the following commands: 
+Set up the environment with the following commands using [uv](      https://github.com/astral-sh/uv): 
 ```bash
-conda create -n pcs_uq python=3.10 
-pip install -r requirements.txt 
-pip install -e . 
+uv venv --python=python3.10 .venv
+source .venv/bin/activate 
+uv pip install -r requirements.txt
 ```
 
 
@@ -29,11 +29,15 @@ pip install -e .
 
 We provide a simple example of how to use PCS UQ to generate prediction intervals/sets. 
 ```python
-from pcs_uq import PCS
+from src.pcs.regression.pcs_oob import PCS_OOB
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 
-pcs = PCS(num_bootstraps = 100, estimators = [RandomForestRegressor(), LinearRegression()]) # initialize the PCS object and provide list of models to fit as well as number of bootstraps
+models = {"RF": RandomForestRegressor(), "OLS": LinearRegression()}
+pcs = PCS_OOB(num_bootstraps = 100, models = models) # initialize the PCS object and provide list of models to fit as well as number of bootstraps
+
+# TODO: add the data
+
 pcs.fit(X, y) # fit the model
 pcs.calibrate(X,y) # calibrate the model
 pcs.predict(X) # generate prediction intervals/sets

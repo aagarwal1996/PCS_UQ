@@ -13,8 +13,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_regression
 
 # PCS imports
-from src.PCS.regression.pcs_uq import PCS_UQ
-from src.PCS.regression.pcs_oob import PCS_OOB
+from src.pcs.regression.pcs_uq import PCS_UQ
+from src.pcs.regression.pcs_oob import PCS_OOB
 
 # Conformal prediction imports
 from src.conformal_methods.regression.split_conformal import SplitConformal
