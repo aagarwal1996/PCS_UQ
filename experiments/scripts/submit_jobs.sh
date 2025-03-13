@@ -1,19 +1,19 @@
 #!/bin/bash
 #SBATCH --job-name=reg_%A_%a
-#SBATCH --output=logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
-#SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
+#SBATCH --output=output.out  # SLURM logs inside job-specific folder
+##SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
 #SBATCH --time=3:00:00
 #SBATCH --cpus-per-task=1
-#SBATCH --partition=jsteinhardt
+#SBATCH --partition=yugroup
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=aa3797@berkeley.edu
+#SBATCH --mail-user=omer_ronen@berkeley.edu
 
-# Create logs directory if it doesn't exist
+# # Create logs directory if it doesn't exist
 mkdir -p logs
 
-# Activate Conda environment correctly
-conda init
-source activate pcs_uq
+# # Activate Conda environment correctly
+# conda init
+# source activate pcs_uq
 
 # Define parameters
 DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil" 
@@ -120,6 +120,6 @@ echo "Seed: $SEED"
 echo "Train Size: $TRAIN_SIZE"
 
 # Run the Python script
-python experiments/scripts/run_regression_exp.py --dataset "$DATASET" --UQ_method "$UQ_METHOD" --seed "$SEED" --estimator "$ESTIMATOR" --train_size "$TRAIN_SIZE"
+/accounts/campus/omer_ronen/projects/PCS_UQ/.venv/bin/python experiments/scripts/run_regression_exp.py --dataset "$DATASET" --UQ_method "$UQ_METHOD" --seed "$SEED" --estimator "$ESTIMATOR" --train_size "$TRAIN_SIZE"
 
 echo "Job completed at $(date)"
