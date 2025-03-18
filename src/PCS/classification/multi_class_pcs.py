@@ -16,7 +16,7 @@ from sklearn.base import clone
 
 
 # PCS UQ Imports
-from calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration
+from calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration, multi_threshold_calibration
 from src.metrics.classification_metrics import get_all_metrics
 
 class MultiClassPCS:
@@ -208,7 +208,7 @@ class MultiClassPCS:
 if __name__ == "__main__":
     
     models = {
-        "rf": RandomForestClassifier(min_samples_leaf=10, n_estimators=50),
+        "rf": RandomForestClassifier(min_samples_leaf=50, n_estimators=50),
         'logistic': LogisticRegression()
     }
     X, y = make_classification(n_samples=2000, n_features=10, n_classes=3, n_informative=5)

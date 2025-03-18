@@ -191,6 +191,7 @@ def APS_calibration(X, y, bootstrap_models, alpha):
     cum_prob = np.cumsum(avg_predictions_sorted, axis=1)
     cum_prob_till_correct = cum_prob[correct_indices]
     gamma = np.quantile(cum_prob_till_correct, 1 - alpha)
+    print(gamma)
     
     return gamma, temperature
     
@@ -217,11 +218,16 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, temperature):
     all_predictions = np.dstack(all_predictions)
     avg_predictions = np.mean(all_predictions, axis=2)
     avg_predictions = softmax(avg_predictions)
+    
+    # Sort predictions, get class indices in descending order of predicted probabilities
     avg_predictions_sorted = np.sort(avg_predictions, axis=1)[:, ::-1]
     sorted_indices = np.argsort(-avg_predictions, axis=1) # descending order of predicted probabilities 
     
+    # Get cumulative probabilities
     cum_prob = np.cumsum(avg_predictions_sorted, axis=1)
     cum_prob_threshold = np.where(cum_prob < gamma, True, False)
+    
+    # Create prediction sets
     prediction_sets = np.zeros_like(avg_predictions)
     for i in range(len(X)):
         cum_prob_threshold_row = cum_prob_threshold[i]
@@ -230,6 +236,30 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, temperature):
             if cum_prob_threshold_row[j]:
                 prediction_sets[i, sorted_indices_row[j]] = 1
     return prediction_sets
+
+
+def multi_threshold_calibration(X, y, bootstrap_models, alpha):
+    """
+    Args: 
+        X: features of the calibration set
+        y: labels of the calibration set
+        bootstrap_models: dictionary of bootstrap models
+    """
+    model_list = [bootstrap_models[model] for model in bootstrap_models]
+    all_models = []
+    for model in model_list:
+        for j in range(len(model)):
+            all_models.append(model[j])
+    # Get all predictions from all models
+    all_predictions = []
+    for model in all_models:
+        all_predictions.append(model.predict_proba(X))
+    
+    all_predictions = np.dstack(all_predictions) # shape (n_samples, n_classes, n_models)
+    thresholds = np.quantile(all_predictions, 1 - alpha, axis=2)
+    return thresholds, 1.0
+
+
 
 def temperature_scaling(logits, y_true, cv=5):
     """
