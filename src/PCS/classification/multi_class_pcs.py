@@ -11,17 +11,17 @@ from sklearn.utils import resample
 from sklearn.ensemble import RandomForestClassifier  
 from sklearn.linear_model import RidgeClassifierCV, LogisticRegression
 from sklearn.datasets import make_classification
-from sklearn.metrics import mean_absolute_error, r2_score, roc_auc_score 
+from sklearn.metrics import mean_absolute_error, r2_score, roc_auc_score, log_loss
 from sklearn.base import clone
 
 
 # PCS UQ Imports
-from calibration_utils import model_prop_calibration
+from calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration
 from src.metrics.classification_metrics import get_all_metrics
 
 class MultiClassPCS:
     def __init__(self, models, num_bootstraps=100, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, 
-                 metric = roc_auc_score, calibration_method = 'model_prop'):
+                 metric = log_loss, calibration_method = 'model_prop'):
         """
         PCS UQ
 
@@ -43,11 +43,12 @@ class MultiClassPCS:
         self.load_models = load_models
         self.val_size = val_size
         self.metric = metric
-        self.pred_scores = {model: -np.inf for model in self.models}
+        self.pred_scores = {model: np.inf for model in self.models}
         self.top_k_models = None
         self.bootstrap_models = None
         self.calibration_method = calibration_method
         self.n_classes = None
+    
     def fit(self, X, y, alpha = 0.1):
         """
         Args: 
@@ -71,7 +72,7 @@ class MultiClassPCS:
         self.top_k_models = self._get_top_k()
         self._fit_bootstraps(X_train, y_train)
         #uncalibrated_intervals  = self.get_intervals(X_calib) # get the uncalibrated intervals and raw width/coverage
-        self.gamma = self.calibrate(X_calib, y_calib) # calibrate the intervals to get the best gamma 
+        self.gamma, self.temperature = self.calibrate(X_calib, y_calib) # calibrate the intervals to get the best gamma 
         self.prediction_sets = self.predict(X_test)
 
                 
@@ -110,8 +111,7 @@ class MultiClassPCS:
         """
         for model in self.models:
             y_pred = self.models[model].predict_proba(X)
-            self.pred_scores[model] = self.metric(y, y_pred, multi_class='ovr')
-
+            self.pred_scores[model] = self.metric(y, y_pred)
     def _get_top_k(self):
         """
         Args: 
@@ -120,7 +120,7 @@ class MultiClassPCS:
         1. Sort the models by the prediction score
         2. Return the top k models
         """
-        sorted_models = sorted(self.pred_scores, key=self.pred_scores.get, reverse=True)
+        sorted_models = sorted(self.pred_scores, key=self.pred_scores.get)
         top_k_model_names = sorted_models[:self.top_k]
         self.top_k_models = {model: self.models[model] for model in top_k_model_names}
         return self.top_k_models
@@ -186,55 +186,40 @@ class MultiClassPCS:
 
     def calibrate(self, X,y):
         if self.calibration_method == 'model_prop':
-            return model_prop_calibration(X, y, self.bootstrap_models, self.alpha)
+            gamma, temperature = model_prop_calibration(X, y, self.bootstrap_models, self.alpha)
+            return gamma, temperature
+        elif self.calibration_method == 'APS':
+            gamma, temperature = APS_calibration(X, y, self.bootstrap_models, self.alpha)
+            return gamma, temperature
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
         
     def predict(self, X):
         if self.calibration_method == 'model_prop':
-            return self.predict_model_prop_calibration(X)
+            return predict_model_prop_calibration(X, self.bootstrap_models, self.gamma, self.n_classes, self.temperature)
+        elif self.calibration_method == 'APS':
+            return predict_APS_calibration(X, self.bootstrap_models, self.gamma, self.n_classes, self.temperature)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
     
-    def predict_model_prop_calibration(self, X):
-        model_list = [self.bootstrap_models[model] for model in self.bootstrap_models]
-        all_models = []
-        for model in model_list:
-            for j in range(len(model)): 
-                all_models.append(model[j])
-        # Get all predictions from all models
-        
-        predictions = np.zeros((len(X), self.n_classes))
-        for j in range(len(all_models)):
-            print(all_models[j].predict(X))
-            predictions[np.arange(len(X)), all_models[j].predict(X)] += 1
-        # Normalize predictions by dividing each row by its sum
-        # This converts counts to probabilities
-        row_sums = np.sum(predictions, axis=1, keepdims=True)
-        normalized_predictions = predictions / row_sums
-        # Apply threshold using self.gamma
-        # If probability is greater than gamma, include in prediction set (1), otherwise exclude (0)
-        prediction_sets = np.zeros_like(normalized_predictions)
-        prediction_sets[normalized_predictions > self.gamma] = 1
-        
-        return prediction_sets
+    
         
 
 if __name__ == "__main__":
     
     models = {
-        "rf": RandomForestClassifier(min_samples_leaf=10),
+        "rf": RandomForestClassifier(min_samples_leaf=10, n_estimators=50),
         'logistic': LogisticRegression()
     }
     X, y = make_classification(n_samples=2000, n_features=10, n_classes=3, n_informative=5)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    pcs_uq = MultiClassPCS(models, save_path = 'test', load_models = False)
-    pcs_uq.fit(X_train, y_train)
-    predictions_sets =pcs_uq.predict(X_test)
-    metrics = get_all_metrics(y_test, predictions_sets)
-    print(metrics)
-    # intervals = pcs_uq.get_intervals(X_test)
-    # print(intervals)
+    calibration_method = ['APS']
+    for method in calibration_method:
+        pcs_uq = MultiClassPCS(models, save_path = 'test', load_models = False, calibration_method = method)
+        pcs_uq.fit(X_train, y_train)
+        predictions_sets =pcs_uq.predict(X_test)
+        metrics = get_all_metrics(y_test, predictions_sets)
+        print(metrics)
 
  # # Calculate indices for lower and upper bounds based on alpha
         # n_total = sorted_predictions.shape[1]  # Total number of predictions per point (K * B)
