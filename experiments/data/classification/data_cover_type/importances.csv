@@ -1,0 +1,14 @@
+feature,importance_rf
+Elevation,0.20481861811329963
+Horizontal_Distance_To_Fire_Points,0.14863364080524158
+Horizontal_Distance_To_Roadways,0.14449921924783926
+Horizontal_Distance_To_Hydrology,0.08349137624995893
+Vertical_Distance_To_Hydrology,0.07124415931882033
+Aspect,0.06533352283105068
+Hillshade_Noon,0.06288684230232601
+Hillshade_9am,0.06276706445049662
+Hillshade_3pm,0.055989150895103756
+Slope,0.05558204939173097
+Wilderness_Area3,0.02020502444592853
+Wilderness_Area1,0.01754499054571045
+Wilderness_Area2,0.007004341402493285
