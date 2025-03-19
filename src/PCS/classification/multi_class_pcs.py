@@ -13,15 +13,15 @@ from sklearn.linear_model import RidgeClassifierCV, LogisticRegression
 from sklearn.datasets import make_classification
 from sklearn.metrics import mean_absolute_error, r2_score, roc_auc_score, log_loss
 from sklearn.base import clone
-
+from sklearn.preprocessing import LabelEncoder
 
 # PCS UQ Imports
-from calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration
+from src.PCS.classification.calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration
 from src.metrics.classification_metrics import get_all_metrics
 
 class MultiClassPCS:
     def __init__(self, models, num_bootstraps=100, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, 
-                 metric = log_loss, calibration_method = 'model_prop'):
+                 metric = log_loss, calibration_method = 'APS'):
         """
         PCS UQ
 
@@ -66,14 +66,15 @@ class MultiClassPCS:
         self.n_classes = len(np.unique(y))
         if alpha is None:
             alpha = self.alpha
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
+        le = LabelEncoder()
+        y = le.fit_transform(y)
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed, stratify=y)
         self._train(X_train, y_train) # train the models such that they are ready for calibration, saved in self.models
         self._pred_check(X_calib, y_calib) # check the predictions of the models, saved in self.models
         self.top_k_models = self._get_top_k()
         self._fit_bootstraps(X_train, y_train)
         #uncalibrated_intervals  = self.get_intervals(X_calib) # get the uncalibrated intervals and raw width/coverage
         self.gamma, self.temperature = self.calibrate(X_calib, y_calib) # calibrate the intervals to get the best gamma 
-        self.prediction_sets = self.predict(X_test)
 
                 
 
@@ -137,6 +138,8 @@ class MultiClassPCS:
         """
         bootstrap_predictions = {model: [] for model in self.top_k_models}
         bootstrap_models = {model: [] for model in self.top_k_models}
+        self._flattened_bootstrap_models = []
+        self._classes_per_bootstrap = []
         
         for i in tqdm(range(self.num_bootstraps)):
             for model_name, model in self.top_k_models.items():
@@ -180,6 +183,8 @@ class MultiClassPCS:
                 # Get predictions for the original data
                 predictions = bootstrap_model.predict(X)
                 bootstrap_predictions[model_name].append(predictions)
+                self._flattened_bootstrap_models.append(bootstrap_model)
+                self._classes_per_bootstrap.append(np.unique(y_boot))
         
         self.bootstrap_models = bootstrap_models
         #return bootstrap_predictions
@@ -189,7 +194,8 @@ class MultiClassPCS:
             gamma, temperature = model_prop_calibration(X, y, self.bootstrap_models, self.alpha)
             return gamma, temperature
         elif self.calibration_method == 'APS':
-            gamma, temperature = APS_calibration(X, y, self.bootstrap_models, self.alpha)
+            gamma, temperature = APS_calibration(X = X, y = y, bootstrap_models = self._flattened_bootstrap_models, 
+                                                 n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, alpha = self.alpha)
             return gamma, temperature
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
@@ -198,7 +204,8 @@ class MultiClassPCS:
         if self.calibration_method == 'model_prop':
             return predict_model_prop_calibration(X, self.bootstrap_models, self.gamma, self.n_classes, self.temperature)
         elif self.calibration_method == 'APS':
-            return predict_APS_calibration(X, self.bootstrap_models, self.gamma, self.n_classes, self.temperature)
+            return predict_APS_calibration(X = X, bootstrap_models = self._flattened_bootstrap_models, gamma = self.gamma, 
+                                              n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, top_k = self.temperature)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
     

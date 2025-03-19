@@ -57,9 +57,9 @@ class MultiClassConformal:
         """
         if alpha is None:
             alpha = self.alpha
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)    
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed, stratify=y)    
         self._train(X_train, y_train)
-        self._temperature_scaling(X_calib, y_calib) # Perform temperature scaling on the calibration set
+        #self._temperature_scaling(X_calib, y_calib) # Perform temperature scaling on the calibration set
         self.mapie_classifier = MapieClassifier(estimator=self.model, 
                                                 cv='prefit', 
                                                 conformity_score=self.conf_score,

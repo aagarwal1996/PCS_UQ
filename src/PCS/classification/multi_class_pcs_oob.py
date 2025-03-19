@@ -12,10 +12,11 @@ from sklearn.linear_model import RidgeClassifierCV, LogisticRegression
 from sklearn.datasets import make_classification
 from sklearn.metrics import mean_absolute_error, r2_score, roc_auc_score, log_loss
 from sklearn.base import clone
+from sklearn.preprocessing import LabelEncoder
 
 
 # PCS UQ Imports
-from calibration_utils import APS_calibration_oob, predict_APS_calibration
+from src.PCS.classification.calibration_utils import APS_calibration_oob, predict_APS_calibration
 from src.metrics.classification_metrics import get_all_metrics
 from src.PCS.classification.multi_class_pcs import MultiClassPCS
 
@@ -54,9 +55,12 @@ class MultiClassPCS_OOB(MultiClassPCS):
         Fit the models
         """
         self.n_classes = len(np.unique(y))
+        le = LabelEncoder()
+        y = le.fit_transform(y)
+        print(y)
         if alpha is None:
             alpha = self.alpha
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed, stratify=y)
         self._train(X_train, y_train) # train the models such that they are ready for calibration, saved in self.models
         self._pred_check(X_calib, y_calib) # check the predictions of the models, saved in self.models
         self.top_k_models = self._get_top_k()
@@ -73,6 +77,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
         self.oob_indices = {}
         self._flattened_bootstrap_models = []
         self._flattened_oob_indices = []
+        self._classes_per_bootstrap = []
         
         for model_name, model in self.top_k_models.items():
             # Initialize lists for each model
@@ -96,11 +101,20 @@ class MultiClassPCS_OOB(MultiClassPCS):
                 else:
                     # Bootstrap the data
                     n_samples = len(X)
-                    bootstrap_indices = np.random.choice(range(n_samples), size=n_samples, replace=True)
+                    class_counts = np.bincount(y.astype(int))
+                    class_idx_to_freq  = {i: class_counts[i] / n_samples for i in range(len(class_counts))}
+                    weights = np.ones(n_samples)
+                    # for i in range(n_samples):
+                    #     weights[i] = class_idx_to_freq[y[i]]
+                    # weights = weights / weights.sum()
+                    weights = weights / weights.sum()
+                    bootstrap_indices = np.random.choice(range(n_samples), size=n_samples, replace=True, p=weights)
                     oob_indices = list(set(range(n_samples)) - set(bootstrap_indices))
+                    
                     
                     X_boot = X[bootstrap_indices]
                     y_boot = y[bootstrap_indices]
+                    self._classes_per_bootstrap.append(np.unique(y_boot))
                     
                     # Store OOB indices
                     self.oob_indices[model_name].append(oob_indices)
@@ -125,7 +139,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
         if self.calibration_method == 'model_prop':
             return NotImplementedError("Model Propagation is not supported for OOB calibration")
         elif self.calibration_method == 'APS':
-            return APS_calibration_oob(X, y, self._flattened_oob_indices, self._flattened_bootstrap_models, self.n_classes, self.alpha)
+            return APS_calibration_oob(X, y, self._flattened_oob_indices, self._flattened_bootstrap_models, self.n_classes, self._classes_per_bootstrap, self.alpha)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
     
@@ -133,7 +147,8 @@ class MultiClassPCS_OOB(MultiClassPCS):
         if self.calibration_method == 'model_prop':
             return NotImplementedError("Model Propagation is not supported for OOB calibration")
         elif self.calibration_method == 'APS':
-            return predict_APS_calibration(X, self.bootstrap_models, self.gamma, self.n_classes, self.temperature)
+            return predict_APS_calibration(X = X, bootstrap_models = self._flattened_bootstrap_models, gamma = self.gamma, 
+                                              n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, top_k = self.temperature)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
     

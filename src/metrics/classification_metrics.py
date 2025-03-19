@@ -60,13 +60,18 @@ def get_class_median_width(y_true, y_pred, return_scaled=False, empty_set=None):
         return scaled_class_median_widths
     return class_median_widths
 
-def get_all_metrics(y_true, y_pred, empty_set=None):
+def get_all_metrics(y_true, y_pred, empty_set='to_full'):
     return {
-        'coverage': get_coverage(y_true, y_pred, empty_set=empty_set),
-        'mean_width': get_mean_width(y_true, y_pred, return_scaled=False, empty_set=empty_set),
-        'median_width': get_median_width(y_true, y_pred, return_scaled=False, empty_set=empty_set),
-        'mean_width_scaled': get_mean_width(y_true, y_pred, return_scaled=True, empty_set=empty_set),
-        'median_width_scaled': get_median_width(y_true, y_pred, return_scaled=True, empty_set=empty_set),
+        'coverage_full': get_coverage(y_true, y_pred, empty_set='to_full'),
+        'mean_width_full': get_mean_width(y_true, y_pred, return_scaled=False, empty_set='to_full'),
+        'median_width_full': get_median_width(y_true, y_pred, return_scaled=False, empty_set='to_full'),
+        'mean_width_full_scaled': get_mean_width(y_true, y_pred, return_scaled=True, empty_set='to_full'),
+        'median_width_full_scaled': get_median_width(y_true, y_pred, return_scaled=True, empty_set='to_full'),
+        'coverage': get_coverage(y_true, y_pred, empty_set=None),
+        'mean_width': get_mean_width(y_true, y_pred, return_scaled=False, empty_set=None),
+        'median_width': get_median_width(y_true, y_pred, return_scaled=False, empty_set=None),
+        'mean_width_scaled': get_mean_width(y_true, y_pred, return_scaled=True, empty_set=None),
+        'median_width_scaled': get_median_width(y_true, y_pred, return_scaled=True, empty_set=None),
     }
 
 def process_empty_set(y_true, y_pred, empty_set):

@@ -12,8 +12,8 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 
 # PCS imports
-from src.PCS.regression.pcs_uq import PCS_UQ
-from src.PCS.regression.pcs_oob import PCS_OOB
+from src.PCS.classification.multi_class_pcs import MultiClassPCS
+from src.PCS.classification.multi_class_pcs_oob import MultiClassPCS_OOB
 
 # Conformal prediction imports
 from src.conformal_methods.classification.multi_class_conformal import MultiClassConformal
@@ -38,9 +38,13 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
-        return PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
+        return MultiClassPCS(models=MODELS, num_bootstraps=80, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
     elif pcs_type == "pcs_oob":
-        return PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
+        return MultiClassPCS_OOB(models=MODELS, num_bootstraps=80, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
+    elif pcs_type == "pcs_uq_model_prop":
+        return MultiClassPCS(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'model_prop')
+    elif pcs_type == "pcs_oob_model_prop":
+        return MultiClassPCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'model_prop')
     else:
         raise ValueError(f"Invalid PCS method: {pcs_type}")
 

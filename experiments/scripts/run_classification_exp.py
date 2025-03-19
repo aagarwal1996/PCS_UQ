@@ -13,8 +13,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_regression
 
 # PCS imports
-from src.PCS.regression.pcs_uq import PCS_UQ
-from src.PCS.regression.pcs_oob import PCS_OOB
+from src.PCS.classification.multi_class_pcs import MultiClassPCS
+from src.PCS.classification.multi_class_pcs_oob import MultiClassPCS_OOB
 
 # Conformal prediction imports
 from src.conformal_methods.regression.split_conformal import SplitConformal
@@ -40,6 +40,7 @@ def run_classification_experiments(
     max_samples=5000, 
     train_size=0.8
 ):
+   
     X_df, y, bin_df, importance = get_classification_datasets(dataset_name)
     X = X_df.to_numpy()
     #X,y, bin_df, X_df = X[:max_samples], y[:max_samples], bin_df[:max_samples], X_df[:max_samples]
@@ -57,7 +58,7 @@ def run_classification_experiments(
         print(f"Metrics file {metrics_file} already exists. Skipping experiment.\n", flush=True)
         return
 
-    X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, train_size=train_size, random_state=seed)
+    X_train, X_test, y_train, y_test, bin_df_train, bin_df_test, X_df_train, X_df_test = train_test_split(X, y, bin_df, X_df, train_size=train_size, random_state=seed, stratify=y)
     X_train, y_train, bin_df_train, X_df_train = X_train[:max_samples], y_train[:max_samples], bin_df_train[:max_samples], X_df_train[:max_samples]
 
     print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
@@ -73,17 +74,17 @@ def run_classification_experiments(
     #print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
     #metrics_file = seed_path / f"{method_name}_metrics.pkl"
     metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_metrics.pkl'
-    with open(metrics_file, 'wb') as f:
-        pickle.dump(metrics, f)
+    #with open(metrics_file, 'wb') as f:
+    #    pickle.dump(metrics, f)
 
 if __name__ == "__main__":
     # Example methods dictionary
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", type=str, default="data_isolet", help="Name of dataset to run experiments on")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
-    parser.add_argument("--UQ_method", type=str, default="split_conformal_raps", help="UQ method to use")
-    parser.add_argument("--estimator", type=str, default="XGBoost", help="Estimator to use")
+    parser.add_argument("--dataset", type=str, default="data_chess", help="Name of dataset to run experiments on")
+    parser.add_argument("--seed", type=int, default=0, help="Random seed for reproducibility")
+    parser.add_argument("--UQ_method", type=str, default="pcs_uq", help="UQ method to use")
+    parser.add_argument("--estimator", type=str, default="ExtraTrees", help="Estimator to use")
     parser.add_argument("--train_size", type=float, default=0.8, help="Train size")
     args = parser.parse_args()
 
@@ -111,6 +112,12 @@ if __name__ == "__main__":
         uq_method  = get_pcs_methods("pcs_oob", args.seed)
         method_name = "pcs_oob"
     
+    elif args.UQ_method == "pcs_uq_model_prop":
+        uq_method  = get_pcs_methods("pcs_uq_model_prop", args.seed)
+        method_name = "pcs_uq_model_prop"
+    
+    elif args.UQ_method == "pcs_oob_model_prop":
+        uq_method  = get_pcs_methods("pcs_oob_model_prop", args.seed)
     # Set random seed
     np.random.seed(args.seed)
 
