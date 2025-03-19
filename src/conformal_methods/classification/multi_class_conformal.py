@@ -120,9 +120,9 @@ class MultiClassConformal:
 
 
 if __name__ == "__main__":
-    X, y = make_classification(n_samples=2000, n_features=10, n_classes=3, n_informative=5)
+    X, y = make_classification(n_samples=250, n_features=10, n_classes=10, n_informative=5)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    model = RandomForestClassifier()
+    model = RandomForestClassifier(random_state=42, min_samples_leaf = 50, n_estimators = 5)
     conformity_scores = ['RAPS', 'LAC', 'Naive', 'APS']
     for conformity_score in conformity_scores:
         split_conformal = MultiClassConformal(model, conformity_score=conformity_score, temperature_scaling=True)

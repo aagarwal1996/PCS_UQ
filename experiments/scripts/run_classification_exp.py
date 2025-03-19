@@ -26,8 +26,8 @@ from src.metrics.classification_metrics import get_all_metrics
 
 
 # Experiment configs
-from experiments.configs.regression_configs import get_regression_datasets, get_conformal_methods, get_pcs_methods
-from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
+from experiments.configs.classification_configs import get_classification_datasets, get_conformal_methods, get_pcs_methods
+from experiments.configs.classification_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
 
 
 def run_classification_experiments(
@@ -80,9 +80,9 @@ if __name__ == "__main__":
     # Example methods dictionary
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", type=str, default="data_parkinsons", help="Name of dataset to run experiments on")
+    parser.add_argument("--dataset", type=str, default="data_isolet", help="Name of dataset to run experiments on")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
-    parser.add_argument("--UQ_method", type=str, default="split_conformal", help="UQ method to use")
+    parser.add_argument("--UQ_method", type=str, default="split_conformal_raps", help="UQ method to use")
     parser.add_argument("--estimator", type=str, default="XGBoost", help="Estimator to use")
     parser.add_argument("--train_size", type=float, default=0.8, help="Train size")
     args = parser.parse_args()
@@ -99,9 +99,9 @@ if __name__ == "__main__":
     if args.UQ_method in SINGLE_CONFORMAL_METHODS:
         uq_method, method_name  = get_conformal_methods(args.UQ_method, args.estimator, args.seed)
     
-    elif args.UQ_method == "majority_vote":
-        uq_method, method_name = get_conformal_methods("majority_vote", args.estimator, args.seed)
-        method_name = f"majority_vote"
+    # elif args.UQ_method == "majority_vote":
+    #     uq_method, method_name = get_conformal_methods("majority_vote", args.estimator, args.seed)
+    #     method_name = f"majority_vote"
     
     elif args.UQ_method == "pcs_uq":
         uq_method  = get_pcs_methods("pcs_uq", args.seed)
