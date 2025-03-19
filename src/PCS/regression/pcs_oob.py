@@ -48,13 +48,23 @@ class PCS_OOB(PCS_UQ):
         """
         Fit the models
         """
-        self._train(X, y)
-        self._pred_check(X, y)
+        if alpha is None:
+            alpha = self.alpha
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
+        self._train(X_train, y_train)
+        self._pred_check(X_calib, y_calib)
         self._get_top_k()
         self._train_top_k(X, y)
         uncalibrated_intervals = self.get_intervals(X)
         self.uncalibrated_metrics = get_all_metrics(y, uncalibrated_intervals[:,[0,2]])
         self.gamma = self.calibrate(uncalibrated_intervals, y)
+        # self._train(X, y)
+        # self._pred_check(X, y)
+        # self._get_top_k()
+        # self._train_top_k(X, y)
+        # uncalibrated_intervals = self.get_intervals(X)
+        # self.uncalibrated_metrics = get_all_metrics(y, uncalibrated_intervals[:,[0,2]])
+        # self.gamma = self.calibrate(uncalibrated_intervals, y)
         
 
     def _train_top_k(self, X, y):

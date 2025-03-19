@@ -148,6 +148,51 @@ def predict_model_prop_calibration(X, bootstrap_models, gamma, n_classes, temper
         
         return prediction_sets 
 
+def APS_calibration_oob(X,y,bootstrap_indices, all_models, n_classes, alpha):
+    """
+    Args: 
+        X: features of the calibration set
+        y: labels of the calibration set
+        bootstrap_indices: indices of the bootstrap samples
+        bootstrap_models: dictionary of bootstrap models
+        alpha: significance level
+    """
+    # model_list = [bootstrap_models[model] for model in bootstrap_models]
+    # oob_indices_list = [bootstrap_indices[model] for model in bootstrap_indices]
+    # all_models = []
+    # bootstrap_indices_list  = []
+    # for model in model_list:
+    #     for j in range(len(model)):
+    #         all_models.append(model[j])
+    #         bootstrap_indices_list.append(oob_indices_list[j])
+    all_predictions = []
+    for i,model in enumerate(all_models):
+        predictions = np.zeros((len(X), n_classes))
+        predictions[:,:] = np.nan
+        predictions[bootstrap_indices[i],:] = model.predict_proba(X[bootstrap_indices[i]])
+        all_predictions.append(predictions)
+    
+    all_predictions = np.dstack(all_predictions)
+    avg_predictions = np.nanmean(all_predictions, axis=2)
+    # Check if there are any NaN values in the predictions
+    
+    
+    avg_predictions = softmax(avg_predictions)
+    
+    avg_predictions_sorted = np.sort(avg_predictions, axis=1)[:, ::-1]
+
+    # Get the indices of the sorted predictions
+    sorted_indices = np.argsort(-avg_predictions, axis=1)
+    
+    correct_indices = np.where(sorted_indices == y[:, np.newaxis])
+    
+    cum_prob = np.cumsum(avg_predictions_sorted, axis=1)
+    cum_prob_till_correct = cum_prob[correct_indices]
+    gamma = np.quantile(cum_prob_till_correct, 1 - alpha)
+    
+    return gamma, 1.0
+
+
 
 def APS_calibration(X, y, bootstrap_models, alpha):
     """
@@ -191,7 +236,7 @@ def APS_calibration(X, y, bootstrap_models, alpha):
     cum_prob = np.cumsum(avg_predictions_sorted, axis=1)
     cum_prob_till_correct = cum_prob[correct_indices]
     gamma = np.quantile(cum_prob_till_correct, 1 - alpha)
-    print(gamma)
+    
     
     return gamma, temperature
     
@@ -236,28 +281,6 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, temperature):
             if cum_prob_threshold_row[j]:
                 prediction_sets[i, sorted_indices_row[j]] = 1
     return prediction_sets
-
-
-def multi_threshold_calibration(X, y, bootstrap_models, alpha):
-    """
-    Args: 
-        X: features of the calibration set
-        y: labels of the calibration set
-        bootstrap_models: dictionary of bootstrap models
-    """
-    model_list = [bootstrap_models[model] for model in bootstrap_models]
-    all_models = []
-    for model in model_list:
-        for j in range(len(model)):
-            all_models.append(model[j])
-    # Get all predictions from all models
-    all_predictions = []
-    for model in all_models:
-        all_predictions.append(model.predict_proba(X))
-    
-    all_predictions = np.dstack(all_predictions) # shape (n_samples, n_classes, n_models)
-    thresholds = np.quantile(all_predictions, 1 - alpha, axis=2)
-    return thresholds, 1.0
 
 
 
