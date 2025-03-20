@@ -57,7 +57,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
         self.n_classes = len(np.unique(y))
         le = LabelEncoder()
         y = le.fit_transform(y)
-        print(y)
+        self._label_encoder = le
         if alpha is None:
             alpha = self.alpha
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed, stratify=y)

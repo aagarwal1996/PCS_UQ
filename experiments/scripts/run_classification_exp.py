@@ -130,12 +130,15 @@ if __name__ == "__main__":
         uq_method  = get_pcs_methods("pcs_oob", args.seed)
         method_name = "pcs_oob"
     
-    elif args.UQ_method == "pcs_uq_model_prop":
-        uq_method  = get_pcs_methods("pcs_uq_model_prop", args.seed)
-        method_name = "pcs_uq_model_prop"
+    else:
+        raise ValueError(f"Invalid UQ method '{args.UQ_method}'. Must be one of: {VALID_UQ_METHODS}")
     
-    elif args.UQ_method == "pcs_oob_model_prop":
-        uq_method  = get_pcs_methods("pcs_oob_model_prop", args.seed)
+    # elif args.UQ_method == "pcs_uq_model_prop":
+    #     uq_method  = get_pcs_methods("pcs_uq_model_prop", args.seed)
+    #     method_name = "pcs_uq_model_prop"
+    
+    # elif args.UQ_method == "pcs_oob_model_prop":
+    #     uq_method  = get_pcs_methods("pcs_oob_model_prop", args.seed)
     # Set random seed
     np.random.seed(args.seed)
     print(f'starting experiment\n', flush=True)

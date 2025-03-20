@@ -15,7 +15,7 @@ from src.metrics.classification_metrics import get_all_metrics
 
 # Mapie imports
 from mapie.classification import MapieClassifier
-from mapie.conformity_scores import RAPSConformityScore, LACConformityScore, NaiveConformityScore, APSConformityScore 
+from mapie.conformity_scores import RAPSConformityScore, LACConformityScore, NaiveConformityScore, APSConformityScore, TopKConformityScore
 
 class MultiClassConformal:
    
@@ -43,8 +43,10 @@ class MultiClassConformal:
             self.conf_score = NaiveConformityScore()
         elif conformity_score == 'APS':
             self.conf_score = APSConformityScore()
+        elif conformity_score == 'TopK':
+            self.conf_score = TopKConformityScore()
         else:
-            raise ValueError("Conformity score must be one of 'RAPS', 'LAC', 'Naive', or 'APS'")
+            raise ValueError("Conformity score must be one of 'RAPS', 'LAC', 'Naive', 'APS', or 'TopK'")
         self.mapie_classifier = None
     
     def fit(self, X, y, alpha = None):
@@ -123,7 +125,7 @@ if __name__ == "__main__":
     X, y = make_classification(n_samples=250, n_features=10, n_classes=10, n_informative=5)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
     model = RandomForestClassifier(random_state=42, min_samples_leaf = 50, n_estimators = 5)
-    conformity_scores = ['RAPS', 'LAC', 'Naive', 'APS']
+    conformity_scores = ['RAPS', 'LAC', 'Naive', 'APS', 'TopK']
     for conformity_score in conformity_scores:
         split_conformal = MultiClassConformal(model, conformity_score=conformity_score, temperature_scaling=True)
         split_conformal.fit(X, y)

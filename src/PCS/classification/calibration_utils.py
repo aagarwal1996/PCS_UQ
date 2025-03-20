@@ -196,8 +196,8 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, classes_per_b
             if cum_prob_threshold_row[j]:
                 prediction_sets[i, sorted_indices_row[j]] = 1
                 count += 1
-            if count >= top_k:
-                break
+            # if count >= top_k:
+            #     break
     return prediction_sets
 
 def temperature_scaling(logits, y_true, cv=5):
