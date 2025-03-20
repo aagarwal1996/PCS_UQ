@@ -26,6 +26,7 @@ VALID_UQ_METHODS = [
     'split_conformal_raps',
     'split_conformal_aps',
     'split_conformal_topk',
+    'majority_vote',
     'pcs_uq',
     'pcs_oob',
 ]

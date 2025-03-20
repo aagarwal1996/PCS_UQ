@@ -17,7 +17,7 @@ from src.PCS.classification.multi_class_pcs_oob import MultiClassPCS_OOB
 
 # Conformal prediction imports
 from src.conformal_methods.classification.multi_class_conformal import MultiClassConformal
-
+from src.conformal_methods.classification.majority_vote_classifier import MajorityVoteClassifier
 
 from experiments.configs.classification_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
 
@@ -36,6 +36,8 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
         return MultiClassConformal(model=MODELS[model_name], seed = seed, conformity_score = 'APS'), f"split_conformal_aps_{model_name}"
     elif conformal_type == "split_conformal_topk":
         return MultiClassConformal(model=MODELS[model_name], seed = seed, conformity_score = 'TopK'), f"split_conformal_topk_{model_name}"
+    elif conformal_type == "majority_vote":
+        return MajorityVoteClassifier(models=MODELS, seed = seed, conformity_score = 'APS'), f"majority_vote"
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":

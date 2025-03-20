@@ -64,23 +64,16 @@ def run_classification_experiments(
     print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
     uq_method.fit(X_train, y_train)
     y_pred = uq_method.predict(X_test)
-    if method_name == "majority_vote":
-        return 
-    else:
-        full_metrics = get_all_metrics(y_test, y_pred, empty_set='to_full')
-        full_class_metrics = get_all_class_metrics(y_test, y_pred, empty_set='to_full')
-        metrics = get_all_metrics(y_test, y_pred)
-        class_metrics = get_all_class_metrics(y_test, y_pred)
+   
+    full_metrics = get_all_metrics(y_test, y_pred, empty_set='to_full')
+    full_class_metrics = get_all_class_metrics(y_test, y_pred, empty_set='to_full')
+    metrics = get_all_metrics(y_test, y_pred)
+    class_metrics = get_all_class_metrics(y_test, y_pred)
     print(f"{method_name} metrics: {metrics}\n", flush=True)
     print(f"{method_name} full metrics: {full_metrics}\n", flush=True)
     print(f"{method_name} class metrics: {class_metrics}\n", flush=True)
     print(f"{method_name} full class metrics: {full_class_metrics}\n", flush=True)
 
-    # Save metrics as pickle file
-
-    
-    #print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
-    #metrics_file = seed_path / f"{method_name}_metrics.pkl"
 
     full_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_full_metrics.pkl'
     with open(full_metrics_file, 'wb') as f:
@@ -118,9 +111,9 @@ if __name__ == "__main__":
     if args.UQ_method in SINGLE_CONFORMAL_METHODS:
         uq_method, method_name  = get_conformal_methods(args.UQ_method, args.estimator, args.seed)
     
-    # elif args.UQ_method == "majority_vote":
-    #     uq_method, method_name = get_conformal_methods("majority_vote", args.estimator, args.seed)
-    #     method_name = f"majority_vote"
+    elif args.UQ_method == "majority_vote":
+        uq_method, method_name = get_conformal_methods("majority_vote", args.estimator, args.seed)
+        method_name = f"majority_vote"
     
     elif args.UQ_method == "pcs_uq":
         uq_method  = get_pcs_methods("pcs_uq", args.seed)
