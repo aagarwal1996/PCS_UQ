@@ -1,0 +1,53 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/model_selection/_split.py:776: UserWarning: The least populated class in y has only 1 members, which is less than n_splits=3.
+  warnings.warn(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Traceback (most recent call last):
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 145, in <module>
+    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
+    uq_method.fit(X_train, y_train)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/conformal_methods/classification/multi_class_conformal.py", line 63, in fit
+    self._train(X_train, y_train)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/conformal_methods/classification/multi_class_conformal.py", line 80, in _train
+    self.model.fit(X, y)
+    ~~~~~~~~~~~~~~^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py", line 2035, in fit
+    coefs_paths = np.reshape(
+        coefs_paths,
+        (len(folds), len(l1_ratios_) * len(self.Cs_), n_classes, -1),
+    )
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/numpy/_core/fromnumeric.py", line 324, in reshape
+    return _wrapfunc(a, 'reshape', shape, order=order)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/numpy/_core/fromnumeric.py", line 54, in _wrapfunc
+    return _wrapit(obj, method, *args, **kwds)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/numpy/_core/fromnumeric.py", line 42, in _wrapit
+    conv = _array_converter(obj)
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 2 dimensions. The detected shape was (3, 10) + inhomogeneous part.

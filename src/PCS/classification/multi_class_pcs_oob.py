@@ -120,7 +120,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
                     self.oob_indices[model_name].append(oob_indices)
                     self._flattened_oob_indices.append(oob_indices)
                     # Create and fit bootstrap model
-                    bootstrap_model = copy.deepcopy(model)
+                    bootstrap_model = clone(model)
                     bootstrap_model.fit(X_boot, y_boot)
                     
                     # Save the bootstrap model and OOB indices if save path is provided

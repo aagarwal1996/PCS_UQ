@@ -1,0 +1,46 @@
+Starting job at Wed Mar 19 08:21:16 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_topk
+Estimator: LogisticRegression
+Seed: 779
+Train Size: 0.8
+Running split_conformal_topk on data_chess with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_LogisticRegression on data_chess with seed 779
+
+split_conformal_topk_LogisticRegression metrics: {'coverage': np.float64(0.8907697790449037), 'mean_width': np.float64(5.0), 'median_width': np.float64(5.0), 'mean_width_scaled': np.float64(0.2777777777777778), 'median_width_scaled': np.float64(0.2777777777777778)}
+
+split_conformal_topk_LogisticRegression full metrics: {'coverage': np.float64(0.8907697790449037), 'mean_width': np.float64(5.0), 'median_width': np.float64(5.0), 'mean_width_scaled': np.float64(0.2777777777777778), 'median_width_scaled': np.float64(0.2777777777777778)}
+
+split_conformal_topk_LogisticRegression class metrics: {'class_coverage': array([0.85509839, 0.85365854, 0.92469352, 0.94919169, 0.77659574,
+       0.625     , 0.96158068, 0.76608187, 0.375     , 0.60583942,
+       0.63559322, 0.91025641, 0.79093199, 0.97377831, 0.125     ,
+       0.9625    , 0.75510204, 0.6       ]), 'class_mean_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_median_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_mean_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778]), 'class_median_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778])}
+
+split_conformal_topk_LogisticRegression full class metrics: {'class_coverage': array([0.85509839, 0.85365854, 0.92469352, 0.94919169, 0.77659574,
+       0.625     , 0.96158068, 0.76608187, 0.375     , 0.60583942,
+       0.63559322, 0.91025641, 0.79093199, 0.97377831, 0.125     ,
+       0.9625    , 0.75510204, 0.6       ]), 'class_mean_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_median_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_mean_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778]), 'class_median_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778])}
+
+Job completed at Wed Mar 19 08:21:22 PM PDT 2025

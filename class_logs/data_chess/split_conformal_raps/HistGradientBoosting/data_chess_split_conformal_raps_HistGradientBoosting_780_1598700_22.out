@@ -1,0 +1,50 @@
+Starting job at Wed Mar 19 08:20:44 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_raps
+Estimator: HistGradientBoosting
+Seed: 780
+Train Size: 0.8
+Running split_conformal_raps on data_chess with seed 780 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_HistGradientBoosting on data_chess with seed 780
+
+split_conformal_raps_HistGradientBoosting metrics: {'coverage': np.float64(0.9027084818246615), 'mean_width': np.float64(4.073057733428368), 'median_width': np.float64(4.0), 'mean_width_scaled': np.float64(0.2262809851904649), 'median_width_scaled': np.float64(0.2222222222222222)}
+
+split_conformal_raps_HistGradientBoosting full metrics: {'coverage': np.float64(0.9027084818246615), 'mean_width': np.float64(4.073057733428368), 'median_width': np.float64(4.0), 'mean_width_scaled': np.float64(0.2262809851904649), 'median_width_scaled': np.float64(0.2222222222222222)}
+
+split_conformal_raps_HistGradientBoosting class metrics: {'class_coverage': array([0.99105546, 0.76655052, 0.88616462, 0.92378753, 0.67021277,
+       0.475     , 0.98463227, 0.80701754, 0.3125    , 0.57664234,
+       0.83898305, 0.75641026, 0.90176322, 0.9511323 , 0.5625    ,
+       0.9375    , 0.93877551, 0.6       ]), 'class_mean_width': array([3.84257603, 4.06271777, 4.34851138, 3.59584296, 4.19148936,
+       4.075     , 3.91108672, 4.32163743, 3.875     , 4.18248175,
+       4.07627119, 2.80769231, 4.41561713, 4.1942789 , 4.125     ,
+       4.23194444, 3.42857143, 3.6       ]), 'class_median_width': array([4., 5., 5., 4., 5., 5., 4., 5., 5., 5., 5., 3., 5., 5., 5., 5., 4.,
+       5.]), 'class_mean_width_scaled': array([0.21347645, 0.22570654, 0.24158397, 0.19976905, 0.23286052,
+       0.22638889, 0.2172826 , 0.24009097, 0.21527778, 0.2323601 ,
+       0.22645951, 0.15598291, 0.24531206, 0.23301549, 0.22916667,
+       0.23510802, 0.19047619, 0.2       ]), 'class_median_width_scaled': array([0.22222222, 0.27777778, 0.27777778, 0.22222222, 0.27777778,
+       0.27777778, 0.22222222, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.16666667, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.22222222, 0.27777778])}
+
+split_conformal_raps_HistGradientBoosting full class metrics: {'class_coverage': array([0.99105546, 0.76655052, 0.88616462, 0.92378753, 0.67021277,
+       0.475     , 0.98463227, 0.80701754, 0.3125    , 0.57664234,
+       0.83898305, 0.75641026, 0.90176322, 0.9511323 , 0.5625    ,
+       0.9375    , 0.93877551, 0.6       ]), 'class_mean_width': array([3.84257603, 4.06271777, 4.34851138, 3.59584296, 4.19148936,
+       4.075     , 3.91108672, 4.32163743, 3.875     , 4.18248175,
+       4.07627119, 2.80769231, 4.41561713, 4.1942789 , 4.125     ,
+       4.23194444, 3.42857143, 3.6       ]), 'class_median_width': array([4., 5., 5., 4., 5., 5., 4., 5., 5., 5., 5., 3., 5., 5., 5., 5., 4.,
+       5.]), 'class_mean_width_scaled': array([0.21347645, 0.22570654, 0.24158397, 0.19976905, 0.23286052,
+       0.22638889, 0.2172826 , 0.24009097, 0.21527778, 0.2323601 ,
+       0.22645951, 0.15598291, 0.24531206, 0.23301549, 0.22916667,
+       0.23510802, 0.19047619, 0.2       ]), 'class_median_width_scaled': array([0.22222222, 0.27777778, 0.27777778, 0.22222222, 0.27777778,
+       0.27777778, 0.22222222, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.16666667, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.22222222, 0.27777778])}
+
+Job completed at Wed Mar 19 08:20:56 PM PDT 2025

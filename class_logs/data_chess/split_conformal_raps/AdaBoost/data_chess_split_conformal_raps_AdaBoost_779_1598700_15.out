@@ -1,0 +1,50 @@
+Starting job at Wed Mar 19 08:20:44 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_raps
+Estimator: AdaBoost
+Seed: 779
+Train Size: 0.8
+Running split_conformal_raps on data_chess with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_AdaBoost on data_chess with seed 779
+
+split_conformal_raps_AdaBoost metrics: {'coverage': np.float64(0.9034212401995724), 'mean_width': np.float64(9.209550962223807), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.5116417201235448), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_raps_AdaBoost full metrics: {'coverage': np.float64(0.9034212401995724), 'mean_width': np.float64(9.209550962223807), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.5116417201235448), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_raps_AdaBoost class metrics: {'class_coverage': array([0.83899821, 0.8815331 , 0.98949212, 0.99076212, 0.45744681,
+       0.025     , 0.99780461, 0.96491228, 0.0625    , 0.37956204,
+       0.18644068, 0.56410256, 0.96221662, 0.98569726, 0.3125    ,
+       0.98888889, 0.51020408, 0.2       ]), 'class_mean_width': array([9.3273703 , 8.96864111, 9.08931699, 9.5334873 , 8.26595745,
+       8.975     , 9.42151482, 9.09356725, 8.875     , 8.95620438,
+       9.08474576, 9.55128205, 9.18387909, 9.29678188, 6.25      ,
+       9.09861111, 8.55102041, 9.4       ]), 'class_median_width': array([ 9.,  9.,  9., 10.,  9.,  9., 10.,  9.,  9.,  9.,  9., 10.,  9.,
+        9.,  8.,  9.,  9., 10.]), 'class_mean_width_scaled': array([0.51818724, 0.49825784, 0.50496205, 0.52963818, 0.45921986,
+       0.49861111, 0.52341749, 0.50519818, 0.49305556, 0.49756691,
+       0.5047081 , 0.53062678, 0.51021551, 0.51648788, 0.34722222,
+       0.5054784 , 0.47505669, 0.52222222]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.55555556, 0.5       ,
+       0.5       , 0.55555556, 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.55555556, 0.5       , 0.5       , 0.44444444,
+       0.5       , 0.5       , 0.55555556])}
+
+split_conformal_raps_AdaBoost full class metrics: {'class_coverage': array([0.83899821, 0.8815331 , 0.98949212, 0.99076212, 0.45744681,
+       0.025     , 0.99780461, 0.96491228, 0.0625    , 0.37956204,
+       0.18644068, 0.56410256, 0.96221662, 0.98569726, 0.3125    ,
+       0.98888889, 0.51020408, 0.2       ]), 'class_mean_width': array([9.3273703 , 8.96864111, 9.08931699, 9.5334873 , 8.26595745,
+       8.975     , 9.42151482, 9.09356725, 8.875     , 8.95620438,
+       9.08474576, 9.55128205, 9.18387909, 9.29678188, 6.25      ,
+       9.09861111, 8.55102041, 9.4       ]), 'class_median_width': array([ 9.,  9.,  9., 10.,  9.,  9., 10.,  9.,  9.,  9.,  9., 10.,  9.,
+        9.,  8.,  9.,  9., 10.]), 'class_mean_width_scaled': array([0.51818724, 0.49825784, 0.50496205, 0.52963818, 0.45921986,
+       0.49861111, 0.52341749, 0.50519818, 0.49305556, 0.49756691,
+       0.5047081 , 0.53062678, 0.51021551, 0.51648788, 0.34722222,
+       0.5054784 , 0.47505669, 0.52222222]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.55555556, 0.5       ,
+       0.5       , 0.55555556, 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.55555556, 0.5       , 0.5       , 0.44444444,
+       0.5       , 0.5       , 0.55555556])}
+
+Job completed at Wed Mar 19 08:20:49 PM PDT 2025

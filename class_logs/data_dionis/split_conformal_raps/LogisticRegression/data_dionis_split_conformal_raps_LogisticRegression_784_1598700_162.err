@@ -1,0 +1,66 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Traceback (most recent call last):
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 145, in <module>
+    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
+    uq_method.fit(X_train, y_train)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/conformal_methods/classification/multi_class_conformal.py", line 69, in fit
+    self._calibrate(X_calib, y_calib) # Calibrate the model on the calibration set
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/conformal_methods/classification/multi_class_conformal.py", line 99, in _calibrate
+    self.mapie_classifier.fit(X, y)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/mapie/classification.py", line 481, in fit
+     groups) = self._check_fit_parameter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        X, y, sample_weight, groups, size_raps
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/mapie/classification.py", line 407, in _check_fit_parameter
+    cs_estimator.split_data(X, y, y_enc, sample_weight, groups)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/mapie/conformity_scores/sets/raps.py", line 139, in split_data
+    train_raps_index, val_raps_index = next(raps_split.split(X, y_enc))
+                                       ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/model_selection/_split.py", line 1843, in split
+    for train, test in self._iter_indices(X, y, groups):
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/model_selection/_split.py", line 2265, in _iter_indices
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The test_size = 250 should be greater or equal to the number of classes = 355

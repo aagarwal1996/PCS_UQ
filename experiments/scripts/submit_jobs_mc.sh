@@ -13,11 +13,10 @@ mkdir -p class_logs
 conda init
 source activate pcs_uq
 
-#
-#DATASETS=("data_chess" "data_cover_type" "data_dionis" "data_helena" "data_isolet" "data_walking")
-DATASETS=("data_dionis")
-#UQ_METHODS=("split_conformal_aps" "split_conformal_raps" "split_conformal_naive" "split_conformal_lac" "pcs_oob")
-UQ_METHODS=("split_conformal_topk" "split_conformal_raps" "split_conformal_aps" "pcs_oob")
+
+DATASETS=("data_chess" "data_cover_type" "data_dionis" "data_isolet" "data_walking")
+
+UQ_METHODS=("split_conformal_raps" "pcs_oob" "split_conformal_topk")
 
 ALL_ESTIMATORS=("LogisticRegression" "RandomForest" "ExtraTrees" "AdaBoost" "HistGradientBoosting" "MLP")
 REDUCED_ESTIMATORS=("HistGradientBoosting")  # For majority_vote, pcs_uq, pcs_oob

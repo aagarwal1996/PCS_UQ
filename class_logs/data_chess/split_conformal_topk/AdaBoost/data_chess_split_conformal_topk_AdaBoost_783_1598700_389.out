@@ -1,0 +1,50 @@
+Starting job at Wed Mar 19 08:21:22 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_topk
+Estimator: AdaBoost
+Seed: 783
+Train Size: 0.8
+Running split_conformal_topk on data_chess with seed 783 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_AdaBoost on data_chess with seed 783
+
+split_conformal_topk_AdaBoost metrics: {'coverage': np.float64(0.9164290805416964), 'mean_width': np.float64(9.307020669992873), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.517056703888493), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_topk_AdaBoost full metrics: {'coverage': np.float64(0.9164290805416964), 'mean_width': np.float64(9.307020669992873), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.517056703888493), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_topk_AdaBoost class metrics: {'class_coverage': array([0.89982111, 1.        , 1.        , 1.        , 0.37234043,
+       0.        , 0.99560922, 1.        , 0.        , 0.37226277,
+       0.28813559, 0.        , 1.        , 1.        , 0.3125    ,
+       1.        , 0.3877551 , 0.        ]), 'class_mean_width': array([9.27549195, 9.44250871, 9.32749562, 9.17090069, 9.5       ,
+       9.825     , 9.29088913, 9.33625731, 9.        , 9.37226277,
+       9.63559322, 9.        , 9.34256927, 9.32419547, 9.25      ,
+       9.25416667, 9.        , 9.        ]), 'class_median_width': array([ 9. ,  9. ,  9. ,  9. ,  9.5, 10. ,  9. ,  9. ,  9. ,  9. , 10. ,
+        9. ,  9. ,  9. ,  9. ,  9. ,  9. ,  9. ]), 'class_mean_width_scaled': array([0.51530511, 0.52458382, 0.5181942 , 0.50949448, 0.52777778,
+       0.54583333, 0.51616051, 0.51868096, 0.5       , 0.52068127,
+       0.53531073, 0.5       , 0.51903163, 0.51801086, 0.51388889,
+       0.51412037, 0.5       , 0.5       ]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.5       , 0.52777778,
+       0.55555556, 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.55555556, 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       ])}
+
+split_conformal_topk_AdaBoost full class metrics: {'class_coverage': array([0.89982111, 1.        , 1.        , 1.        , 0.37234043,
+       0.        , 0.99560922, 1.        , 0.        , 0.37226277,
+       0.28813559, 0.        , 1.        , 1.        , 0.3125    ,
+       1.        , 0.3877551 , 0.        ]), 'class_mean_width': array([9.27549195, 9.44250871, 9.32749562, 9.17090069, 9.5       ,
+       9.825     , 9.29088913, 9.33625731, 9.        , 9.37226277,
+       9.63559322, 9.        , 9.34256927, 9.32419547, 9.25      ,
+       9.25416667, 9.        , 9.        ]), 'class_median_width': array([ 9. ,  9. ,  9. ,  9. ,  9.5, 10. ,  9. ,  9. ,  9. ,  9. , 10. ,
+        9. ,  9. ,  9. ,  9. ,  9. ,  9. ,  9. ]), 'class_mean_width_scaled': array([0.51530511, 0.52458382, 0.5181942 , 0.50949448, 0.52777778,
+       0.54583333, 0.51616051, 0.51868096, 0.5       , 0.52068127,
+       0.53531073, 0.5       , 0.51903163, 0.51801086, 0.51388889,
+       0.51412037, 0.5       , 0.5       ]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.5       , 0.52777778,
+       0.55555556, 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.55555556, 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       ])}
+
+Job completed at Wed Mar 19 08:21:25 PM PDT 2025

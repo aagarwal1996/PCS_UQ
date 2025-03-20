@@ -1,0 +1,46 @@
+Starting job at Wed Mar 19 08:21:21 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_topk
+Estimator: HistGradientBoosting
+Seed: 782
+Train Size: 0.8
+Running split_conformal_topk on data_chess with seed 782 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_HistGradientBoosting on data_chess with seed 782
+
+split_conformal_topk_HistGradientBoosting metrics: {'coverage': np.float64(0.9230220955096222), 'mean_width': np.float64(5.0), 'median_width': np.float64(5.0), 'mean_width_scaled': np.float64(0.2777777777777778), 'median_width_scaled': np.float64(0.2777777777777778)}
+
+split_conformal_topk_HistGradientBoosting full metrics: {'coverage': np.float64(0.9230220955096222), 'mean_width': np.float64(5.0), 'median_width': np.float64(5.0), 'mean_width_scaled': np.float64(0.2777777777777778), 'median_width_scaled': np.float64(0.2777777777777778)}
+
+split_conformal_topk_HistGradientBoosting class metrics: {'class_coverage': array([1.        , 0.89198606, 0.94220665, 0.97228637, 0.65957447,
+       0.6       , 0.96816685, 0.87134503, 0.5625    , 0.67153285,
+       0.76271186, 0.67948718, 0.84634761, 0.97377831, 0.1875    ,
+       0.96944444, 0.85714286, 0.        ]), 'class_mean_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_median_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_mean_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778]), 'class_median_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778])}
+
+split_conformal_topk_HistGradientBoosting full class metrics: {'class_coverage': array([1.        , 0.89198606, 0.94220665, 0.97228637, 0.65957447,
+       0.6       , 0.96816685, 0.87134503, 0.5625    , 0.67153285,
+       0.76271186, 0.67948718, 0.84634761, 0.97377831, 0.1875    ,
+       0.96944444, 0.85714286, 0.        ]), 'class_mean_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_median_width': array([5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5., 5.,
+       5.]), 'class_mean_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778]), 'class_median_width_scaled': array([0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778, 0.27777778, 0.27777778,
+       0.27777778, 0.27777778, 0.27777778])}
+
+Job completed at Wed Mar 19 08:21:31 PM PDT 2025

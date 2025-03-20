@@ -34,7 +34,8 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
         return MultiClassConformal(model=MODELS[model_name], seed = seed, conformity_score = 'Naive'), f"split_conformal_naive_{model_name}"
     elif conformal_type == "split_conformal_aps":
         return MultiClassConformal(model=MODELS[model_name], seed = seed, conformity_score = 'APS'), f"split_conformal_aps_{model_name}"
-   
+    elif conformal_type == "split_conformal_topk":
+        return MultiClassConformal(model=MODELS[model_name], seed = seed, conformity_score = 'TopK'), f"split_conformal_topk_{model_name}"
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
