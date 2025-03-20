@@ -22,7 +22,7 @@ from src.conformal_methods.regression.studentized_conformal import StudentizedCo
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
 # Metrics imports
-from src.metrics.classification_metrics import get_all_metrics
+from src.metrics.classification_metrics import get_all_metrics, get_all_class_metrics
 
 
 # Experiment configs
@@ -67,15 +67,29 @@ def run_classification_experiments(
     if method_name == "majority_vote":
         return 
     else:
+        full_metrics = get_all_metrics(y_test, y_pred, empty_set='to_full')
+        full_class_metrics = get_all_class_metrics(y_test, y_pred, empty_set='to_full')
         metrics = get_all_metrics(y_test, y_pred)
+        class_metrics = get_all_class_metrics(y_test, y_pred)
     print(f"{method_name}: {metrics}\n", flush=True)
     # Save metrics as pickle file
 
+    
     #print(f"Saving metrics to {seed_path / f'{method_name}_metrics.pkl'}\n", flush=True)
     #metrics_file = seed_path / f"{method_name}_metrics.pkl"
+
+    full_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_full_metrics.pkl'
+    with open(full_metrics_file, 'wb') as f:
+        pickle.dump(full_metrics, f)
+    full_class_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_full_class_metrics.pkl'
+    with open(full_class_metrics_file, 'wb') as f:
+        pickle.dump(full_class_metrics, f)
     metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_metrics.pkl'
-    #with open(metrics_file, 'wb') as f:
-    #    pickle.dump(metrics, f)
+    with open(metrics_file, 'wb') as f:
+        pickle.dump(metrics, f)
+    class_metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_class_metrics.pkl'
+    with open(class_metrics_file, 'wb') as f:
+        pickle.dump(class_metrics, f)
 
 if __name__ == "__main__":
     # Example methods dictionary
