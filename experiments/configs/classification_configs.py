@@ -19,7 +19,7 @@ from src.PCS.classification.multi_class_pcs_oob import MultiClassPCS_OOB
 from src.conformal_methods.classification.multi_class_conformal import MultiClassConformal
 
 
-from experiments.configs.classification_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS, TEST_MODELS
+from experiments.configs.classification_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS
 
 #MODELS = {"XGBoost": XGBRegressor(random_state = 42)}#, "RandomForest": RandomForestRegressor(min_samples_leaf = 5, max_features = 0.33, n_estimators = 100, random_state = 42)}
 #MODELS = {"LightGBM": LGBMRegressor(random_state = 42)}
@@ -38,9 +38,9 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
 
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
-        return MultiClassPCS(models=MODELS, num_bootstraps=80, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
+        return MultiClassPCS(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
     elif pcs_type == "pcs_oob":
-        return MultiClassPCS_OOB(models=MODELS, num_bootstraps=80, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
+        return MultiClassPCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
     elif pcs_type == "pcs_uq_model_prop":
         return MultiClassPCS(models=MODELS, num_bootstraps=100, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'model_prop')
     elif pcs_type == "pcs_oob_model_prop":

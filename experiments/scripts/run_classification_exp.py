@@ -49,7 +49,7 @@ def run_classification_experiments(
     results_path = Path(results_dir)
     dataset_path = results_path / dataset_name
     #seed_path = dataset_path / str(seed)
-    
+    print(f'data created\n', flush=True)
     # Create directories if they don't exist
     dataset_path.mkdir(parents=True, exist_ok=True)
     metrics_file = f'{dataset_path}/{method_name}_seed_{seed}_train_size_{train_size}_metrics.pkl'
@@ -71,7 +71,11 @@ def run_classification_experiments(
         full_class_metrics = get_all_class_metrics(y_test, y_pred, empty_set='to_full')
         metrics = get_all_metrics(y_test, y_pred)
         class_metrics = get_all_class_metrics(y_test, y_pred)
-    print(f"{method_name}: {metrics}\n", flush=True)
+    print(f"{method_name} metrics: {metrics}\n", flush=True)
+    print(f"{method_name} full metrics: {full_metrics}\n", flush=True)
+    print(f"{method_name} class metrics: {class_metrics}\n", flush=True)
+    print(f"{method_name} full class metrics: {full_class_metrics}\n", flush=True)
+
     # Save metrics as pickle file
 
     
@@ -103,7 +107,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Validate UQ method argument
-   
+    print(f"Running {args.UQ_method} on {args.dataset} with seed {args.seed} and train size {args.train_size}\n", flush=True)
 
     if args.UQ_method not in VALID_UQ_METHODS:
         raise ValueError(f"Invalid UQ method '{args.UQ_method}'. Must be one of: {VALID_UQ_METHODS}")
@@ -134,6 +138,6 @@ if __name__ == "__main__":
         uq_method  = get_pcs_methods("pcs_oob_model_prop", args.seed)
     # Set random seed
     np.random.seed(args.seed)
-
+    print(f'starting experiment\n', flush=True)
     run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
     

@@ -1,0 +1,50 @@
+Starting job at Wed Mar 19 06:27:26 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_lac
+Estimator: AdaBoost
+Seed: 777
+Train Size: 0.8
+Running split_conformal_lac on data_chess with seed 777 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_lac_AdaBoost on data_chess with seed 777
+
+split_conformal_lac_AdaBoost metrics: {'coverage': np.float64(0.9151817533856023), 'mean_width': np.float64(9.458303635067711), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.5254613130593173), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_lac_AdaBoost full metrics: {'coverage': np.float64(0.9151817533856023), 'mean_width': np.float64(9.458303635067711), 'median_width': np.float64(9.0), 'mean_width_scaled': np.float64(0.5254613130593173), 'median_width_scaled': np.float64(0.5)}
+
+split_conformal_lac_AdaBoost class metrics: {'class_coverage': array([0.97853309, 0.98954704, 0.97723292, 1.        , 0.45744681,
+       0.25      , 0.99451153, 0.97660819, 0.        , 0.2919708 ,
+       0.26271186, 0.        , 0.95465995, 0.9988081 , 0.25      ,
+       0.98472222, 0.40816327, 0.        ]), 'class_mean_width': array([9.47227191, 9.60627178, 9.63047285, 9.12009238, 9.53191489,
+       9.75      , 9.29198683, 9.50877193, 9.125     , 9.40875912,
+       8.86440678, 9.        , 9.34760705, 9.57926103, 9.625     ,
+       9.81388889, 7.69387755, 9.8       ]), 'class_median_width': array([ 9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,
+        9., 11.,  9.,  9.,  9.]), 'class_mean_width_scaled': array([0.52623733, 0.53368177, 0.53502627, 0.5066718 , 0.52955083,
+       0.54166667, 0.51622149, 0.52826511, 0.50694444, 0.52270884,
+       0.49246704, 0.5       , 0.5193115 , 0.53218117, 0.53472222,
+       0.54521605, 0.42743764, 0.54444444]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       , 0.5       , 0.61111111,
+       0.5       , 0.5       , 0.5       ])}
+
+split_conformal_lac_AdaBoost full class metrics: {'class_coverage': array([0.97853309, 0.98954704, 0.97723292, 1.        , 0.45744681,
+       0.25      , 0.99451153, 0.97660819, 0.        , 0.2919708 ,
+       0.26271186, 0.        , 0.95465995, 0.9988081 , 0.25      ,
+       0.98472222, 0.40816327, 0.        ]), 'class_mean_width': array([9.47227191, 9.60627178, 9.63047285, 9.12009238, 9.53191489,
+       9.75      , 9.29198683, 9.50877193, 9.125     , 9.40875912,
+       8.86440678, 9.        , 9.34760705, 9.57926103, 9.625     ,
+       9.81388889, 7.69387755, 9.8       ]), 'class_median_width': array([ 9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,  9.,
+        9., 11.,  9.,  9.,  9.]), 'class_mean_width_scaled': array([0.52623733, 0.53368177, 0.53502627, 0.5066718 , 0.52955083,
+       0.54166667, 0.51622149, 0.52826511, 0.50694444, 0.52270884,
+       0.49246704, 0.5       , 0.5193115 , 0.53218117, 0.53472222,
+       0.54521605, 0.42743764, 0.54444444]), 'class_median_width_scaled': array([0.5       , 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       , 0.5       , 0.5       ,
+       0.5       , 0.5       , 0.5       , 0.5       , 0.61111111,
+       0.5       , 0.5       , 0.5       ])}
+
+Job completed at Wed Mar 19 06:27:32 PM PDT 2025

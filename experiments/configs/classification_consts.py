@@ -14,16 +14,13 @@ DATASETS = [
 ]
 
 MODELS = {
-    #"LogisticRegression": LogisticRegressionCV(cv = 3, n_jobs = -1),
+    "LogisticRegression": LogisticRegressionCV(cv = 3, n_jobs = -1),
     "RandomForest": RandomForestClassifier(n_jobs = -1, min_samples_leaf = 1),
     "ExtraTrees": ExtraTreesClassifier(n_jobs = -1, min_samples_leaf = 1),
-    #"AdaBoost": AdaBoostClassifier(random_state = 42),
-    #"XGBoost": XGBClassifier(random_state = 42, n_jobs = -1, min_child_weight = 5),
-    #"HistGradientBoosting": HistGradientBoostingClassifier(random_state = 42),
-    #"MLP": MLPClassifier(random_state = 42, hidden_layer_sizes = (64,))
+    "AdaBoost": AdaBoostClassifier(random_state = 42),
+    "XGBoost": XGBClassifier(random_state = 42, n_jobs = -1, min_child_weight = 5),
+    "MLP": MLPClassifier(random_state = 42, hidden_layer_sizes = (64,))
 }
-
-TEST_MODELS = {"ExtraTrees": ExtraTreesClassifier(random_state = 42, n_jobs = -1)}
 
 VALID_UQ_METHODS = [
     'split_conformal_raps',

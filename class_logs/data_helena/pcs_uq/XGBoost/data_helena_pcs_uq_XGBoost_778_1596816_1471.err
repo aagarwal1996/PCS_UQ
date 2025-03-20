@@ -1,0 +1,63 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  0%|          | 0/500 [00:00<?, ?it/s]  0%|          | 1/500 [00:03<33:07,  3.98s/it]  0%|          | 2/500 [00:07<32:13,  3.88s/it]  1%|          | 3/500 [00:11<31:55,  3.85s/it]  1%|          | 4/500 [00:15<31:39,  3.83s/it]  1%|          | 5/500 [00:19<31:33,  3.82s/it]  1%|          | 6/500 [00:23<31:26,  3.82s/it]  1%|▏         | 7/500 [00:26<31:22,  3.82s/it]  2%|▏         | 8/500 [00:30<31:16,  3.81s/it]  2%|▏         | 9/500 [00:34<31:19,  3.83s/it]  2%|▏         | 10/500 [00:38<31:09,  3.82s/it]  2%|▏         | 11/500 [00:42<31:10,  3.83s/it]  2%|▏         | 12/500 [00:45<31:06,  3.82s/it]  3%|▎         | 13/500 [00:49<31:04,  3.83s/it]  3%|▎         | 14/500 [00:53<31:02,  3.83s/it]  3%|▎         | 15/500 [00:57<30:55,  3.82s/it]  3%|▎         | 15/500 [00:57<31:02,  3.84s/it]
+Traceback (most recent call last):
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 142, in <module>
+    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
+    uq_method.fit(X_train, y_train)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs.py", line 75, in fit
+    self._fit_bootstraps(X_train, y_train)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs.py", line 171, in _fit_bootstraps
+    bootstrap_model.fit(X_boot, y_boot)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/xgboost/core.py", line 726, in inner_f
+    return func(**kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/xgboost/sklearn.py", line 1559, in fit
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Invalid classes inferred from unique values of `y`.  Expected: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+ 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
+ 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+ 96 97 98], got [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+ 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
+ 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 91 92 93 94 95 96
+ 97 98 99]

@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:29:38 PM PDT 2025
+Job parameters:
+Dataset: data_helena
+UQ Method: split_conformal_lac
+Estimator: LogisticRegression
+Seed: 786
+Train Size: 0.8
+Running split_conformal_lac on data_helena with seed 786 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_lac_LogisticRegression on data_helena with seed 786
+
+Job completed at Wed Mar 19 06:29:53 PM PDT 2025

@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=class_%A_%a
-#SBATCH --output=logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
-#SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
+#SBATCH --output=class_logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
+#SBATCH --error=class_logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
 #SBATCH --time=3:00:00
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=jsteinhardt
 
 # Create logs directory if it doesn't exist
@@ -92,7 +92,7 @@ for uq in "${UQ_METHODS[@]}"; do
 done
 
 # Create dataset and UQ method specific log directory with absolute path
-LOG_DIR="logs/${DATASET}/${UQ_METHOD}/${ESTIMATOR}"
+LOG_DIR="class_logs/${DATASET}/${UQ_METHOD}/${ESTIMATOR}"
 mkdir -p "$LOG_DIR"
 
 # Set log file paths with absolute paths

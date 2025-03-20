@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:19:04 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_aps
+Estimator: ExtraTrees
+Seed: 778
+Train Size: 0.8
+Running split_conformal_aps on data_chess with seed 778 and train size 0.8
+
+starting experiment
+
+data created
+
+Metrics file experiments/results/classification/data_chess/split_conformal_aps_ExtraTrees_seed_778_train_size_0.8_metrics.pkl already exists. Skipping experiment.
+
+Job completed at Wed Mar 19 06:19:09 PM PDT 2025

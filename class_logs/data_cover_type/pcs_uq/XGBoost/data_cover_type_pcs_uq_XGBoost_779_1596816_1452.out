@@ -1,0 +1,15 @@
+Starting job at Wed Mar 19 06:30:31 PM PDT 2025
+Job parameters:
+Dataset: data_cover_type
+UQ Method: pcs_uq
+Estimator: XGBoost
+Seed: 779
+Train Size: 0.8
+Running pcs_uq on data_cover_type with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting pcs_uq on data_cover_type with seed 779
+

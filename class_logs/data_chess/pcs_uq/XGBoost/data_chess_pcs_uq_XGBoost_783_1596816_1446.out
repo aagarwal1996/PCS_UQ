@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:30:29 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: pcs_uq
+Estimator: XGBoost
+Seed: 783
+Train Size: 0.8
+Running pcs_uq on data_chess with seed 783 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting pcs_uq on data_chess with seed 783
+
+Job completed at Wed Mar 19 06:30:38 PM PDT 2025

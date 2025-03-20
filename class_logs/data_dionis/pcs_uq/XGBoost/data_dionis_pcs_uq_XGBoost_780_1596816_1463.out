@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:30:40 PM PDT 2025
+Job parameters:
+Dataset: data_dionis
+UQ Method: pcs_uq
+Estimator: XGBoost
+Seed: 780
+Train Size: 0.8
+Running pcs_uq on data_dionis with seed 780 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting pcs_uq on data_dionis with seed 780
+
+Job completed at Wed Mar 19 06:31:57 PM PDT 2025

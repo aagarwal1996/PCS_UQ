@@ -1,0 +1,361 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/model_selection/_split.py:776: UserWarning: The least populated class in y has only 2 members, which is less than n_splits=3.
+  warnings.warn(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  0%|          | 0/500 [00:00<?, ?it/s]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  0%|          | 1/500 [00:03<26:14,  3.16s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  0%|          | 2/500 [00:06<26:08,  3.15s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  1%|          | 3/500 [00:09<26:22,  3.18s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  1%|          | 4/500 [00:12<26:26,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  1%|          | 5/500 [00:15<26:19,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  1%|          | 6/500 [00:19<26:20,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  1%|▏         | 7/500 [00:22<26:19,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  2%|▏         | 8/500 [00:25<26:14,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  2%|▏         | 9/500 [00:28<26:13,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  2%|▏         | 10/500 [00:31<26:07,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  2%|▏         | 11/500 [00:35<26:03,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  2%|▏         | 12/500 [00:38<26:05,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  3%|▎         | 13/500 [00:41<26:01,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  3%|▎         | 14/500 [00:44<26:03,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  3%|▎         | 15/500 [00:48<25:59,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  3%|▎         | 16/500 [00:51<25:49,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  3%|▎         | 17/500 [00:54<25:46,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  4%|▎         | 18/500 [00:57<25:41,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  4%|▍         | 19/500 [01:00<25:32,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  4%|▍         | 20/500 [01:03<25:29,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  4%|▍         | 21/500 [01:07<25:27,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  4%|▍         | 22/500 [01:10<25:25,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  5%|▍         | 23/500 [01:13<25:31,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  5%|▍         | 24/500 [01:16<25:22,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  5%|▌         | 25/500 [01:19<25:24,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  5%|▌         | 26/500 [01:23<25:24,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  5%|▌         | 27/500 [01:26<25:16,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  6%|▌         | 28/500 [01:29<25:14,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  6%|▌         | 29/500 [01:32<25:08,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  6%|▌         | 30/500 [01:35<25:02,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  6%|▌         | 31/500 [01:39<24:59,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  6%|▋         | 32/500 [01:42<24:56,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  7%|▋         | 33/500 [01:45<24:49,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  7%|▋         | 34/500 [01:48<24:50,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  7%|▋         | 35/500 [01:51<24:48,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  7%|▋         | 36/500 [01:55<24:41,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  7%|▋         | 37/500 [01:58<24:41,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  8%|▊         | 38/500 [02:01<24:35,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  8%|▊         | 39/500 [02:04<24:34,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  8%|▊         | 40/500 [02:07<24:30,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  8%|▊         | 41/500 [02:11<24:23,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  8%|▊         | 42/500 [02:14<24:18,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  9%|▊         | 43/500 [02:17<24:17,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  9%|▉         | 44/500 [02:20<24:13,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  9%|▉         | 45/500 [02:23<24:13,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  9%|▉         | 46/500 [02:27<24:11,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  9%|▉         | 47/500 [02:30<24:07,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 10%|▉         | 48/500 [02:33<24:05,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 10%|▉         | 49/500 [02:36<24:00,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 10%|█         | 50/500 [02:39<23:56,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 10%|█         | 51/500 [02:43<23:52,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 10%|█         | 52/500 [02:46<23:47,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 11%|█         | 53/500 [02:49<23:51,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 11%|█         | 54/500 [02:52<23:45,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 11%|█         | 55/500 [02:55<23:43,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 11%|█         | 56/500 [02:59<23:40,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 11%|█▏        | 57/500 [03:02<23:42,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 12%|█▏        | 58/500 [03:05<23:43,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 12%|█▏        | 59/500 [03:08<23:41,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 12%|█▏        | 60/500 [03:11<23:34,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 12%|█▏        | 61/500 [03:15<23:27,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 12%|█▏        | 62/500 [03:18<23:23,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 13%|█▎        | 63/500 [03:21<23:18,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 13%|█▎        | 64/500 [03:24<23:16,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 13%|█▎        | 65/500 [03:27<23:15,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 13%|█▎        | 66/500 [03:31<23:05,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 13%|█▎        | 67/500 [03:34<23:06,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 14%|█▎        | 68/500 [03:37<23:02,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 14%|█▍        | 69/500 [03:40<22:57,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 14%|█▍        | 70/500 [03:43<22:57,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 14%|█▍        | 71/500 [03:47<22:50,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 14%|█▍        | 72/500 [03:50<22:52,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 15%|█▍        | 73/500 [03:53<22:55,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 15%|█▍        | 74/500 [03:56<22:47,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 15%|█▌        | 75/500 [03:59<22:40,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 15%|█▌        | 76/500 [04:03<22:38,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 15%|█▌        | 77/500 [04:06<22:28,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 16%|█▌        | 78/500 [04:09<22:28,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 16%|█▌        | 79/500 [04:12<22:25,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 16%|█▌        | 80/500 [04:15<22:22,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 16%|█▌        | 81/500 [04:19<22:25,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 16%|█▋        | 82/500 [04:22<22:24,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 17%|█▋        | 83/500 [04:25<22:16,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 17%|█▋        | 84/500 [04:28<22:13,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 17%|█▋        | 85/500 [04:31<22:07,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 17%|█▋        | 86/500 [04:35<22:04,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 17%|█▋        | 87/500 [04:38<22:04,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 18%|█▊        | 88/500 [04:41<21:55,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 18%|█▊        | 89/500 [04:44<21:52,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 18%|█▊        | 90/500 [04:48<21:54,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 18%|█▊        | 91/500 [04:51<21:51,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 18%|█▊        | 92/500 [04:54<21:59,  3.23s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 19%|█▊        | 93/500 [04:57<21:56,  3.24s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 19%|█▉        | 94/500 [05:00<21:43,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 19%|█▉        | 95/500 [05:04<21:49,  3.23s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 19%|█▉        | 96/500 [05:07<21:41,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 19%|█▉        | 97/500 [05:10<21:34,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 20%|█▉        | 98/500 [05:13<21:33,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 20%|█▉        | 99/500 [05:16<21:26,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 20%|██        | 100/500 [05:20<21:24,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 20%|██        | 101/500 [05:23<21:21,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 20%|██        | 102/500 [05:26<21:13,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 21%|██        | 103/500 [05:29<21:06,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 21%|██        | 104/500 [05:33<21:10,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 21%|██        | 105/500 [05:36<21:03,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 21%|██        | 106/500 [05:39<21:05,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 21%|██▏       | 107/500 [05:42<20:57,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 22%|██▏       | 108/500 [05:45<20:52,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 22%|██▏       | 109/500 [05:49<20:54,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 22%|██▏       | 110/500 [05:52<20:51,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 22%|██▏       | 111/500 [05:55<20:47,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 22%|██▏       | 112/500 [05:58<20:43,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 23%|██▎       | 113/500 [06:01<20:35,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 23%|██▎       | 114/500 [06:05<20:34,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 23%|██▎       | 115/500 [06:08<20:34,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 23%|██▎       | 116/500 [06:11<20:28,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 23%|██▎       | 117/500 [06:14<20:26,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 24%|██▎       | 118/500 [06:17<20:21,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 24%|██▍       | 119/500 [06:20<20:17,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 24%|██▍       | 120/500 [06:24<20:17,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 24%|██▍       | 121/500 [06:27<20:11,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 24%|██▍       | 122/500 [06:30<20:06,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 25%|██▍       | 123/500 [06:33<20:05,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 25%|██▍       | 124/500 [06:36<20:00,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 25%|██▌       | 125/500 [06:40<19:58,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 25%|██▌       | 126/500 [06:43<19:55,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 25%|██▌       | 127/500 [06:46<19:48,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 26%|██▌       | 128/500 [06:49<19:50,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 26%|██▌       | 129/500 [06:52<19:45,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 26%|██▌       | 130/500 [06:56<19:41,  3.19s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 26%|██▌       | 131/500 [06:59<19:41,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 26%|██▋       | 132/500 [07:02<19:38,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 27%|██▋       | 133/500 [07:05<19:34,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 27%|██▋       | 134/500 [07:08<19:33,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 27%|██▋       | 135/500 [07:12<19:32,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 27%|██▋       | 136/500 [07:15<19:27,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 27%|██▋       | 137/500 [07:18<19:26,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 28%|██▊       | 138/500 [07:21<19:19,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 28%|██▊       | 139/500 [07:25<19:23,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 28%|██▊       | 140/500 [07:28<19:18,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 28%|██▊       | 141/500 [07:31<19:10,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 28%|██▊       | 142/500 [07:34<19:04,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 29%|██▊       | 143/500 [07:37<19:03,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 29%|██▉       | 144/500 [07:41<18:59,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 29%|██▉       | 145/500 [07:44<19:01,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 29%|██▉       | 146/500 [07:47<18:59,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 29%|██▉       | 147/500 [07:50<18:55,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 30%|██▉       | 148/500 [07:53<18:51,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 30%|██▉       | 149/500 [07:57<18:50,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 30%|███       | 150/500 [08:00<18:50,  3.23s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 30%|███       | 151/500 [08:03<18:45,  3.22s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 30%|███       | 152/500 [08:06<18:37,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 31%|███       | 153/500 [08:10<18:31,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 31%|███       | 154/500 [08:13<18:31,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 31%|███       | 155/500 [08:16<18:24,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 31%|███       | 156/500 [08:19<18:25,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 31%|███▏      | 157/500 [08:22<18:22,  3.21s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 32%|███▏      | 158/500 [08:26<18:15,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 32%|███▏      | 159/500 [08:29<18:10,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 32%|███▏      | 160/500 [08:32<18:07,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 32%|███▏      | 161/500 [08:35<18:04,  3.20s/it]/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+ 32%|███▏      | 162/500 [08:38<18:04,  3.21s/it]

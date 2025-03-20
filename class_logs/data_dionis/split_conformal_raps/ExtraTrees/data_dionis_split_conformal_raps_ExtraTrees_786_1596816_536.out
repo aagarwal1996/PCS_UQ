@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:23:02 PM PDT 2025
+Job parameters:
+Dataset: data_dionis
+UQ Method: split_conformal_raps
+Estimator: ExtraTrees
+Seed: 786
+Train Size: 0.8
+Running split_conformal_raps on data_dionis with seed 786 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_ExtraTrees on data_dionis with seed 786
+
+Job completed at Wed Mar 19 06:23:05 PM PDT 2025

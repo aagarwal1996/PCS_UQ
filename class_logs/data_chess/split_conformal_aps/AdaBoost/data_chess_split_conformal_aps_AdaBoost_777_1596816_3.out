@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:19:03 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_aps
+Estimator: AdaBoost
+Seed: 777
+Train Size: 0.8
+Running split_conformal_aps on data_chess with seed 777 and train size 0.8
+
+starting experiment
+
+data created
+
+Metrics file experiments/results/classification/data_chess/split_conformal_aps_AdaBoost_seed_777_train_size_0.8_metrics.pkl already exists. Skipping experiment.
+
+Job completed at Wed Mar 19 06:19:08 PM PDT 2025

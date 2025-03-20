@@ -1,0 +1,16 @@
+Starting job at Wed Mar 19 06:19:21 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_aps
+Estimator: LogisticRegression
+Seed: 785
+Train Size: 0.8
+Running split_conformal_aps on data_chess with seed 785 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_aps_LogisticRegression on data_chess with seed 785
+
+Job completed at Wed Mar 19 06:19:38 PM PDT 2025
