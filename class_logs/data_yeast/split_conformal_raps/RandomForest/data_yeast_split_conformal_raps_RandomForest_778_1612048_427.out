@@ -1,0 +1,30 @@
+Starting job at Thu Mar 20 05:03:28 PM PDT 2025
+Job parameters:
+Dataset: data_yeast
+UQ Method: split_conformal_raps
+Estimator: RandomForest
+Seed: 778
+Train Size: 0.8
+Running split_conformal_raps on data_yeast with seed 778 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_RandomForest on data_yeast with seed 778
+
+split_conformal_raps_RandomForest metrics: {'coverage': np.float64(0.9124579124579124), 'mean_width': np.float64(2.404040404040404), 'median_width': np.float64(2.0), 'mean_width_scaled': np.float64(0.2404040404040404), 'median_width_scaled': np.float64(0.2)}
+
+split_conformal_raps_RandomForest full metrics: {'coverage': np.float64(0.9124579124579124), 'mean_width': np.float64(2.404040404040404), 'median_width': np.float64(2.0), 'mean_width_scaled': np.float64(0.2404040404040404), 'median_width_scaled': np.float64(0.2)}
+
+split_conformal_raps_RandomForest class metrics: {'class_coverage': array([0.95698925, 0.        , 0.71428571, 1.        , 0.8       ,
+       0.96875   , 0.91836735, 0.96511628, 0.        , 0.16666667]), 'class_mean_width': array([2.12903226, 3.        , 3.        , 3.        , 3.        ,
+       2.96875   , 2.46938776, 2.24418605, 2.5       , 2.66666667]), 'class_median_width': array([2. , 3. , 3. , 3. , 3. , 3. , 2. , 2. , 2.5, 3. ]), 'class_mean_width_scaled': array([0.21290323, 0.3       , 0.3       , 0.3       , 0.3       ,
+       0.296875  , 0.24693878, 0.2244186 , 0.25      , 0.26666667]), 'class_median_width_scaled': array([0.2 , 0.3 , 0.3 , 0.3 , 0.3 , 0.3 , 0.2 , 0.2 , 0.25, 0.3 ])}
+
+split_conformal_raps_RandomForest full class metrics: {'class_coverage': array([0.95698925, 0.        , 0.71428571, 1.        , 0.8       ,
+       0.96875   , 0.91836735, 0.96511628, 0.        , 0.16666667]), 'class_mean_width': array([2.12903226, 3.        , 3.        , 3.        , 3.        ,
+       2.96875   , 2.46938776, 2.24418605, 2.5       , 2.66666667]), 'class_median_width': array([2. , 3. , 3. , 3. , 3. , 3. , 2. , 2. , 2.5, 3. ]), 'class_mean_width_scaled': array([0.21290323, 0.3       , 0.3       , 0.3       , 0.3       ,
+       0.296875  , 0.24693878, 0.2244186 , 0.25      , 0.26666667]), 'class_median_width_scaled': array([0.2 , 0.3 , 0.3 , 0.3 , 0.3 , 0.3 , 0.2 , 0.2 , 0.25, 0.3 ])}
+
+Job completed at Thu Mar 20 05:03:30 PM PDT 2025

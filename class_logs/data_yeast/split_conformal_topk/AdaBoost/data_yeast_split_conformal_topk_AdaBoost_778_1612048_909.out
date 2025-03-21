@@ -1,0 +1,26 @@
+Starting job at Thu Mar 20 05:04:11 PM PDT 2025
+Job parameters:
+Dataset: data_yeast
+UQ Method: split_conformal_topk
+Estimator: AdaBoost
+Seed: 778
+Train Size: 0.8
+Running split_conformal_topk on data_yeast with seed 778 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_AdaBoost on data_yeast with seed 778
+
+split_conformal_topk_AdaBoost metrics: {'coverage': np.float64(0.98989898989899), 'mean_width': np.float64(6.0), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.6), 'median_width_scaled': np.float64(0.6)}
+
+split_conformal_topk_AdaBoost full metrics: {'coverage': np.float64(0.98989898989899), 'mean_width': np.float64(6.0), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.6), 'median_width_scaled': np.float64(0.6)}
+
+split_conformal_topk_AdaBoost class metrics: {'class_coverage': array([1.        , 1.        , 0.85714286, 1.        , 1.        ,
+       1.        , 1.        , 1.        , 0.75      , 0.83333333]), 'class_mean_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6.]), 'class_median_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6.]), 'class_mean_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6]), 'class_median_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6])}
+
+split_conformal_topk_AdaBoost full class metrics: {'class_coverage': array([1.        , 1.        , 0.85714286, 1.        , 1.        ,
+       1.        , 1.        , 1.        , 0.75      , 0.83333333]), 'class_mean_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6.]), 'class_median_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6.]), 'class_mean_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6]), 'class_median_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6])}
+
+Job completed at Thu Mar 20 05:04:13 PM PDT 2025

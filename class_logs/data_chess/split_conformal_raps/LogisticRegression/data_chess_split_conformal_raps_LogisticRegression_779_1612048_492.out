@@ -1,0 +1,50 @@
+Starting job at Thu Mar 20 05:03:32 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_raps
+Estimator: LogisticRegression
+Seed: 779
+Train Size: 0.8
+Running split_conformal_raps on data_chess with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_LogisticRegression on data_chess with seed 779
+
+split_conformal_raps_LogisticRegression metrics: {'coverage': np.float64(0.8929080541696365), 'mean_width': np.float64(5.49055595153243), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.30503088619624613), 'median_width_scaled': np.float64(0.3333333333333333)}
+
+split_conformal_raps_LogisticRegression full metrics: {'coverage': np.float64(0.8929080541696365), 'mean_width': np.float64(5.49055595153243), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.30503088619624613), 'median_width_scaled': np.float64(0.3333333333333333)}
+
+split_conformal_raps_LogisticRegression class metrics: {'class_coverage': array([0.83899821, 0.85714286, 0.92294221, 0.926097  , 0.84042553,
+       0.475     , 0.98353458, 0.85380117, 0.25      , 0.48905109,
+       0.6440678 , 0.58974359, 0.8186398 , 0.99284863, 0.0625    ,
+       0.95555556, 0.85714286, 0.        ]), 'class_mean_width': array([5.44364937, 6.34494774, 6.04203152, 3.81755196, 6.64893617,
+       6.85      , 4.64983535, 6.07309942, 6.9375    , 6.25547445,
+       6.55084746, 3.17948718, 6.11335013, 5.34803337, 6.8125    ,
+       5.90416667, 6.85714286, 7.        ]), 'class_median_width': array([5., 7., 6., 4., 7., 7., 5., 6., 7., 7., 7., 3., 6., 5., 7., 6., 7.,
+       7.]), 'class_mean_width_scaled': array([0.30242497, 0.3524971 , 0.33566842, 0.21208622, 0.36938534,
+       0.38055556, 0.25832419, 0.33739441, 0.38541667, 0.34752636,
+       0.36393597, 0.17663818, 0.33963056, 0.29711297, 0.37847222,
+       0.32800926, 0.38095238, 0.38888889]), 'class_median_width_scaled': array([0.27777778, 0.38888889, 0.33333333, 0.22222222, 0.38888889,
+       0.38888889, 0.27777778, 0.33333333, 0.38888889, 0.38888889,
+       0.38888889, 0.16666667, 0.33333333, 0.27777778, 0.38888889,
+       0.33333333, 0.38888889, 0.38888889])}
+
+split_conformal_raps_LogisticRegression full class metrics: {'class_coverage': array([0.83899821, 0.85714286, 0.92294221, 0.926097  , 0.84042553,
+       0.475     , 0.98353458, 0.85380117, 0.25      , 0.48905109,
+       0.6440678 , 0.58974359, 0.8186398 , 0.99284863, 0.0625    ,
+       0.95555556, 0.85714286, 0.        ]), 'class_mean_width': array([5.44364937, 6.34494774, 6.04203152, 3.81755196, 6.64893617,
+       6.85      , 4.64983535, 6.07309942, 6.9375    , 6.25547445,
+       6.55084746, 3.17948718, 6.11335013, 5.34803337, 6.8125    ,
+       5.90416667, 6.85714286, 7.        ]), 'class_median_width': array([5., 7., 6., 4., 7., 7., 5., 6., 7., 7., 7., 3., 6., 5., 7., 6., 7.,
+       7.]), 'class_mean_width_scaled': array([0.30242497, 0.3524971 , 0.33566842, 0.21208622, 0.36938534,
+       0.38055556, 0.25832419, 0.33739441, 0.38541667, 0.34752636,
+       0.36393597, 0.17663818, 0.33963056, 0.29711297, 0.37847222,
+       0.32800926, 0.38095238, 0.38888889]), 'class_median_width_scaled': array([0.27777778, 0.38888889, 0.33333333, 0.22222222, 0.38888889,
+       0.38888889, 0.27777778, 0.33333333, 0.38888889, 0.38888889,
+       0.38888889, 0.16666667, 0.33333333, 0.27777778, 0.38888889,
+       0.33333333, 0.38888889, 0.38888889])}
+
+Job completed at Thu Mar 20 05:03:37 PM PDT 2025

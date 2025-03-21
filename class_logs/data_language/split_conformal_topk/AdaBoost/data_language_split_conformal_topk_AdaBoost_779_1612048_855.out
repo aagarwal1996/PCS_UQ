@@ -1,0 +1,62 @@
+Starting job at Thu Mar 20 05:04:03 PM PDT 2025
+Job parameters:
+Dataset: data_language
+UQ Method: split_conformal_topk
+Estimator: AdaBoost
+Seed: 779
+Train Size: 0.8
+Running split_conformal_topk on data_language with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_AdaBoost on data_language with seed 779
+
+split_conformal_topk_AdaBoost metrics: {'coverage': np.float64(0.965), 'mean_width': np.float64(18.02), 'median_width': np.float64(18.0), 'mean_width_scaled': np.float64(0.6006666666666667), 'median_width_scaled': np.float64(0.6)}
+
+split_conformal_topk_AdaBoost full metrics: {'coverage': np.float64(0.965), 'mean_width': np.float64(18.02), 'median_width': np.float64(18.0), 'mean_width_scaled': np.float64(0.6006666666666667), 'median_width_scaled': np.float64(0.6)}
+
+split_conformal_topk_AdaBoost class metrics: {'class_coverage': array([1.        , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 0.        , 1.        , 0.83333333, 0.5       ,
+       1.        , 1.        , 1.        , 1.        , 1.        ,
+       0.9       , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 1.        , 0.5       , 1.        , 1.        ]), 'class_mean_width': array([18.        , 18.        , 18.        , 18.        , 17.42857143,
+       19.2       , 17.86666667, 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 17.66666667, 18.        , 18.        ]), 'class_median_width': array([18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18.,
+       18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18.,
+       18., 18., 18., 18.]), 'class_mean_width_scaled': array([0.6       , 0.6       , 0.6       , 0.6       , 0.58095238,
+       0.64      , 0.59555556, 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.58888889, 0.6       , 0.6       ]), 'class_median_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6,
+       0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6,
+       0.6, 0.6, 0.6, 0.6])}
+
+split_conformal_topk_AdaBoost full class metrics: {'class_coverage': array([1.        , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 0.        , 1.        , 0.83333333, 0.5       ,
+       1.        , 1.        , 1.        , 1.        , 1.        ,
+       0.9       , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 1.        , 0.5       , 1.        , 1.        ]), 'class_mean_width': array([18.        , 18.        , 18.        , 18.        , 17.42857143,
+       19.2       , 17.86666667, 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 18.        , 18.        , 18.        ,
+       18.        , 18.        , 17.66666667, 18.        , 18.        ]), 'class_median_width': array([18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18.,
+       18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18., 18.,
+       18., 18., 18., 18.]), 'class_mean_width_scaled': array([0.6       , 0.6       , 0.6       , 0.6       , 0.58095238,
+       0.64      , 0.59555556, 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.6       , 0.6       , 0.6       ,
+       0.6       , 0.6       , 0.58888889, 0.6       , 0.6       ]), 'class_median_width_scaled': array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6,
+       0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6,
+       0.6, 0.6, 0.6, 0.6])}
+
+Job completed at Thu Mar 20 05:04:06 PM PDT 2025

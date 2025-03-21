@@ -1,0 +1,40 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Training RandomForest models:   0%|          | 0/500 [00:00<?, ?it/s]Training RandomForest models:   0%|          | 1/500 [00:14<1:56:34, 14.02s/it]Training RandomForest models:   0%|          | 2/500 [00:27<1:55:58, 13.97s/it]Training RandomForest models:   1%|          | 3/500 [00:41<1:55:25, 13.94s/it]Training RandomForest models:   1%|          | 4/500 [00:55<1:55:34, 13.98s/it]Training RandomForest models:   1%|          | 5/500 [01:09<1:54:58, 13.94s/it]Training RandomForest models:   1%|          | 6/500 [01:23<1:54:32, 13.91s/it]Training RandomForest models:   1%|▏         | 7/500 [01:36<1:52:43, 13.72s/it]Training RandomForest models:   2%|▏         | 8/500 [01:50<1:51:48, 13.64s/it]Training RandomForest models:   2%|▏         | 9/500 [02:04<1:52:04, 13.70s/it]Training RandomForest models:   2%|▏         | 10/500 [02:17<1:51:31, 13.66s/it]Training RandomForest models:   2%|▏         | 11/500 [02:31<1:52:24, 13.79s/it]Training RandomForest models:   2%|▏         | 12/500 [02:45<1:52:50, 13.87s/it]Training RandomForest models:   3%|▎         | 13/500 [03:00<1:53:07, 13.94s/it]Training RandomForest models:   3%|▎         | 14/500 [03:13<1:52:21, 13.87s/it]Training RandomForest models:   3%|▎         | 15/500 [03:27<1:51:03, 13.74s/it]Training RandomForest models:   3%|▎         | 16/500 [03:41<1:51:24, 13.81s/it]Training RandomForest models:   3%|▎         | 17/500 [03:55<1:51:15, 13.82s/it]Training RandomForest models:   4%|▎         | 18/500 [04:08<1:50:25, 13.75s/it]Training RandomForest models:   4%|▍         | 19/500 [04:22<1:50:25, 13.77s/it]Training RandomForest models:   4%|▍         | 20/500 [04:36<1:49:46, 13.72s/it]Training RandomForest models:   4%|▍         | 21/500 [04:50<1:50:20, 13.82s/it]Training RandomForest models:   4%|▍         | 22/500 [05:04<1:50:27, 13.87s/it]Training RandomForest models:   5%|▍         | 23/500 [05:17<1:49:43, 13.80s/it]Training RandomForest models:   5%|▍         | 24/500 [05:31<1:49:31, 13.81s/it]Training RandomForest models:   5%|▌         | 25/500 [05:45<1:50:01, 13.90s/it]Training RandomForest models:   5%|▌         | 26/500 [05:59<1:49:54, 13.91s/it]Training RandomForest models:   5%|▌         | 27/500 [06:13<1:49:52, 13.94s/it]Training RandomForest models:   6%|▌         | 28/500 [06:27<1:49:40, 13.94s/it]Training RandomForest models:   6%|▌         | 29/500 [06:41<1:49:07, 13.90s/it]Training RandomForest models:   6%|▌         | 30/500 [06:55<1:49:00, 13.92s/it]Training RandomForest models:   6%|▌         | 31/500 [07:09<1:49:00, 13.95s/it]Training RandomForest models:   6%|▋         | 32/500 [07:23<1:49:19, 14.02s/it]Training RandomForest models:   7%|▋         | 33/500 [07:37<1:49:10, 14.03s/it]Training RandomForest models:   7%|▋         | 34/500 [07:51<1:48:30, 13.97s/it]Training RandomForest models:   7%|▋         | 35/500 [08:05<1:48:12, 13.96s/it]Training RandomForest models:   7%|▋         | 36/500 [08:19<1:47:44, 13.93s/it]Training RandomForest models:   7%|▋         | 37/500 [08:32<1:46:58, 13.86s/it]Training RandomForest models:   8%|▊         | 38/500 [08:46<1:46:40, 13.85s/it]Training RandomForest models:   8%|▊         | 39/500 [09:00<1:46:32, 13.87s/it]Training RandomForest models:   8%|▊         | 39/500 [09:01<1:46:46, 13.90s/it]
+Traceback (most recent call last):
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 138, in <module>
+    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
+    uq_method.fit(X_train, y_train)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 67, in fit
+    self._train_top_k(X, y)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 124, in _train_top_k
+    bootstrap_model.fit(X_boot, y_boot)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/ensemble/_forest.py", line 489, in fit
+    trees = Parallel(
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+    return super().__call__(iterable_with_config)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 1918, in __call__
+    return output if self.return_generator else list(output)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 1847, in _get_sequential_output
+    res = func(*args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 136, in __call__
+    return self.function(*args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/ensemble/_forest.py", line 192, in _parallel_build_trees
+    tree._fit(
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/tree/_classes.py", line 472, in _fit
+    builder.build(self.tree_, X, y, sample_weight, missing_values_in_feature_mask)
+  File "_tree.pyx", line 172, in sklearn.tree._tree.DepthFirstTreeBuilder.build
+  File "_tree.pyx", line 287, in sklearn.tree._tree.DepthFirstTreeBuilder.build
+  File "_tree.pyx", line 942, in sklearn.tree._tree.Tree._add_node
+  File "_tree.pyx", line 911, in sklearn.tree._tree.Tree._resize_c
+  File "_utils.pyx", line 35, in sklearn.tree._utils.safe_realloc
+MemoryError: could not allocate 2908160 bytes

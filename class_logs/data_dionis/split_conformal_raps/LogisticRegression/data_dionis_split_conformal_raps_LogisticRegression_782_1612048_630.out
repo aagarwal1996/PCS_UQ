@@ -1,0 +1,16 @@
+Starting job at Thu Mar 20 05:03:40 PM PDT 2025
+Job parameters:
+Dataset: data_dionis
+UQ Method: split_conformal_raps
+Estimator: LogisticRegression
+Seed: 782
+Train Size: 0.8
+Running split_conformal_raps on data_dionis with seed 782 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_raps_LogisticRegression on data_dionis with seed 782
+
+Job completed at Thu Mar 20 05:04:00 PM PDT 2025

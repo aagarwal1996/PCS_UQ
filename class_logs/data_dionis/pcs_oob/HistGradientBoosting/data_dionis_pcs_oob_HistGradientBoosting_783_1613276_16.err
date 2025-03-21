@@ -1,0 +1,62 @@
+/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Training RandomForest models:   0%|          | 0/500 [00:00<?, ?it/s]Training RandomForest models:   0%|          | 1/500 [00:02<17:47,  2.14s/it]Training RandomForest models:   0%|          | 2/500 [00:04<17:24,  2.10s/it]Training RandomForest models:   1%|          | 3/500 [00:06<17:32,  2.12s/it]Training RandomForest models:   1%|          | 4/500 [00:08<17:32,  2.12s/it]Training RandomForest models:   1%|          | 5/500 [00:10<17:10,  2.08s/it]Training RandomForest models:   1%|          | 6/500 [00:12<17:33,  2.13s/it]Training RandomForest models:   1%|▏         | 7/500 [00:14<17:12,  2.09s/it]Training RandomForest models:   2%|▏         | 8/500 [00:16<17:00,  2.07s/it]Training RandomForest models:   2%|▏         | 9/500 [00:20<20:37,  2.52s/it]Training RandomForest models:   2%|▏         | 10/500 [00:22<19:25,  2.38s/it]Training RandomForest models:   2%|▏         | 11/500 [00:24<18:43,  2.30s/it]Training RandomForest models:   2%|▏         | 12/500 [00:26<18:04,  2.22s/it]Training RandomForest models:   3%|▎         | 13/500 [00:28<17:34,  2.16s/it]Training RandomForest models:   3%|▎         | 14/500 [00:30<17:43,  2.19s/it]Training RandomForest models:   3%|▎         | 15/500 [00:32<17:18,  2.14s/it]Training RandomForest models:   3%|▎         | 16/500 [00:34<17:04,  2.12s/it]Training RandomForest models:   3%|▎         | 17/500 [00:37<17:17,  2.15s/it]Training RandomForest models:   4%|▎         | 18/500 [00:39<17:07,  2.13s/it]Training RandomForest models:   4%|▍         | 19/500 [00:41<17:07,  2.14s/it]Training RandomForest models:   4%|▍         | 20/500 [00:43<16:51,  2.11s/it]Training RandomForest models:   4%|▍         | 21/500 [00:45<16:49,  2.11s/it]Training RandomForest models:   4%|▍         | 22/500 [00:47<17:03,  2.14s/it]Training RandomForest models:   5%|▍         | 23/500 [00:49<16:45,  2.11s/it]Training RandomForest models:   5%|▍         | 24/500 [00:51<16:48,  2.12s/it]Training RandomForest models:   5%|▌         | 25/500 [00:53<16:36,  2.10s/it]Training RandomForest models:   5%|▌         | 26/500 [00:56<16:42,  2.12s/it]Training RandomForest models:   5%|▌         | 27/500 [00:58<16:29,  2.09s/it]Training RandomForest models:   6%|▌         | 28/500 [01:00<16:40,  2.12s/it]Training RandomForest models:   6%|▌         | 29/500 [01:02<16:24,  2.09s/it]Training RandomForest models:   6%|▌         | 30/500 [01:04<16:25,  2.10s/it]Training RandomForest models:   6%|▌         | 31/500 [01:06<16:41,  2.14s/it]Training RandomForest models:   6%|▋         | 32/500 [01:08<16:44,  2.15s/it]Training RandomForest models:   7%|▋         | 33/500 [01:11<17:07,  2.20s/it]Training RandomForest models:   7%|▋         | 34/500 [01:13<16:34,  2.13s/it]Training RandomForest models:   7%|▋         | 35/500 [01:15<16:57,  2.19s/it]Training RandomForest models:   7%|▋         | 36/500 [01:17<16:57,  2.19s/it]Training RandomForest models:   7%|▋         | 37/500 [01:19<16:50,  2.18s/it]Training RandomForest models:   8%|▊         | 38/500 [01:21<16:41,  2.17s/it]Training RandomForest models:   8%|▊         | 39/500 [01:23<16:21,  2.13s/it]Training RandomForest models:   8%|▊         | 40/500 [01:26<16:26,  2.15s/it]Training RandomForest models:   8%|▊         | 41/500 [01:28<16:22,  2.14s/it]Training RandomForest models:   8%|▊         | 42/500 [01:30<16:59,  2.23s/it]Training RandomForest models:   9%|▊         | 43/500 [01:32<17:03,  2.24s/it]Training RandomForest models:   9%|▉         | 44/500 [01:35<16:48,  2.21s/it]Training RandomForest models:   9%|▉         | 45/500 [01:37<16:37,  2.19s/it]Training RandomForest models:   9%|▉         | 46/500 [01:39<16:35,  2.19s/it]Training RandomForest models:   9%|▉         | 47/500 [01:41<16:41,  2.21s/it]Training RandomForest models:  10%|▉         | 48/500 [01:43<16:29,  2.19s/it]Training RandomForest models:  10%|▉         | 49/500 [01:46<16:37,  2.21s/it]Training RandomForest models:  10%|█         | 50/500 [01:48<16:39,  2.22s/it]Training RandomForest models:  10%|█         | 51/500 [01:50<16:14,  2.17s/it]Training RandomForest models:  10%|█         | 52/500 [01:52<16:09,  2.17s/it]Training RandomForest models:  11%|█         | 53/500 [01:55<16:45,  2.25s/it]Training RandomForest models:  11%|█         | 54/500 [01:57<16:45,  2.25s/it]Training RandomForest models:  11%|█         | 55/500 [01:59<16:41,  2.25s/it]Training RandomForest models:  11%|█         | 56/500 [02:01<16:31,  2.23s/it]Training RandomForest models:  11%|█▏        | 57/500 [02:03<16:23,  2.22s/it]Training RandomForest models:  12%|█▏        | 58/500 [02:06<16:41,  2.27s/it]Training RandomForest models:  12%|█▏        | 59/500 [02:08<16:22,  2.23s/it]Training RandomForest models:  12%|█▏        | 60/500 [02:10<16:14,  2.21s/it]Training RandomForest models:  12%|█▏        | 61/500 [02:12<15:55,  2.18s/it]Training RandomForest models:  12%|█▏        | 62/500 [02:14<15:38,  2.14s/it]Training RandomForest models:  13%|█▎        | 63/500 [02:16<15:44,  2.16s/it]Training RandomForest models:  13%|█▎        | 64/500 [02:19<15:56,  2.19s/it]Training RandomForest models:  13%|█▎        | 65/500 [02:21<16:12,  2.24s/it]Training RandomForest models:  13%|█▎        | 66/500 [02:23<16:09,  2.23s/it]Training RandomForest models:  13%|█▎        | 67/500 [02:26<16:08,  2.24s/it]Training RandomForest models:  14%|█▎        | 68/500 [02:28<16:29,  2.29s/it]Training RandomForest models:  14%|█▍        | 69/500 [02:30<16:07,  2.25s/it]Training RandomForest models:  14%|█▍        | 70/500 [02:32<16:20,  2.28s/it]Training RandomForest models:  14%|█▍        | 71/500 [02:35<16:15,  2.27s/it]Training RandomForest models:  14%|█▍        | 71/500 [02:36<15:45,  2.20s/it]
+joblib.externals.loky.process_executor._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/_utils.py", line 72, in __call__
+    return self.func(**kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 598, in __call__
+    return [func(*args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 598, in <listcomp>
+    return [func(*args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 136, in __call__
+    return self.function(*args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/ensemble/_forest.py", line 192, in _parallel_build_trees
+    tree._fit(
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/tree/_classes.py", line 472, in _fit
+    builder.build(self.tree_, X, y, sample_weight, missing_values_in_feature_mask)
+  File "_tree.pyx", line 172, in sklearn.tree._tree.DepthFirstTreeBuilder.build
+  File "_tree.pyx", line 287, in sklearn.tree._tree.DepthFirstTreeBuilder.build
+  File "_tree.pyx", line 942, in sklearn.tree._tree.Tree._add_node
+  File "_tree.pyx", line 911, in sklearn.tree._tree.Tree._resize_c
+  File "_utils.pyx", line 35, in sklearn.tree._utils.safe_realloc
+MemoryError: could not allocate 2908160 bytes
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 138, in <module>
+    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
+    uq_method.fit(X_train, y_train)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 67, in fit
+    self._train_top_k(X, y)
+  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 124, in _train_top_k
+    bootstrap_model.fit(X_boot, y_boot)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/ensemble/_forest.py", line 489, in fit
+    trees = Parallel(
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+    return super().__call__(iterable_with_config)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 1754, in _retrieve
+    self._raise_error_fast()
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 1789, in _raise_error_fast
+    error_job.get_result(self.timeout)
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 745, in get_result
+    return self._return_or_raise()
+  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.10/site-packages/joblib/parallel.py", line 763, in _return_or_raise
+    raise self._result
+MemoryError: could not allocate 2908160 bytes

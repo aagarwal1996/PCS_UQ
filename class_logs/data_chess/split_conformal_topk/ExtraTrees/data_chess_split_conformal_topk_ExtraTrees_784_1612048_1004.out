@@ -1,0 +1,46 @@
+Starting job at Thu Mar 20 05:04:23 PM PDT 2025
+Job parameters:
+Dataset: data_chess
+UQ Method: split_conformal_topk
+Estimator: ExtraTrees
+Seed: 784
+Train Size: 0.8
+Running split_conformal_topk on data_chess with seed 784 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_ExtraTrees on data_chess with seed 784
+
+split_conformal_topk_ExtraTrees metrics: {'coverage': np.float64(0.9203492516037064), 'mean_width': np.float64(6.0), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.3333333333333333), 'median_width_scaled': np.float64(0.3333333333333333)}
+
+split_conformal_topk_ExtraTrees full metrics: {'coverage': np.float64(0.9203492516037064), 'mean_width': np.float64(6.0), 'median_width': np.float64(6.0), 'mean_width_scaled': np.float64(0.3333333333333333), 'median_width_scaled': np.float64(0.3333333333333333)}
+
+split_conformal_topk_ExtraTrees class metrics: {'class_coverage': array([0.96243292, 0.85365854, 0.95796848, 0.99076212, 0.65957447,
+       0.55      , 0.99890231, 0.80994152, 0.0625    , 0.49635036,
+       0.61016949, 0.8974359 , 0.88664987, 0.99046484, 0.0625    ,
+       0.97222222, 0.81632653, 0.        ]), 'class_mean_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6.,
+       6.]), 'class_median_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6.,
+       6.]), 'class_mean_width_scaled': array([0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333]), 'class_median_width_scaled': array([0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333])}
+
+split_conformal_topk_ExtraTrees full class metrics: {'class_coverage': array([0.96243292, 0.85365854, 0.95796848, 0.99076212, 0.65957447,
+       0.55      , 0.99890231, 0.80994152, 0.0625    , 0.49635036,
+       0.61016949, 0.8974359 , 0.88664987, 0.99046484, 0.0625    ,
+       0.97222222, 0.81632653, 0.        ]), 'class_mean_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6.,
+       6.]), 'class_median_width': array([6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6., 6.,
+       6.]), 'class_mean_width_scaled': array([0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333]), 'class_median_width_scaled': array([0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333, 0.33333333, 0.33333333,
+       0.33333333, 0.33333333, 0.33333333])}
+
+Job completed at Thu Mar 20 05:04:26 PM PDT 2025

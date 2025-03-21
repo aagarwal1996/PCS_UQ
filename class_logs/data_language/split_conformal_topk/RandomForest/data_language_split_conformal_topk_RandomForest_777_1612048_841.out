@@ -1,0 +1,50 @@
+Starting job at Thu Mar 20 05:04:01 PM PDT 2025
+Job parameters:
+Dataset: data_language
+UQ Method: split_conformal_topk
+Estimator: RandomForest
+Seed: 777
+Train Size: 0.8
+Running split_conformal_topk on data_language with seed 777 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting split_conformal_topk_RandomForest on data_language with seed 777
+
+split_conformal_topk_RandomForest metrics: {'coverage': np.float64(0.935), 'mean_width': np.float64(12.0), 'median_width': np.float64(12.0), 'mean_width_scaled': np.float64(0.4), 'median_width_scaled': np.float64(0.4)}
+
+split_conformal_topk_RandomForest full metrics: {'coverage': np.float64(0.935), 'mean_width': np.float64(12.0), 'median_width': np.float64(12.0), 'mean_width_scaled': np.float64(0.4), 'median_width_scaled': np.float64(0.4)}
+
+split_conformal_topk_RandomForest class metrics: {'class_coverage': array([1.        , 0.8       , 1.        , 0.66666667, 0.85714286,
+       1.        , 1.        , 1.        , 1.        , 0.83333333,
+       1.        , 1.        , 1.        , 1.        , 0.        ,
+       0.88888889, 1.        , 1.        , 1.        , 1.        ,
+       0.9       , 1.        , 1.        , 1.        , 0.66666667,
+       1.        , 1.        , 0.83333333, 0.83333333, 0.5       ]), 'class_mean_width': array([12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12.]), 'class_median_width': array([12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12.]), 'class_mean_width_scaled': array([0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4]), 'class_median_width_scaled': array([0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4])}
+
+split_conformal_topk_RandomForest full class metrics: {'class_coverage': array([1.        , 0.8       , 1.        , 0.66666667, 0.85714286,
+       1.        , 1.        , 1.        , 1.        , 0.83333333,
+       1.        , 1.        , 1.        , 1.        , 0.        ,
+       0.88888889, 1.        , 1.        , 1.        , 1.        ,
+       0.9       , 1.        , 1.        , 1.        , 0.66666667,
+       1.        , 1.        , 0.83333333, 0.83333333, 0.5       ]), 'class_mean_width': array([12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12.]), 'class_median_width': array([12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12., 12.,
+       12., 12., 12., 12.]), 'class_mean_width_scaled': array([0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4]), 'class_median_width_scaled': array([0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+       0.4, 0.4, 0.4, 0.4])}
+
+Job completed at Thu Mar 20 05:04:03 PM PDT 2025

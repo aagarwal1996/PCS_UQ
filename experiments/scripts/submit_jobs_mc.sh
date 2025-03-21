@@ -2,8 +2,8 @@
 #SBATCH --job-name=class_%A_%a
 #SBATCH --output=class_logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
 #SBATCH --error=class_logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
-#SBATCH --time=3:00:00
-#SBATCH --cpus-per-task=1
+#SBATCH --time=5:00:00
+#SBATCH --cpus-per-task=64
 #SBATCH --partition=jsteinhardt
 
 # Create logs directory if it doesn't exist
@@ -14,10 +14,12 @@ conda init
 source activate pcs_uq
 
 
-DATASETS=("data_chess" "data_cover_type" "data_dionis" "data_isolet" "data_walking")
+#DATASETS=("data_chess" "data_cover_type" "data_dionis" "data_isolet" "data_walking")
+#DATASETS=("data_language" "data_yeast" "data_chess" "data_cover_type" "data_dionis" "data_isolet")
+#UQ_METHODS=("split_conformal_aps" "split_conformal_raps" "majority_vote" "pcs_oob" "split_conformal_topk")
 
-UQ_METHODS=("split_conformal_aps" "split_conformal_raps" "majority_vote" "pcs_oob" "split_conformal_topk")
-
+DATASETS=("data_cover_type" "data_dionis")
+UQ_METHODS=("pcs_oob")
 ALL_ESTIMATORS=("LogisticRegression" "RandomForest" "ExtraTrees" "AdaBoost" "HistGradientBoosting" "MLP")
 REDUCED_ESTIMATORS=("HistGradientBoosting")  # For majority_vote, pcs_uq, pcs_oob
 

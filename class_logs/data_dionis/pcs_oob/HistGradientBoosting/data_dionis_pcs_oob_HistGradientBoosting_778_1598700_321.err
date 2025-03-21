@@ -1,80 +1,0 @@
-/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/site-packages/sklearn/linear_model/_logistic.py:469: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-Training ExtraTrees models:   0%|          | 0/500 [00:00<?, ?it/s]Training ExtraTrees models:   0%|          | 1/500 [00:04<38:45,  4.66s/it]Training ExtraTrees models:   0%|          | 2/500 [00:09<37:29,  4.52s/it]Training ExtraTrees models:   1%|          | 3/500 [00:13<37:16,  4.50s/it]Training ExtraTrees models:   1%|          | 4/500 [00:18<37:06,  4.49s/it]Training ExtraTrees models:   1%|          | 5/500 [00:22<36:46,  4.46s/it]Training ExtraTrees models:   1%|          | 6/500 [00:26<36:25,  4.42s/it]Training ExtraTrees models:   1%|▏         | 7/500 [00:31<36:02,  4.39s/it]Training ExtraTrees models:   2%|▏         | 8/500 [00:35<36:01,  4.39s/it]Training ExtraTrees models:   2%|▏         | 9/500 [00:39<36:04,  4.41s/it]Training ExtraTrees models:   2%|▏         | 10/500 [00:44<35:29,  4.35s/it]Training ExtraTrees models:   2%|▏         | 11/500 [00:48<35:09,  4.31s/it]Training ExtraTrees models:   2%|▏         | 12/500 [00:52<35:02,  4.31s/it]Training ExtraTrees models:   3%|▎         | 13/500 [00:57<35:18,  4.35s/it]Training ExtraTrees models:   3%|▎         | 14/500 [01:01<35:25,  4.37s/it]Training ExtraTrees models:   3%|▎         | 15/500 [01:06<35:34,  4.40s/it]Training ExtraTrees models:   3%|▎         | 16/500 [01:10<35:35,  4.41s/it]Training ExtraTrees models:   3%|▎         | 17/500 [01:15<37:07,  4.61s/it]Training ExtraTrees models:   4%|▎         | 18/500 [01:25<48:46,  6.07s/it]Training ExtraTrees models:   4%|▍         | 19/500 [01:30<47:21,  5.91s/it]Training ExtraTrees models:   4%|▍         | 20/500 [01:38<51:51,  6.48s/it]Training ExtraTrees models:   4%|▍         | 21/500 [01:44<50:45,  6.36s/it]Training ExtraTrees models:   4%|▍         | 22/500 [01:54<1:00:33,  7.60s/it]Training ExtraTrees models:   5%|▍         | 23/500 [02:02<59:21,  7.47s/it]  Training ExtraTrees models:   5%|▍         | 24/500 [02:09<58:17,  7.35s/it]Training ExtraTrees models:   5%|▌         | 25/500 [02:14<53:31,  6.76s/it]Training ExtraTrees models:   5%|▌         | 26/500 [02:21<54:01,  6.84s/it]Training ExtraTrees models:   5%|▌         | 27/500 [02:29<56:52,  7.22s/it]Training ExtraTrees models:   6%|▌         | 28/500 [02:35<53:22,  6.78s/it]Training ExtraTrees models:   6%|▌         | 29/500 [02:40<49:48,  6.35s/it]Training ExtraTrees models:   6%|▌         | 30/500 [02:48<53:12,  6.79s/it]Training ExtraTrees models:   6%|▌         | 31/500 [02:57<57:19,  7.33s/it]Training ExtraTrees models:   6%|▋         | 32/500 [03:02<51:47,  6.64s/it]Training ExtraTrees models:   7%|▋         | 33/500 [03:09<52:40,  6.77s/it]Training ExtraTrees models:   7%|▋         | 34/500 [03:18<57:34,  7.41s/it]Training ExtraTrees models:   7%|▋         | 35/500 [03:26<59:28,  7.67s/it]Training ExtraTrees models:   7%|▋         | 36/500 [03:33<58:11,  7.53s/it]Training ExtraTrees models:   7%|▋         | 37/500 [03:38<52:30,  6.80s/it]Training ExtraTrees models:   8%|▊         | 38/500 [03:46<54:15,  7.05s/it]Training ExtraTrees models:   8%|▊         | 39/500 [03:58<1:05:02,  8.47s/it]Training ExtraTrees models:   8%|▊         | 40/500 [04:06<1:04:56,  8.47s/it]Training ExtraTrees models:   8%|▊         | 41/500 [04:16<1:07:36,  8.84s/it]Training ExtraTrees models:   8%|▊         | 42/500 [04:24<1:05:08,  8.53s/it]Training ExtraTrees models:   9%|▊         | 43/500 [04:32<1:04:34,  8.48s/it]Training ExtraTrees models:   9%|▉         | 44/500 [04:40<1:02:23,  8.21s/it]Training ExtraTrees models:   9%|▉         | 45/500 [04:48<1:02:04,  8.19s/it]Training ExtraTrees models:   9%|▉         | 46/500 [04:57<1:05:03,  8.60s/it]Training ExtraTrees models:   9%|▉         | 47/500 [05:03<58:50,  7.79s/it]  Training ExtraTrees models:  10%|▉         | 48/500 [05:11<58:25,  7.76s/it]Training ExtraTrees models:  10%|▉         | 49/500 [05:19<58:12,  7.74s/it]Training ExtraTrees models:  10%|█         | 50/500 [05:27<1:00:25,  8.06s/it]Training ExtraTrees models:  10%|█         | 51/500 [05:37<1:02:40,  8.38s/it]Training ExtraTrees models:  10%|█         | 52/500 [05:43<58:19,  7.81s/it]  Training ExtraTrees models:  11%|█         | 53/500 [05:52<1:00:00,  8.05s/it]Training ExtraTrees models:  11%|█         | 54/500 [05:58<57:01,  7.67s/it]  Training ExtraTrees models:  11%|█         | 55/500 [06:06<57:05,  7.70s/it]Training ExtraTrees models:  11%|█         | 56/500 [06:15<1:00:25,  8.17s/it]Training ExtraTrees models:  11%|█▏        | 57/500 [06:22<57:14,  7.75s/it]  Training ExtraTrees models:  12%|█▏        | 58/500 [06:30<56:27,  7.66s/it]Training ExtraTrees models:  12%|█▏        | 59/500 [06:40<1:02:51,  8.55s/it]Training ExtraTrees models:  12%|█▏        | 60/500 [06:49<1:03:07,  8.61s/it]Training ExtraTrees models:  12%|█▏        | 61/500 [06:58<1:03:04,  8.62s/it]Training ExtraTrees models:  12%|█▏        | 62/500 [07:06<1:02:13,  8.52s/it]Training ExtraTrees models:  13%|█▎        | 63/500 [07:12<57:26,  7.89s/it]  Training ExtraTrees models:  13%|█▎        | 64/500 [07:21<58:26,  8.04s/it]Training ExtraTrees models:  13%|█▎        | 65/500 [07:27<53:35,  7.39s/it]Training ExtraTrees models:  13%|█▎        | 66/500 [07:35<54:51,  7.58s/it]Training ExtraTrees models:  13%|█▎        | 67/500 [07:43<55:23,  7.67s/it]Training ExtraTrees models:  14%|█▎        | 68/500 [07:50<55:15,  7.68s/it]Training ExtraTrees models:  14%|█▍        | 69/500 [07:59<56:29,  7.87s/it]Training ExtraTrees models:  14%|█▍        | 70/500 [08:04<51:29,  7.18s/it]Training ExtraTrees models:  14%|█▍        | 71/500 [08:13<55:52,  7.81s/it]Training ExtraTrees models:  14%|█▍        | 72/500 [08:20<52:00,  7.29s/it]Training ExtraTrees models:  15%|█▍        | 73/500 [08:26<49:18,  6.93s/it]Training ExtraTrees models:  15%|█▍        | 74/500 [08:33<50:55,  7.17s/it]Training ExtraTrees models:  15%|█▌        | 75/500 [08:42<54:28,  7.69s/it]Training ExtraTrees models:  15%|█▌        | 76/500 [08:49<52:56,  7.49s/it]Training ExtraTrees models:  15%|█▌        | 77/500 [08:57<52:55,  7.51s/it]Training ExtraTrees models:  16%|█▌        | 78/500 [09:05<53:22,  7.59s/it]Training ExtraTrees models:  16%|█▌        | 79/500 [09:13<54:22,  7.75s/it]Training ExtraTrees models:  16%|█▌        | 80/500 [09:19<51:40,  7.38s/it]Training ExtraTrees models:  16%|█▌        | 81/500 [09:27<52:29,  7.52s/it]Training ExtraTrees models:  16%|█▋        | 82/500 [09:34<51:30,  7.39s/it]Training ExtraTrees models:  17%|█▋        | 83/500 [09:41<49:49,  7.17s/it]Training ExtraTrees models:  17%|█▋        | 84/500 [09:47<48:32,  7.00s/it]Training ExtraTrees models:  17%|█▋        | 85/500 [09:54<47:37,  6.89s/it]Training ExtraTrees models:  17%|█▋        | 86/500 [10:02<49:20,  7.15s/it]Training ExtraTrees models:  17%|█▋        | 86/500 [10:03<48:24,  7.01s/it]
-Traceback (most recent call last):
-  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 145, in <module>
-    run_classification_experiments(dataset_name=args.dataset, seed=args.seed, uq_method=uq_method, uq_method_name = args.UQ_method, method_name=method_name, train_size=args.train_size)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/accounts/campus/aa3797/PhD/PCS_UQ/experiments/scripts/run_classification_exp.py", line 65, in run_classification_experiments
-    uq_method.fit(X_train, y_train)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 67, in fit
-    self._train_top_k(X, y)
-    ~~~~~~~~~~~~~~~~~^^^^^^
-  File "/accounts/campus/aa3797/PhD/PCS_UQ/src/PCS/classification/multi_class_pcs_oob.py", line 123, in _train_top_k
-    bootstrap_model = copy.deepcopy(model)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 163, in deepcopy
-    y = _reconstruct(x, memo, *rv)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 260, in _reconstruct
-    state = deepcopy(state, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 137, in deepcopy
-    y = copier(x, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 222, in _deepcopy_dict
-    y[deepcopy(key, memo)] = deepcopy(value, memo)
-                             ~~~~~~~~^^^^^^^^^^^^^
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 137, in deepcopy
-    y = copier(x, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 197, in _deepcopy_list
-    append(deepcopy(a, memo))
-           ~~~~~~~~^^^^^^^^^
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 163, in deepcopy
-    y = _reconstruct(x, memo, *rv)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 260, in _reconstruct
-    state = deepcopy(state, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 137, in deepcopy
-    y = copier(x, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 222, in _deepcopy_dict
-    y[deepcopy(key, memo)] = deepcopy(value, memo)
-                             ~~~~~~~~^^^^^^^^^^^^^
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 163, in deepcopy
-    y = _reconstruct(x, memo, *rv)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 260, in _reconstruct
-    state = deepcopy(state, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 137, in deepcopy
-    y = copier(x, memo)
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 222, in _deepcopy_dict
-    y[deepcopy(key, memo)] = deepcopy(value, memo)
-                             ~~~~~~~~^^^^^^^^^^^^^
-  File "/scratch/users/aa3797/conda/envs/pcs_uq/lib/python3.13/copy.py", line 144, in deepcopy
-    y = copier(memo)
-numpy._core._exceptions._ArrayMemoryError: Unable to allocate 14.3 MiB for an array with shape (5269, 1, 355) and data type float64

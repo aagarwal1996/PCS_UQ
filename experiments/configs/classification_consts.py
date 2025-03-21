@@ -1,4 +1,4 @@
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, AdaBoostClassifier, HistGradientBoostingClassifier
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
@@ -8,17 +8,17 @@ DATASETS = [
     "data_chess",
     "data_cover_type",
     "data_dionis",
-    "data_helena",
     "data_isolet",
-    "data_walking"
+    "data_language",
+    "data_yeast"
 ]
 
 MODELS = {
-    "LogisticRegression": LogisticRegressionCV(cv = 3, n_jobs = -1),
-    "RandomForest": RandomForestClassifier(n_jobs = -1, min_samples_leaf = 1),
-    "ExtraTrees": ExtraTreesClassifier(n_jobs = -1, min_samples_leaf = 1),
+    "LogisticRegression": LogisticRegression(),
+    "RandomForest": RandomForestClassifier(random_state = 42, min_samples_leaf = 5, n_jobs = 64),
+    "ExtraTrees": ExtraTreesClassifier(random_state = 42, min_samples_leaf = 5, n_jobs = 64),
     "AdaBoost": AdaBoostClassifier(random_state = 42),
-    "HistGradientBoosting": HistGradientBoostingClassifier(random_state = 42),
+    "HistGradientBoosting": HistGradientBoostingClassifier(random_state = 42, max_depth = 4),
     "MLP": MLPClassifier(random_state = 42, hidden_layer_sizes = (64,))
 }
 
@@ -27,7 +27,6 @@ VALID_UQ_METHODS = [
     'split_conformal_aps',
     'split_conformal_topk',
     'majority_vote',
-    'pcs_uq',
     'pcs_oob',
 ]
 

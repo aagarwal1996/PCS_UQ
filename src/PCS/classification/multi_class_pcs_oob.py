@@ -73,7 +73,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
         """
         # Initialize dictionaries once outside the model loop
         
-        self.bootstrap_models = {}
+        #self.bootstrap_models = {}
         self.oob_indices = {}
         self._flattened_bootstrap_models = []
         self._flattened_oob_indices = []
@@ -81,7 +81,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
         
         for model_name, model in self.top_k_models.items():
             # Initialize lists for each model
-            self.bootstrap_models[model_name] = []
+            #self.bootstrap_models[model_name] = []
             self.oob_indices[model_name] = []
             
             for i in tqdm(range(self.num_bootstraps), desc=f"Training {model_name} models"):
@@ -131,7 +131,7 @@ class MultiClassPCS_OOB(MultiClassPCS):
                         with open(oob_path, "wb") as f:
                             pickle.dump(oob_indices, f)
                 
-                self.bootstrap_models[model_name].append(bootstrap_model)
+                #self.bootstrap_models[model_name].append(bootstrap_model)
                 self._flattened_bootstrap_models.append(bootstrap_model)
             print(f"Finished training {model_name} models")
 

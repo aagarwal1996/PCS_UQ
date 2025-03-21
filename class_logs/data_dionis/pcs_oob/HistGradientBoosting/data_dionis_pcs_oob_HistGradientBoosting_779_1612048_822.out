@@ -1,0 +1,16 @@
+Starting job at Thu Mar 20 05:03:59 PM PDT 2025
+Job parameters:
+Dataset: data_dionis
+UQ Method: pcs_oob
+Estimator: HistGradientBoosting
+Seed: 779
+Train Size: 0.8
+Running pcs_oob on data_dionis with seed 779 and train size 0.8
+
+starting experiment
+
+data created
+
+Fitting pcs_oob on data_dionis with seed 779
+
+Job completed at Thu Mar 20 06:35:40 PM PDT 2025
