@@ -28,7 +28,7 @@ ENV/
 .venv
 env.bak/
 venv.bak/
-
+class_logs/
 # IDE - VSCode
 .vscode/
 *.code-workspace
