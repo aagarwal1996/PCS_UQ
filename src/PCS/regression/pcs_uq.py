@@ -16,7 +16,8 @@ from sklearn.base import clone
 from src.metrics.regression_metrics import *
 
 class PCS_UQ:
-    def __init__(self, models, num_bootstraps=10, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, metric = r2_score):
+    def __init__(self, models, num_bootstraps=10, alpha=0.1, seed=42, top_k = 1, save_path = None, 
+                 load_models = True, val_size = 0.25, metric = r2_score, calibration_method = 'multiplicative'):
         """
         PCS UQ
 
@@ -41,6 +42,8 @@ class PCS_UQ:
         self.pred_scores = {model: -np.inf for model in self.models}
         self.top_k_models = None
         self.bootstrap_models = None
+        assert calibration_method in ['multiplicative', 'additive'], "Invalid calibration method"
+        self.calibration_method = calibration_method
     
     def fit(self, X, y, alpha = 0.1):
         """
@@ -65,7 +68,7 @@ class PCS_UQ:
         self._fit_bootstraps(X_train, y_train)
         uncalibrated_intervals  = self.get_intervals(X_calib) # get the uncalibrated intervals and raw width/coverage
         self.uncalibrated_metrics = get_all_metrics(y_calib, uncalibrated_intervals[:,[0,2]]) # drop median to assess raw coverage and width
-        gamma = self.calibrate(uncalibrated_intervals, y_calib) # calibrate the intervals to get the best gamma 
+        gamma = self.calibrate(uncalibrated_intervals, y_calib, self.calibration_method) # calibrate the intervals to get the best gamma 
 
                 
 
@@ -211,9 +214,13 @@ class PCS_UQ:
         intervals[:, 2] = np.quantile(all_predictions, 1.0 - self.alpha/2, axis=1)  # Upper bound
         return intervals
 
+    def calibrate(self,intervals, y_calib, calibration_method = 'multiplicative', gamma_min = 1.0, gamma_max = 1000.0, tol = 1e-6):
+        if self.calibration_method == 'multiplicative':
+            return self._calibrate_multiplicative(intervals, y_calib, gamma_min, gamma_max, tol)
+        elif self.calibration_method == 'additive':
+            return self._calibrate_additive(intervals, y_calib)
         
-    # TODO: binary search for the best gamma
-    def calibrate(self, intervals, y_calib, gamma_min = 1.0, gamma_max = 1000.0, tol = 1e-6):
+    def _calibrate_multiplicative(self, intervals, y_calib, gamma_min = 1.0, gamma_max = 1000.0, tol = 1e-6):
         """
         Calibrate the intervals
         """
@@ -243,10 +250,56 @@ class PCS_UQ:
         self.gamma = best_gamma
         return best_gamma
 
-    def predict(self, X):
+    def _calibrate_additive(self, intervals, y_calib, step_size = 1e-6):
+        """
+        Calibrate the intervals
+        """
+        min_gamma = 0.0
+        max_gamma = np.max(y_calib) - np.min(y_calib)
+        target_coverage = 1.0 - self.alpha
+        coverage = np.mean((y_calib >= intervals[:, 0]) & (y_calib <= intervals[:, 2]))
+        if coverage >= target_coverage:
+            self.gamma = 0.0
+            return 0.0
+        else:
+            left = min_gamma
+            right = max_gamma
+            best_gamma = max_gamma
+
+            while right - left > step_size:
+                gamma = (left + right) / 2
+                lb = intervals[:, 0] - gamma
+                ub = intervals[:, 2] + gamma
+                coverage = np.mean((y_calib >= lb) & (y_calib <= ub))
+
+                if coverage >= target_coverage:
+                    best_gamma = gamma
+                    right = gamma
+                else:
+                    left = gamma
+
+            self.gamma = best_gamma
+            return best_gamma
+        
+        # while coverage < target_coverage:
+        #     lb = intervals[:, 0] - gamma
+        #     ub = intervals[:, 2] + gamma
+        #     coverage = np.mean((y_calib >= lb) & (y_calib <= ub))
+        #     gamma += step_size
+        # return gamma
+    
+        # gamma_range = np.linspace(start = gamma_min, stop = gamma_max, num = num_points)
+        # coverage_list = []
+        # width_list = []
+
+    def predict(self, X,):
         uncalibrated_intervals = self.get_intervals(X)
-        lower_bound = uncalibrated_intervals[:, 1] - self.gamma * (uncalibrated_intervals[:, 1] - uncalibrated_intervals[:, 0])
-        upper_bound  = uncalibrated_intervals[:, 1] + self.gamma * (uncalibrated_intervals[:, 2] - uncalibrated_intervals[:, 1])
+        if self.calibration_method == 'multiplicative':
+            lower_bound = uncalibrated_intervals[:, 1] - self.gamma * (uncalibrated_intervals[:, 1] - uncalibrated_intervals[:, 0])
+            upper_bound  = uncalibrated_intervals[:, 1] + self.gamma * (uncalibrated_intervals[:, 2] - uncalibrated_intervals[:, 1])
+        elif self.calibration_method == 'additive':
+            lower_bound = uncalibrated_intervals[:, 0] - self.gamma
+            upper_bound = uncalibrated_intervals[:, 2] + self.gamma
         intervals = np.zeros((X.shape[0], 2))
         intervals[:, 0] = lower_bound
         intervals[:, 1] = upper_bound
@@ -263,10 +316,12 @@ if __name__ == "__main__":
     }
     X, y = make_regression(n_samples=1000, n_features=10, noise=0.1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True)
-    pcs_uq.fit(X_train, y_train)
-    intervals = pcs_uq.predict(X_test)
-    print(get_all_metrics(y_test, intervals))
+    calibration_method = ['multiplicative', 'additive']
+    for method in calibration_method:
+        pcs_uq = PCS_UQ(models, save_path = 'test', load_models = True, calibration_method = method)
+        pcs_uq.fit(X_train, y_train)
+        intervals = pcs_uq.predict(X_test)
+        print(f'{method}: {get_all_metrics(y_test, intervals)}')
 
  # # Calculate indices for lower and upper bounds based on alpha
         # n_total = sorted_predictions.shape[1]  # Total number of predictions per point (K * B)

@@ -18,7 +18,7 @@ from src.metrics.regression_metrics import *
 from src.PCS.regression.pcs_uq import PCS_UQ
 
 class PCS_OOB(PCS_UQ):
-    def __init__(self, models, num_bootstraps=500, alpha=0.1, seed=42, top_k=1, save_path=None, load_models=True, metric=r2_score):
+    def __init__(self, models, num_bootstraps=500, alpha=0.1, seed=42, top_k=1, val_size = 0.25, save_path=None, load_models=True, metric=r2_score, calibration_method = 'multiplicative'):
         """
         PCS OOB
 
@@ -43,8 +43,9 @@ class PCS_OOB(PCS_UQ):
         self.pred_scores = {model: -np.inf for model in self.models}
         self.top_k_models = None
         self.bootstrap_models = None
-        
-    def fit(self, X, y):
+        self.calibration_method = calibration_method
+        self.val_size = val_size
+    def fit(self, X, y, alpha = None):
         """
         Fit the models
         """
@@ -57,7 +58,7 @@ class PCS_OOB(PCS_UQ):
         self._train_top_k(X, y)
         uncalibrated_intervals = self.get_intervals(X)
         self.uncalibrated_metrics = get_all_metrics(y, uncalibrated_intervals[:,[0,2]])
-        self.gamma = self.calibrate(uncalibrated_intervals, y)
+        self.gamma = self.calibrate(uncalibrated_intervals, y, self.calibration_method)
         # self._train(X, y)
         # self._pred_check(X, y)
         # self._get_top_k()
@@ -190,8 +191,12 @@ class PCS_OOB(PCS_UQ):
         lower_bound = np.nanquantile(all_predictions, self.alpha/2, axis=1)
         median = np.nanquantile(all_predictions, 0.5, axis=1)
         upper_bound = np.nanquantile(all_predictions, 1 - self.alpha/2, axis=1)
-        lower_bound = median - self.gamma * (median - lower_bound)
-        upper_bound = median + self.gamma * (upper_bound - median)
+        if self.calibration_method == 'multiplicative':
+            lower_bound = median - self.gamma * (median - lower_bound)
+            upper_bound = median + self.gamma * (upper_bound - median)
+        elif self.calibration_method == 'additive':
+            lower_bound = lower_bound - self.gamma
+            upper_bound = upper_bound + self.gamma
         
         return np.column_stack([lower_bound, upper_bound])
 
@@ -201,9 +206,11 @@ if __name__ == "__main__":
         "lr": LinearRegression(),
         "ridge": RidgeCV()
     }
-    X, y = make_regression(n_samples=1000, n_features=10, noise=0.1, random_state=42)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    pcs_oob = PCS_OOB(models, save_path="test", load_models=False)
-    pcs_oob.fit(X_train, y_train)
-    intervals = pcs_oob.predict(X_test)
-    print(get_all_metrics(y_test, intervals))
+    calibration_method = ['multiplicative', 'additive']
+    for method in calibration_method:
+        X, y = make_regression(n_samples=1000, n_features=10, noise=0.1, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+        pcs_oob = PCS_OOB(models, save_path="test", load_models=False, calibration_method = method)
+        pcs_oob.fit(X_train, y_train)
+        intervals = pcs_oob.predict(X_test)
+        print(f'{method}: {get_all_metrics(y_test, intervals)}')
