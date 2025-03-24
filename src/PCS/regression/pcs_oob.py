@@ -195,7 +195,6 @@ class PCS_OOB(PCS_UQ):
             lower_bound = median - self.gamma * (median - lower_bound)
             upper_bound = median + self.gamma * (upper_bound - median)
         elif self.calibration_method == 'additive':
-            print("calibration additive", flush=True)
             lower_bound = lower_bound - self.gamma
             upper_bound = upper_bound + self.gamma
         
