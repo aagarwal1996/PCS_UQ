@@ -28,6 +28,9 @@ VALID_UQ_METHODS = [
     'split_conformal_topk',
     'majority_vote',
     'pcs_oob',
+    'pcs_uq',
+    'pcs_mv',
+    'pcs_mv_q',
 ]
 
 VALID_ESTIMATORS = [
