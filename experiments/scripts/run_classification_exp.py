@@ -122,7 +122,12 @@ if __name__ == "__main__":
     elif args.UQ_method == "pcs_oob":
         uq_method  = get_pcs_methods("pcs_oob", args.seed)
         method_name = "pcs_oob"
-    
+    elif args.UQ_method == 'pcs_mv':
+        uq_method  = get_pcs_methods("pcs_mv", args.seed)
+        method_name = "pcs_mv"
+    elif args.UQ_method == 'pcs_mv_q':
+        uq_method  = get_pcs_methods("pcs_mv_q", args.seed)
+        method_name = "pcs_mv_q"
     else:
         raise ValueError(f"Invalid UQ method '{args.UQ_method}'. Must be one of: {VALID_UQ_METHODS}")
     
