@@ -231,7 +231,11 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
     calibration_method = ['APS', 'APS_mv']
     for method in calibration_method:
-        pcs_uq = MultiClassPCS(models, save_path = 'test', load_models = False, calibration_method = method)
+        if method == 'APS_mv':
+            mv_quantile=True
+        else:
+            mv_quantile=None
+        pcs_uq = MultiClassPCS(models, save_path = 'test', load_models = False, calibration_method = method, mv_quantile=mv_quantile)
         pcs_uq.fit(X_train, y_train)
         predictions_sets =pcs_uq.predict(X_test)
         metrics = get_all_metrics(y_test, predictions_sets)

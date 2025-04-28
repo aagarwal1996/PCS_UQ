@@ -221,19 +221,26 @@ def APS_calibration_mv(X, y, bootstrap_models, n_classes, classes_per_bootstrap,
     # majority vote
     coverages = []
     gammass = []
-    levels = np.linspace(1 - 2*alpha, 1, 21)
-    for level in levels:
+    # start level at 1 - alpha/2, where MV is guaranteed to achieve error <= alpha
+    level = 1 - alpha/2
+    # we will slowly decrease the level until empirical error is close to alpha
+    for i in range(40):
         gammas = [np.quantile(cum_prob_till_corrects[i], level) for i in range(m)]
-        gammass.append(gammas)
         prediction_sets = predict_APS_calibration_mv(X, bootstrap_models, gammas, n_classes, classes_per_bootstrap,
                                                      top_ks=None, quantile=True, pred_data=pred_data)
         coverage = np.mean(prediction_sets[np.arange(n), y])
-        coverages.append(coverage)
         print(f'level: {level}, coverage: {coverage}')
+        if coverage < (1 - alpha):
+            level = level + alpha/20
+            break
+        else:
+            coverages.append(coverage)
+            gammass.append(gammas)
+
+            level = level - alpha/20
     
-    best_idx = np.argmin(np.abs(np.array(coverages) - (1 - alpha)))
-    print(f'chosen level: {levels[best_idx]}, coverage: {coverages[best_idx]}')
-    return gammass[best_idx], None # top_ks[best_idx]
+    print(f'chosen level: {level}, coverage: {coverages[-1]}')
+    return gammass[-1], None # top_ks[best_idx]
 
     
 def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, classes_per_bootstrap, top_k):

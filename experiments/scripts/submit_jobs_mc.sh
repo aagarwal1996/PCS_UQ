@@ -69,7 +69,7 @@ train_size_idx=0
 job_counter=0
 
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" ]]; then
+    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" || "$uq" == "pcs_mv" || "$uq" == "pcs_mv_q" ]]; then
         estimators=("${REDUCED_ESTIMATORS[@]}")
     else
         estimators=("${ALL_ESTIMATORS[@]}")
