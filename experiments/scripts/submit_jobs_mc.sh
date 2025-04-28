@@ -10,8 +10,8 @@
 mkdir -p class_logs
 
 # Activate Conda environment correctly
-# conda init
-# source activate pcs_uq
+conda init
+source activate pcs_uq
 
 
 #DATASETS=("data_chess" "data_cover_type" "data_dionis" "data_isolet" "data_walking")
