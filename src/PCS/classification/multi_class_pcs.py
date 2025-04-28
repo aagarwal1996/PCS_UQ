@@ -16,12 +16,12 @@ from sklearn.base import clone
 from sklearn.preprocessing import LabelEncoder
 
 # PCS UQ Imports
-from src.PCS.classification.calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration
+from src.PCS.classification.calibration_utils import model_prop_calibration, predict_model_prop_calibration, APS_calibration, predict_APS_calibration, APS_calibration_mv, predict_APS_calibration_mv
 from src.metrics.classification_metrics import get_all_metrics
 
 class MultiClassPCS:
     def __init__(self, models, num_bootstraps=100, alpha=0.1, seed=42, top_k = 1, save_path = None, load_models = True, val_size = 0.25, 
-                 metric = log_loss, calibration_method = 'APS'):
+                 metric = log_loss, calibration_method = 'APS', mv_quantile=None):
         """
         PCS UQ
 
@@ -48,6 +48,7 @@ class MultiClassPCS:
         self.bootstrap_models = None
         self.calibration_method = calibration_method
         self.n_classes = None
+        self.mv_quantile = mv_quantile
     
     def fit(self, X, y, alpha = 0.1):
         """
@@ -192,13 +193,17 @@ class MultiClassPCS:
     def calibrate(self, X,y):
         if self.calibration_method == 'model_prop':
             gamma, temperature = model_prop_calibration(X, y, self.bootstrap_models, self.alpha)
-            return gamma, temperature
         elif self.calibration_method == 'APS':
             gamma, temperature = APS_calibration(X = X, y = y, bootstrap_models = self._flattened_bootstrap_models, 
                                                  n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, alpha = self.alpha)
-            return gamma, temperature
+        elif self.calibration_method == 'APS_mv':
+            assert self.mv_quantile is not None, "For APS_mv calibration, mv_quantile must be specified"
+            gamma, temperature = APS_calibration_mv(X = X, y = y, bootstrap_models = self._flattened_bootstrap_models,
+                                                 n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, alpha = self.alpha,
+                                                 quantile=self.mv_quantile)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
+        return gamma, temperature
         
     def predict(self, X):
         if self.calibration_method == 'model_prop':
@@ -206,6 +211,10 @@ class MultiClassPCS:
         elif self.calibration_method == 'APS':
             return predict_APS_calibration(X = X, bootstrap_models = self._flattened_bootstrap_models, gamma = self.gamma, 
                                               n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, top_k = self.temperature)
+        elif self.calibration_method == 'APS_mv':
+            return predict_APS_calibration_mv(X = X, bootstrap_models = self._flattened_bootstrap_models, gammas = self.gamma, 
+                                              n_classes = self.n_classes, classes_per_bootstrap = self._classes_per_bootstrap, top_ks = self.temperature,
+                                              quantile=self.mv_quantile)
         else:
             raise ValueError(f"Calibration method {self.calibration_method} not supported")
     
@@ -218,9 +227,9 @@ if __name__ == "__main__":
         "rf": RandomForestClassifier(n_estimators=5, min_samples_leaf=50, random_state=42),
         'logistic': LogisticRegression(random_state=42)
     }
-    X, y = make_classification(n_samples=250, n_features=10, n_classes=10, n_informative=5)
+    X, y = make_classification(n_samples=1000, n_features=10, n_classes=10, n_informative=5)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    calibration_method = ['APS']
+    calibration_method = ['APS', 'APS_mv']
     for method in calibration_method:
         pcs_uq = MultiClassPCS(models, save_path = 'test', load_models = False, calibration_method = method)
         pcs_uq.fit(X_train, y_train)

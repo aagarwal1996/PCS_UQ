@@ -123,8 +123,7 @@ def APS_calibration_oob(X,y,bootstrap_indices, all_models, n_classes, classes_pe
     return gamma, top_k.astype(int)
 
 
-
-def APS_calibration(X, y, bootstrap_models, n_classes, classes_per_bootstrap, alpha):
+def get_stacked_predictions(X, bootstrap_models, n_classes, classes_per_bootstrap):
     """
     Args: 
         X: features of the calibration set
@@ -138,6 +137,21 @@ def APS_calibration(X, y, bootstrap_models, n_classes, classes_per_bootstrap, al
         predictions[:,classes_per_bootstrap[i]] = model.predict_proba(X)
         all_predictions.append(predictions)
     stacked_predictions = np.dstack(all_predictions)
+
+    return stacked_predictions
+
+
+def APS_calibration(X, y, bootstrap_models, n_classes, classes_per_bootstrap, alpha):
+    """
+    Args: 
+        X: features of the calibration set
+        y: labels of the calibration set
+        bootstrap_models: dictionary of bootstrap models
+        alpha: significance level
+    """
+
+    stacked_predictions = get_stacked_predictions(X, bootstrap_models, n_classes, classes_per_bootstrap)
+
     avg_predictions = np.mean(stacked_predictions, axis=2)
     avg_predictions = softmax(avg_predictions)
     
@@ -159,6 +173,68 @@ def APS_calibration(X, y, bootstrap_models, n_classes, classes_per_bootstrap, al
     print(f'gamma: {gamma}, top_k: {top_k}')
     
     return gamma, top_k.astype(int)
+
+
+def APS_calibration_mv(X, y, bootstrap_models, n_classes, classes_per_bootstrap, alpha, quantile=True):
+
+
+    m = len(bootstrap_models)
+    n = len(X)
+    assert len(y) == n
+
+    stacked_predictions = get_stacked_predictions(X, bootstrap_models, n_classes, classes_per_bootstrap)
+    assert stacked_predictions.shape == (n, n_classes, m)
+    
+    if quantile:
+        stacked_predictions = np.sort(stacked_predictions, axis=2)[:, :, :]
+
+    pred_data = {
+        'sorted_indices': [],
+        'cum_prob': [],
+    }
+    cum_prob_till_corrects = []
+
+    
+    for i in range(m):
+        predictions = stacked_predictions[:, :, i]
+        predictions_sorted = np.sort(predictions, axis=1)[:, ::-1]
+        assert predictions_sorted.shape == (n, n_classes)
+
+        # Get the indices of the sorted predictions
+        sorted_indices = np.argsort(-predictions, axis=1)
+        assert sorted_indices.shape == (n, n_classes)
+        pred_data['sorted_indices'].append(sorted_indices)
+
+        # correct_indices
+        correct_indices = np.where(sorted_indices == y[:, np.newaxis])
+
+        cum_prob = np.cumsum(predictions_sorted, axis=1)
+        pred_data['cum_prob'].append(cum_prob)
+        cum_prob_till_correct = cum_prob[correct_indices]
+        cum_prob_till_corrects.append(cum_prob_till_correct)
+        # gamma = np.quantile(cum_prob_till_correct, 1 - alpha)
+        # top_k = np.quantile(correct_indices[1], 1 - alpha)
+        # gammas.append(gamma)
+        # top_ks.append(top_k.astype(int))
+    
+    # optimization loop over the target APS level, to achieve error alpha when taking
+    # majority vote
+    coverages = []
+    gammass = []
+    levels = np.linspace(1 - 2*alpha, 1, 21)
+    for level in levels:
+        gammas = [np.quantile(cum_prob_till_corrects[i], level) for i in range(m)]
+        gammass.append(gammas)
+        prediction_sets = predict_APS_calibration_mv(X, bootstrap_models, gammas, n_classes, classes_per_bootstrap,
+                                                     top_ks=None, quantile=True, pred_data=pred_data)
+        coverage = np.mean(prediction_sets[np.arange(n), y])
+        coverages.append(coverage)
+        print(f'level: {level}, coverage: {coverage}')
+    
+    best_idx = np.argmin(np.abs(np.array(coverages) - (1 - alpha)))
+    print(f'chosen level: {levels[best_idx]}, coverage: {coverages[best_idx]}')
+    return gammass[best_idx], None # top_ks[best_idx]
+
     
 def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, classes_per_bootstrap, top_k):
     """
@@ -168,13 +244,9 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, classes_per_b
         bootstrap_models: dictionary of bootstrap models
         alpha: significance level
     """
-    all_predictions = []
-    for i,model in tqdm(enumerate(bootstrap_models)):
-        predictions = np.full((len(X), n_classes),np.nan)
-        predictions[:,classes_per_bootstrap[i]] = model.predict_proba(X)
-        all_predictions.append(predictions)
-    
-    stacked_predictions = np.dstack(all_predictions)
+
+    stacked_predictions = get_stacked_predictions(X, bootstrap_models, n_classes, classes_per_bootstrap)
+
     avg_predictions = np.nanmean(stacked_predictions, axis=2)
     avg_predictions = softmax(avg_predictions)
     # Sort predictions, get class indices in descending order of predicted probabilities
@@ -199,6 +271,51 @@ def predict_APS_calibration(X, bootstrap_models, gamma, n_classes, classes_per_b
             # if count >= top_k:
             #     break
     return prediction_sets
+
+
+def predict_APS_calibration_mv(X, bootstrap_models, gammas, n_classes, classes_per_bootstrap,
+                               top_ks, quantile=True, pred_data=None):
+
+    if pred_data is None:
+        stacked_predictions = get_stacked_predictions(X, bootstrap_models, n_classes, classes_per_bootstrap)
+
+        if quantile:
+            stacked_predictions = np.sort(stacked_predictions, axis=2)[:, :, :]
+    
+    prediction_setss = []
+    m = len(bootstrap_models)
+    n = len(X)
+
+    for i in range(m):
+        if pred_data is None:
+            predictions = stacked_predictions[:, :, i]
+            avg_predictions_sorted = np.sort(predictions, axis=1)[:, ::-1]
+            sorted_indices = np.argsort(-predictions, axis=1) # descending order of predicted probabilities 
+            
+            # Get cumulative probabilities
+            cum_prob = np.cumsum(avg_predictions_sorted, axis=1)
+
+        else:
+            sorted_indices = pred_data['sorted_indices'][i]
+            cum_prob = pred_data['cum_prob'][i]
+        cum_prob_threshold = np.where(cum_prob < gammas[i], True, False)
+        # Create prediction sets
+        prediction_sets = np.zeros((n, n_classes))
+        for i in range(len(X)):
+            count = 0
+            cum_prob_threshold_row = cum_prob_threshold[i]
+            sorted_indices_row = sorted_indices[i]
+            for j in range(n_classes):
+                if cum_prob_threshold_row[j]:
+                    prediction_sets[i, sorted_indices_row[j]] = 1
+                    count += 1
+        prediction_setss.append(prediction_sets)
+    
+    # take majority vote
+    prediction_sets = (np.dstack(prediction_setss).mean(axis=2) >= 0.5).astype(int)
+    return prediction_sets
+
+
 
 def temperature_scaling(logits, y_true, cv=5):
     pass

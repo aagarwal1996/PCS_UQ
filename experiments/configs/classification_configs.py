@@ -42,6 +42,10 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
 def get_pcs_methods(pcs_type, seed = 0):
     if pcs_type == "pcs_uq":
         return MultiClassPCS(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
+    elif pcs_type == "pcs_mv":
+        return MultiClassPCS(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS_mv', mv_quantile=False)
+    elif pcs_type == "pcs_mv_q":
+        return MultiClassPCS(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS_mv', mv_quantile=True)
     elif pcs_type == "pcs_oob":
         return MultiClassPCS_OOB(models=MODELS, num_bootstraps=500, alpha=0.1, top_k=1, load_models=False, seed = seed, calibration_method = 'APS')
     elif pcs_type == "pcs_uq_model_prop":

@@ -19,7 +19,7 @@ source activate pcs_uq
 #UQ_METHODS=("split_conformal_aps" "split_conformal_raps" "majority_vote" "pcs_oob" "split_conformal_topk")
 
 DATASETS=("data_cover_type" "data_dionis")
-UQ_METHODS=("pcs_oob")
+UQ_METHODS=("pcs_uq", "pcs_mv", "pcs_mv_q")
 ALL_ESTIMATORS=("LogisticRegression" "RandomForest" "ExtraTrees" "AdaBoost" "HistGradientBoosting" "MLP")
 REDUCED_ESTIMATORS=("HistGradientBoosting")  # For majority_vote, pcs_uq, pcs_oob
 
@@ -30,7 +30,7 @@ TRAIN_SIZES=(0.8)
 # Calculate total job count
 TOTAL_JOBS=0
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" ]]; then
+    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" || "$uq" == "pcs_mv" || "$uq" == "pcs_mv_q" ]]; then
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#REDUCED_ESTIMATORS[@]} ))
     else
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#ALL_ESTIMATORS[@]} ))
