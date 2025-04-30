@@ -19,7 +19,7 @@ source activate pcs_uq
 #UQ_METHODS=("split_conformal_aps" "split_conformal_raps" "majority_vote" "pcs_oob" "split_conformal_topk")
 
 DATASETS=("data_cover_type" "data_dionis")
-UQ_METHODS=("pcs_uq" "pcs_mv" "pcs_mv_q")
+UQ_METHODS=("pcs_oob" "pcs_mv" "pcs_mv_q")
 ALL_ESTIMATORS=("LogisticRegression" "RandomForest" "ExtraTrees" "AdaBoost" "HistGradientBoosting" "MLP")
 REDUCED_ESTIMATORS=("HistGradientBoosting")  # For majority_vote, pcs_uq, pcs_oob
 
