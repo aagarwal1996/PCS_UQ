@@ -29,9 +29,10 @@ from experiments.configs.regression_configs import get_regression_datasets, get_
 from experiments.configs.regression_consts import VALID_UQ_METHODS, VALID_ESTIMATORS, MODELS, DATASETS, SINGLE_CONFORMAL_METHODS
 
 
-def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, method_name):
+def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, method_name, metrics='all', num_var=5):
+    range_y = np.max(y_test) - np.min(y_test)
     all_subgroup_metrics = {}
-    for imp_var in importance['feature']:
+    for imp_var in importance['feature'][:int(num_var)]:
         subgroup_indicator = bin_df_test[imp_var]
         # Add subgroup indicator to X_test_df
         X_test_df_subgroup = X_test_df.copy()
@@ -51,6 +52,8 @@ def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, met
                 subgroup_metrics[subgroup] = evaluate_majority_vote(subgroup_y_test, subgroup_y_pred)
             else:
                 subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
+            subgroup_metrics[subgroup]['mean_width_scaled'] = subgroup_metrics[subgroup]['mean_width'] / range_y
+            subgroup_metrics[subgroup]['median_width_scaled'] = subgroup_metrics[subgroup]['median_width'] / range_y
             
         all_subgroup_metrics[imp_var] = subgroup_metrics
     return all_subgroup_metrics
