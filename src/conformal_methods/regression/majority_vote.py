@@ -45,7 +45,7 @@ class MajorityVote:
         
     def _train(self, X, y):
         for model_name, model in self.models.items():
-            split_conformal_model = SplitConformal(model, self.alpha/2)
+            split_conformal_model = SplitConformal(model, self.alpha)
             split_conformal_model._train(X, y)
             self.conformals[model_name] = split_conformal_model
         self.trained = True
@@ -55,7 +55,7 @@ class MajorityVote:
             raise ValueError("Model must be trained before calling calibrate.")
         qs = {}
         for model_name, conformal in self.conformals.items():
-            q = conformal._calibrate(X, y, alpha/2)
+            q = conformal._calibrate(X, y, alpha)
             qs[model_name] = q
 
         self.calibrated = True

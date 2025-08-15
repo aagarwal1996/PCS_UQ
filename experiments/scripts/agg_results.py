@@ -61,6 +61,7 @@ def agg_subgroup_results_dataset_method(results_dir, dataset_name = 'data_parkin
     for feature in features:
         # Initialize a dictionary to collect all values for each inner key
         feature_results = [result[feature] for result in results]
+
         subgroups = list(feature_results[0].keys())
         agg_results[feature] = {}
         for subgroup in subgroups:
@@ -141,6 +142,6 @@ if __name__ == "__main__":
     parser.add_argument("--task", type=str, default="regression", help="Task to run")
     parser.add_argument("--train_size", type=float, default=0.8, help="Train size")
     args = parser.parse_args()
-   # main(args.task, args.train_size)
+    main(args.task, args.train_size)
     agg_subgroup_results(args.task, args.train_size)
     

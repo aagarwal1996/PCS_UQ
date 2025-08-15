@@ -41,7 +41,7 @@ class MajorityVoteClassifier:
         self.n_classes = len(np.unique(y))
         self.conformals = {}
         for model_name, model in self.models.items():
-            conformal = MultiClassConformal(model, self.alpha/2, self.seed, self.conformity_score, self.temperature_scaling)
+            conformal = MultiClassConformal(model, self.alpha, self.seed, self.conformity_score, self.temperature_scaling)
             conformal.fit(X, y)
             self.conformals[model_name] = conformal
         self.trained = True

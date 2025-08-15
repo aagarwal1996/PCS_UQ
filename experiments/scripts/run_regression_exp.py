@@ -44,6 +44,8 @@ def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, met
         # Calculate metrics for each subgroup
         subgroup_metrics = {}
         for subgroup in X_test_df_subgroup[f'subgroup_{imp_var}'].unique():
+            if pd.isna(subgroup):
+                continue
             subgroup_df = X_test_df_subgroup[X_test_df_subgroup[f'subgroup_{imp_var}'] == subgroup]
             subgroup_y_test = subgroup_df['y_test'].values
             subgroup_y_pred = np.column_stack((subgroup_df['y_pred_lb'].values, 
@@ -57,6 +59,7 @@ def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, met
             
         all_subgroup_metrics[imp_var] = subgroup_metrics
     return all_subgroup_metrics
+
 
 def run_regression_experiments(
     dataset_name,
