@@ -2,7 +2,7 @@
 #SBATCH --job-name=reg_%A_%a
 #SBATCH --output=logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
 #SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
-#SBATCH --time=3:00:00
+#SBATCH --time=5:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=jsteinhardt
 #SBATCH --mail-type=END,FAIL
@@ -22,8 +22,9 @@ DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil"
           "data_kin8nm" "data_naval_propulsion" "data_superconductor" 
           "data_elevator" "data_protein_structure" "data_debutanizer")
 
-#UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote" "pcs_uq" "pcs_oob")
-UQ_METHODS=("split_conformal" "studentized_conformal" "pcs_oob")
+UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote"
+            "split_conformal_alt" "studentized_conformal_alt" "majority_vote_alt"
+            "pcs_uq" "pcs_uq_alt" "pcs_oob")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")
@@ -37,7 +38,11 @@ TRAIN_SIZES=(0.8)
 # Calculate total job count
 TOTAL_JOBS=0
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" ]]; then
+    if [[ "$uq" == "majority_vote" || 
+          "$uq" == "majority_vote_alt" ||
+          "$uq" == "pcs_uq" || 
+          "$uq" == "pcs_uq_alt" ||
+          "$uq" == "pcs_oob" ]]; then
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#REDUCED_ESTIMATORS[@]} ))
     else
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#ALL_ESTIMATORS[@]} ))
@@ -76,7 +81,11 @@ train_size_idx=0
 job_counter=0
 
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || "$uq" == "pcs_uq" || "$uq" == "pcs_oob" ]]; then
+    if [[ "$uq" == "majority_vote" || 
+          "$uq" == "majority_vote_alt" ||
+          "$uq" == "pcs_uq" || 
+          "$uq" == "pcs_uq_alt" ||
+          "$uq" == "pcs_oob" ]]; then
         estimators=("${REDUCED_ESTIMATORS[@]}")
     else
         estimators=("${ALL_ESTIMATORS[@]}")

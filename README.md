@@ -39,3 +39,5 @@ pcs.calibrate(X,y) # calibrate the model
 pcs.predict(X) # generate prediction intervals/sets
 ```
 
+To run experiments from the paper, run the corresponding shell script in ``experiments/scripts``. Then call ``python experiments/scripts/agg_results.py``.
+

@@ -41,11 +41,16 @@ TEST_MODELS = {"XGBoost": XGBRegressor(random_state = 42)}
 
 VALID_UQ_METHODS = [
     'split_conformal',
+    'split_conformal_alt',
     'studentized_conformal', 
+    'studentized_conformal_alt',
     'majority_vote',
+    'majority_vote_alt',
     'LocalConformalRegressor',
+    'jackknife_bootstrap',
     'pcs_uq',
-    'pcs_oob'
+    'pcs_uq_alt',
+    'pcs_oob',
 ]
 
 VALID_ESTIMATORS = [
@@ -62,6 +67,9 @@ VALID_ESTIMATORS = [
 
 SINGLE_CONFORMAL_METHODS = [
     'split_conformal',
-    'studentized_conformal', 
+    'split_conformal_alt',
+    'studentized_conformal',
+    'studentized_conformal_alt',
     'LocalConformalRegressor',
+    'jackknife_bootstrap',
 ]

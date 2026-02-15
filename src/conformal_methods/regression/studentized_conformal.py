@@ -7,13 +7,13 @@ from copy import deepcopy
 from sklearn.base import clone
 
 class StudentizedConformal:
-    def __init__(self, mean_model, sd_model, alpha = 0.1, seed = 42):
+    def __init__(self, mean_model, sd_model, alpha = 0.1, seed = 42, val_size = 0.5):
         self.mean_model = clone(mean_model)
         self.sd_model = clone(sd_model)
         self.alpha = alpha
         self.seed = seed
         self.q = None
-    
+        self.val_size = val_size
     def fit(self, X, y, alpha = None):
         """
         Fit the model on the training data. 
@@ -30,7 +30,7 @@ class StudentizedConformal:
         """
         if alpha is None:
             alpha = self.alpha
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train)
         self._calibrate(X_calib, y_calib, alpha)
     

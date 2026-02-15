@@ -10,7 +10,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.datasets import make_regression
 
 class MajorityVote:
-    def __init__ (self, models, alpha = 0.1, seed = 42):
+    def __init__ (self, models, alpha = 0.1, seed = 42, val_size = 0.5):
         """
         Initialize the Conformal Majority Vote model
 
@@ -18,12 +18,14 @@ class MajorityVote:
             models: dictionary of model names and models
             alpha: significance level
             seed: random seed
+            val_size: size of the validation set
         """
         self.models = {model_name: clone(model) for model_name, model in models.items()}
         self.conformals = {model_name: None for model_name in models.keys()}
         self.K = len(models)
         self.alpha = alpha
         self.seed = seed
+        self.val_size = val_size
         self.trained = False
 
 
@@ -38,14 +40,14 @@ class MajorityVote:
         if alpha is None:
             alpha = self.alpha
         self.conformals = {}
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train)
         self._calibrate(X_calib, y_calib)
         return self
         
     def _train(self, X, y):
         for model_name, model in self.models.items():
-            split_conformal_model = SplitConformal(model, self.alpha)
+            split_conformal_model = SplitConformal(model, self.alpha, self.val_size)
             split_conformal_model._train(X, y)
             self.conformals[model_name] = split_conformal_model
         self.trained = True

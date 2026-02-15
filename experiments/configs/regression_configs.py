@@ -19,6 +19,7 @@ from src.conformal_methods.regression.split_conformal import SplitConformal
 from src.conformal_methods.regression.studentized_conformal import StudentizedConformal
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 from src.conformal_methods.regression.majority_vote import MajorityVote
+from src.conformal_methods.regression.jackknife_bootstrap import JackknifeBootstrap
 
 from experiments.configs.regression_consts import MODELS, DATASETS, VALID_UQ_METHODS, VALID_ESTIMATORS, SINGLE_CONFORMAL_METHODS, TEST_MODELS
 
@@ -35,6 +36,14 @@ def get_conformal_methods(conformal_type, model_name= 'XGBoost', seed = 0):
         return LocalConformalRegressor(model=MODELS[model_name], seed = seed), f"local_conformal_{model_name}"
     elif conformal_type == "majority_vote":
         return MajorityVote(models=MODELS, seed = seed), f"majority_vote"
+    elif conformal_type == "jackknife_bootstrap":
+        return JackknifeBootstrap(num_bootstraps=1000, model=MODELS[model_name], seed = seed), f"jackknife_bootstrap_{model_name}"
+    elif conformal_type == "split_conformal_alt":
+        return SplitConformal(model=MODELS[model_name], seed = seed, val_size = 0.25), f"split_conformal_alt_{model_name}"
+    elif conformal_type == "studentized_conformal_alt":
+        return StudentizedConformal(mean_model=MODELS[model_name], sd_model=MODELS[model_name], seed = seed, val_size = 0.25), f"studentized_conformal_alt_{model_name}"
+    elif conformal_type == "majority_vote_alt":
+        return MajorityVote(models=MODELS, seed = seed, val_size = 0.25), f"majority_vote_alt"
     else:
         raise ValueError(f"Invalid conformal method: {conformal_type}")
 
@@ -43,10 +52,10 @@ def get_pcs_methods(pcs_type, seed = 0):
         return PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
     elif pcs_type == "pcs_oob":
         return PCS_OOB(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed)
+    elif pcs_type == "pcs_uq_alt":
+        return PCS_UQ(models=MODELS, num_bootstraps=1000, alpha=0.1, top_k=1, load_models=False, seed = seed, val_size = 0.5)
     else:
         raise ValueError(f"Invalid PCS method: {pcs_type}")
-
-
 
 def get_regression_datasets(dataset_name):
     if dataset_name not in DATASETS:

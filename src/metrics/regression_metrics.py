@@ -64,6 +64,12 @@ def get_all_metrics(y_true, y_pred):
         'median_width_scaled': get_median_width(y_true, y_pred, return_scaled=True),
     }
 
+def append_time_metrics(metric_dict, train_start, train_end, pred_end, n_test_samples):
+    metric_dict['train_time'] = train_end - train_start
+    metric_dict['pred_time'] = pred_end - train_end
+    metric_dict['scaled_pred_time'] = (pred_end - train_end) / n_test_samples
+    return metric_dict
+
 if __name__ == "__main__":
     X, y = make_regression(n_samples=100, n_features=10, noise=10)
     conformal = SplitConformal(RandomForestRegressor())

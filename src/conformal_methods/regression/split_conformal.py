@@ -18,7 +18,7 @@ class SplitConformal:
         alpha: significance level
         seed: random seed for train-test split
     """
-    def __init__(self, model, alpha = 0.1, seed = 42):
+    def __init__(self, model, alpha = 0.1, seed = 42, val_size = 0.5):
         """
         Initialize the SplitConformal class.
 
@@ -26,10 +26,12 @@ class SplitConformal:
             model: sklearn regression model
             alpha: significance level
             seed: random seed for train-test split
+            val_size: size of the validation set
         """
         self.model = clone(model)
         self.alpha = alpha
         self.seed = seed
+        self.val_size = val_size
         self.q = None 
         self._trained = False
         self._calibrated = False
@@ -44,10 +46,9 @@ class SplitConformal:
         """
         if alpha is None:
             alpha = self.alpha
-        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=0.5, random_state=self.seed)    
+        X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)    
         self._train(X_train, y_train)
         self._calibrate(X_calib, y_calib, alpha)
-
         return self 
     
     def _train(self, X, y):

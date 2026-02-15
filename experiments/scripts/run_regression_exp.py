@@ -11,6 +11,7 @@ import os
 # Sklearn imports
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_regression
+from time import time
 
 # PCS imports
 from src.PCS.regression.pcs_uq import PCS_UQ
@@ -22,7 +23,7 @@ from src.conformal_methods.regression.studentized_conformal import StudentizedCo
 from src.conformal_methods.regression.local_conformal import LocalConformalRegressor
 
 # Metrics imports
-from src.metrics.regression_metrics import get_all_metrics, evaluate_majority_vote
+from src.metrics.regression_metrics import get_all_metrics, evaluate_majority_vote, append_time_metrics
 
 # Experiment configs
 from experiments.configs.regression_configs import get_regression_datasets, get_conformal_methods, get_pcs_methods
@@ -50,7 +51,7 @@ def get_subgroup_metrics(X_test_df, y_test, y_pred, bin_df_test, importance, met
             subgroup_y_test = subgroup_df['y_test'].values
             subgroup_y_pred = np.column_stack((subgroup_df['y_pred_lb'].values, 
                                              subgroup_df['y_pred_ub'].values))
-            if method_name == "majority_vote":
+            if method_name == "majority_vote" or method_name == "majority_vote_alt":
                 subgroup_metrics[subgroup] = evaluate_majority_vote(subgroup_y_test, subgroup_y_pred)
             else:
                 subgroup_metrics[subgroup] = get_all_metrics(subgroup_y_test, subgroup_y_pred)
@@ -92,12 +93,20 @@ def run_regression_experiments(
     X_train, y_train, bin_df_train, X_df_train = X_train[:max_samples], y_train[:max_samples], bin_df_train[:max_samples], X_df_train[:max_samples]
 
     print(f"Fitting {method_name} on {dataset_name} with seed {seed}\n", flush=True)
+
+    t0 = time()
     uq_method.fit(X_train, y_train)
+    t1 = time()
     y_pred = uq_method.predict(X_test)
-    if method_name == "majority_vote":
+    t2 = time()
+    print(f"Time taken for fit: {t1 - t0:.4f} seconds\n", flush=True)
+    print(f"Time taken for predict: {t2 - t1:.4f} seconds\n", flush=True)
+    
+    if method_name == "majority_vote" or method_name == "majority_vote_alt":
         metrics = evaluate_majority_vote(y_test, y_pred)
     else:
         metrics = get_all_metrics(y_test, y_pred)
+    metrics = append_time_metrics(metrics, t0, t1, t2, X_test.shape[0])
     print(f"{method_name}: {metrics}\n", flush=True)
     # Save metrics as pickle file
 
@@ -229,10 +238,16 @@ if __name__ == "__main__":
     elif args.UQ_method == "majority_vote":
         uq_method, method_name = get_conformal_methods("majority_vote", args.estimator, args.seed)
         method_name = f"majority_vote"
-    
+    elif args.UQ_method == "majority_vote_alt":
+        uq_method, method_name = get_conformal_methods("majority_vote_alt", args.estimator, args.seed)
+        method_name = f"majority_vote_alt"
+
     elif args.UQ_method == "pcs_uq":
         uq_method  = get_pcs_methods("pcs_uq", args.seed)
         method_name = "pcs_uq"
+    elif args.UQ_method == "pcs_uq_alt":
+        uq_method  = get_pcs_methods("pcs_uq_alt", args.seed)
+        method_name = "pcs_uq_alt"
     
     elif args.UQ_method == "pcs_oob":
         uq_method  = get_pcs_methods("pcs_oob", args.seed)
