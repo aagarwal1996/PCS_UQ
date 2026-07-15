@@ -3,10 +3,7 @@
 #SBATCH --output=logs/slurm_output/slurm-%A_%a.out  # SLURM logs inside job-specific folder
 #SBATCH --error=logs/slurm_output/slurm-%A_%a.err   # SLURM errors inside job-specific folder
 #SBATCH --time=5:00:00
-#SBATCH --cpus-per-task=1
-#SBATCH --partition=jsteinhardt
-#SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=michaelxiao1999@berkeley.edu
+#SBATCH --cpus-per-task=5
 
 # Create logs directory if it doesn't exist
 mkdir -p logs
@@ -22,9 +19,12 @@ DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil"
           "data_kin8nm" "data_naval_propulsion" "data_superconductor" 
           "data_elevator" "data_protein_structure" "data_debutanizer")
 
-UQ_METHODS=("split_conformal" "studentized_conformal" "majority_vote"
-            "split_conformal_alt" "studentized_conformal_alt" "majority_vote_alt"
-            "pcs_uq" "pcs_uq_alt" "pcs_oob")
+UQ_METHODS=("split_conformal" "split_conformal_ensemble" "split_conformal_alt" "split_conformal_ensemble_alt"
+            "studentized_conformal" "studentized_conformal_ensemble" "studentized_conformal_alt" "studentized_conformal_ensemble_alt"
+            "jackknife_bootstrap" "jackknife_bootstrap_ensemble"
+            "majority_vote" "majority_vote_alt"
+            "pcs_uq" "pcs_uq_alt" "pcs_oob" "pcs_oob_downsample"
+            "pcs_oob_fixed_method" "pcs_oob_downsample_fixed_method")
 
 ALL_ESTIMATORS=("XGBoost" "RandomForest" "ExtraTrees" "AdaBoost"
                 "OLS" "Ridge" "Lasso" "ElasticNet" "MLP")
@@ -38,11 +38,17 @@ TRAIN_SIZES=(0.8)
 # Calculate total job count
 TOTAL_JOBS=0
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || 
+    if [[ "$uq" == "split_conformal_ensemble" ||
+          "$uq" == "split_conformal_ensemble_alt" ||
+          "$uq" == "studentized_conformal_ensemble" ||
+          "$uq" == "studentized_conformal_ensemble_alt" ||
+          "$uq" == "jackknife_bootstrap_ensemble" ||
+          "$uq" == "majority_vote" ||
           "$uq" == "majority_vote_alt" ||
           "$uq" == "pcs_uq" || 
           "$uq" == "pcs_uq_alt" ||
-          "$uq" == "pcs_oob" ]]; then
+          "$uq" == "pcs_oob" ||
+          "$uq" == "pcs_oob_downsample" ]]; then
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#REDUCED_ESTIMATORS[@]} ))
     else
         TOTAL_JOBS=$(( TOTAL_JOBS + ${#DATASETS[@]} * ${#SEEDS[@]} * ${#ALL_ESTIMATORS[@]} ))
@@ -81,11 +87,17 @@ train_size_idx=0
 job_counter=0
 
 for uq in "${UQ_METHODS[@]}"; do
-    if [[ "$uq" == "majority_vote" || 
+    if [[ "$uq" == "split_conformal_ensemble" ||
+          "$uq" == "split_conformal_ensemble_alt" ||
+          "$uq" == "studentized_conformal_ensemble" ||
+          "$uq" == "studentized_conformal_ensemble_alt" ||
+          "$uq" == "jackknife_bootstrap_ensemble" ||
+          "$uq" == "majority_vote" ||
           "$uq" == "majority_vote_alt" ||
           "$uq" == "pcs_uq" || 
           "$uq" == "pcs_uq_alt" ||
-          "$uq" == "pcs_oob" ]]; then
+          "$uq" == "pcs_oob" ||
+          "$uq" == "pcs_oob_downsample" ]]; then
         estimators=("${REDUCED_ESTIMATORS[@]}")
     else
         estimators=("${ALL_ESTIMATORS[@]}")

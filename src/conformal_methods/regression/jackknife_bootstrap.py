@@ -1,17 +1,9 @@
 # General Imports
 import numpy as np
-import pandas as pd
-import os
-import pickle
-import copy
-from tqdm import tqdm
 # Sklearn Imports
 from sklearn.model_selection import train_test_split
-from sklearn.utils import resample
-from sklearn.ensemble import RandomForestRegressor  
-from sklearn.linear_model import LinearRegression, RidgeCV
+from sklearn.linear_model import LinearRegression
 from sklearn.datasets import make_regression
-from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.base import clone
 from mapie.regression import MapieRegressor
 from mapie.subsample import Subsample
@@ -51,6 +43,7 @@ class JackknifeBootstrap(PCS_UQ):
         """
         if alpha is None:
             alpha = self.alpha
+        self.alpha = alpha
         self._train(X, y)
 
         

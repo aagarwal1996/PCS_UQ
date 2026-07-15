@@ -1,7 +1,6 @@
 
 import pandas as pd
 import numpy as np
-from copy import deepcopy
 from sklearn.base import clone
 from src.conformal_methods.regression.split_conformal import SplitConformal
 from sklearn.model_selection import train_test_split
@@ -39,19 +38,20 @@ class MajorityVote:
         """
         if alpha is None:
             alpha = self.alpha
+        self.alpha = alpha
         self.conformals = {}
         X_train, X_calib, y_train, y_calib = train_test_split(X, y, test_size=self.val_size, random_state=self.seed)
         self._train(X_train, y_train)
-        self._calibrate(X_calib, y_calib)
+        self._calibrate(X_calib, y_calib, alpha)
         return self
-        
+
     def _train(self, X, y):
         for model_name, model in self.models.items():
-            split_conformal_model = SplitConformal(model, self.alpha, self.val_size)
+            split_conformal_model = SplitConformal(model, alpha=self.alpha, seed=self.seed, val_size=self.val_size)
             split_conformal_model._train(X, y)
             self.conformals[model_name] = split_conformal_model
         self.trained = True
-    
+
     def _calibrate(self, X, y, alpha=0.1):
         if self.trained == False:
             raise ValueError("Model must be trained before calling calibrate.")

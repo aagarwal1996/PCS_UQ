@@ -4,9 +4,6 @@
 #SBATCH --error=logs/abalation.err   # SLURM errors inside job-specific folder
 #SBATCH --time=3:00:00
 #SBATCH --cpus-per-task=1
-#SBATCH --partition=jsteinhardt
-#SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=michaelxiao1999@berkeley.edu
 
 # Create logs directory if it doesn't exist
 mkdir -p logs
@@ -27,20 +24,7 @@ mkdir -p logs
 # CALIBRATIONS=("multiplicative")
 # ABL="boot"
 
-# # ABLATION EXPERIMENT 2: varying dataset size
-# DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil")
-# UQ_METHODS=("majority_vote")
-# ALL_ESTIMATORS=("XGBoost" "RandomForest")
-# REDUCED_ESTIMATORS=("XGBoost")  # For majority_vote, pcs_uq, pcs_oob
-# SEEDS=(777 778 779 780 781 782 783 784 785 786)  # Modify as needed
-# NBOOTS=(1000) # Number of bootstrap samples for pcs_oob
-# TRAIN_SIZES=(0.8)
-# TRAIN_FRACS=(0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0) # Varying fraction of training set used
-# NMODELS=(1)
-# CALIBRATIONS=("multiplicative")
-# ABL="split"
-
-# ABLATION EXPERIMENT 3: varying number of models in PCS
+# ABLATION EXPERIMENT 2: varying number of models in PCS
 DATASETS=("data_ca_housing" "data_diamond" "data_parkinsons" "data_airfoil")
 UQ_METHODS=("pcs_oob")
 ALL_ESTIMATORS=("XGBoost" "RandomForest")
@@ -53,7 +37,7 @@ NMODELS=(1 2 3 4 5)
 CALIBRATIONS=("multiplicative")
 ABL="model"
 
-# # ABLATION EXPERIMENT 4: ADDITIVE CALIBRATION OF PCS
+# # ABLATION EXPERIMENT 3: ADDITIVE CALIBRATION OF PCS
 # DATASETS=("data_diamond" "data_parkinsons")
 # UQ_METHODS=("pcs_oob")
 # ALL_ESTIMATORS=("XGBoost" "RandomForest")

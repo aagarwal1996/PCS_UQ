@@ -1,6 +1,4 @@
-import pandas as pd
 import numpy as np
-from copy import deepcopy
 from sklearn.base import clone
 from src.conformal_methods.classification.multi_class_conformal import MultiClassConformal
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier

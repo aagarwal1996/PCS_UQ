@@ -4,13 +4,12 @@ import numpy as np
 import pandas as pd
 
 # Sklearn imports
-from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.base import clone
 from sklearn.datasets import make_classification
 # Local imports
-from src.PCS.classification.calibration_utils import temperature_scaling
 from src.metrics.classification_metrics import get_all_metrics
 
 # Mapie imports
